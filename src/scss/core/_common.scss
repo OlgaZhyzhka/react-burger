@@ -1,0 +1,10 @@
+body {
+  background-color: var(--bg);
+}
+
+@include headings {
+  font-family: var(--font-family);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--primary-light);
+}
