@@ -2,25 +2,25 @@
   --color-white: #fff;
   --color-black: #000;
   --bg: #131316;
-  --neon: #B5FF3D;
-  --modal-bg: #1C1C21;
+  --neon: #b5ff3d;
+  --modal-bg: #1c1c21;
   --modal-edge: rgba(76, 76, 255, 0.2);
   --accent: #4c4cff;
-  --active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), #4C4CFF;
-  --input: #2F2F37;
-  --success: #00CCCC;
-  --error: #E52B1A;
+  --active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), #4c4cff;
+  --input: #2f2f37;
+  --success: #00cccc;
+  --error: #e52b1a;
 
-  --primary-light: #F2F2F3;
-  --dark-grey: #8585AD;
-  --disabled: #3A3A55;
+  --primary-light: #f2f2f3;
+  --dark-grey: #8585ad;
+  --disabled: #3a3a55;
 
-  --button-normal: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
-  --button-active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+  --button-normal: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  --button-active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
 
-
-  --font-family-base: "JetBrains Mono", monospace;
-  --font-family-secondary:  "Iceland", sans-serif;
+  --font-family-base: 'JetBrains Mono', monospace;
+  --font-family-secondary: 'Iceland', sans-serif;
   --font-size-base: 16px;
   --line-height-base: 1.5;
   font-family: var(--font-family-base);
