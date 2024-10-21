@@ -1,0 +1,10 @@
+.root {
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 */
+  grid-column-gap: 16px;
+  grid-row-gap: 32px;
+}

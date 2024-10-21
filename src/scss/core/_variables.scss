@@ -15,14 +15,25 @@
   --dark-grey: #8585ad;
   --disabled: #3a3a55;
 
+  --color-text: var(--primary-light);
+
   --button-normal: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
   --button-active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
     linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  --box-shadow1: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
 
   --font-family-base: 'JetBrains Mono', monospace;
   --font-family-secondary: 'Iceland', sans-serif;
   --font-size-base: 16px;
   --line-height-base: 1.5;
+
+  --transition-duration: 0.35s;
+  --transition-function: cubic-bezier(0.5, 0, 0.5, 1);
+  --z-index-modal-overlay: 1000;
+  --z-index-modal: 1001;
+
+
+
   font-family: var(--font-family-base);
   font-size: var(--font-size-base);
   line-height: var(--line-height-base);
