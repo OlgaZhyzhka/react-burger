@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, memo } from 'react'
 import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -26,4 +26,4 @@ const IngredientItem: FC<IngredientItemProps> = ({ ingredient, onClick }) => {
     </li>
   )
 }
-export default IngredientItem
+export default memo(IngredientItem)

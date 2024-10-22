@@ -1,17 +1,21 @@
-import { useMemo, useState } from 'react'
-import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
+import { FC, useMemo, useState } from 'react'
 import classNames from 'classnames'
 
-import { ingredients, IngredientTypes } from '@/utils/constants'
+import { IngredientTypes } from '@/utils/constants'
 import { Ingredient } from '@/utils/interfaces'
 import { IngredientType } from '@/utils/types'
 import { sortIngredients } from '@/utils/helpers'
 import { Modal } from '@/components/modal'
-import { IngredientGroup } from './ingredient-group'
+import { Tabs } from '@/components/base-components/tabs'
 import { IngredientDetails } from './ingredient-details'
+import { IngredientGroups } from './ingredient-groups'
 import styles from './burger-ingredients.module.scss'
 
-const BurgerIngredients = () => {
+type BurgerIngredientsProps = {
+  ingredients: Ingredient[]
+}
+
+const BurgerIngredients: FC<BurgerIngredientsProps> = ({ ingredients }) => {
   const [currentTab, setCurrentTab] = useState<IngredientType>(IngredientTypes.bun)
   const [currentIngredient, setCurrentIngredient] = useState<Ingredient | null>(null)
 
@@ -24,34 +28,11 @@ const BurgerIngredients = () => {
   return (
     <section className={classNames(styles.root, 'pt-10')}>
       <h1 className={'text_type_main-large mt-0 mb-5'}>Соберите бургер</h1>
-      <div className="d-flex mb-10">
-        <Tab
-          value={IngredientTypes.bun}
-          active={currentTab === IngredientTypes.bun}
-          onClick={handleTabClick}>
-          Булки
-        </Tab>
-        <Tab
-          value={IngredientTypes.sauce}
-          active={currentTab === IngredientTypes.sauce}
-          onClick={handleTabClick}>
-          Соусы
-        </Tab>
-        <Tab
-          value={IngredientTypes.main}
-          active={currentTab === IngredientTypes.main}
-          onClick={handleTabClick}>
-          Начинки
-        </Tab>
-      </div>
-      <div className={classNames(styles.tabs, 'custom-scroll')}>
-        <h3 className="mt-0 mb-6 text text_type_main-medium">Булки</h3>
-        <IngredientGroup ingredients={memoSortedIngredients.bun} onClick={setCurrentIngredient} />
-        <h3 className="mt-0 mb-6 text text_type_main-medium">Соусы</h3>
-        <IngredientGroup ingredients={memoSortedIngredients.sauce} onClick={setCurrentIngredient} />
-        <h3 className="mt-0 mb-6 text text_type_main-medium">Начинки</h3>
-        <IngredientGroup ingredients={memoSortedIngredients.main} onClick={setCurrentIngredient} />
-      </div>
+      <Tabs currentTab={currentTab} onTabClick={handleTabClick} />
+      <IngredientGroups
+        sortedIngredients={memoSortedIngredients}
+        onIngredientClick={setCurrentIngredient}
+      />
       {currentIngredient && (
         <Modal title="Детали ингредиента" onClose={() => setCurrentIngredient(null)}>
           <IngredientDetails ingredient={currentIngredient} />
