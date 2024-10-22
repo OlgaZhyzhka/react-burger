@@ -1,13 +1,15 @@
 import { Ingredient } from './interfaces'
 
 export const API_URL = 'https://norma.nomoreparties.space/api/ingredients'
+export const modalRoot = 'modal-root'
+
 export const IngredientTypes = {
   bun: 'bun',
   sauce: 'sauce',
   main: 'main',
 } as const
 
-export const burgerData: Ingredient[] = [
+export const ingredients: Ingredient[] = [
   {
     _id: '60666c42cc7b410027a1a9b1',
     name: 'Краторная булка N-200i',

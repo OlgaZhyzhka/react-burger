@@ -3,11 +3,11 @@ import { FC } from 'react'
 import { Ingredient } from '@/utils/interfaces'
 import styles from './ingredient-details.module.scss'
 
-type IngredientItemProps = {
+type IngredientDetailsProps = {
   ingredient: Ingredient
 }
 
-const IngredientDetails: FC<IngredientItemProps> = ({ ingredient }) => (
+const IngredientDetails: FC<IngredientDetailsProps> = ({ ingredient }) => (
   <div className={styles.item}>
     <img src={ingredient.image_large} alt={ingredient.name} />
     <h3 className="text_type_main-medium mt-4 mb-8">{ingredient.name}</h3>

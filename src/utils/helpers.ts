@@ -1,4 +1,3 @@
-import { burgerData } from './constants'
 import { Ingredient } from './interfaces'
 import { IngredientType } from './types'
 
@@ -17,5 +16,3 @@ export const sortIngredients = (
 
   return sortedIngredients
 }
-
-export const sortedIngredients = sortIngredients(burgerData)

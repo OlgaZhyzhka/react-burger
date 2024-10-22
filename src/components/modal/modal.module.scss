@@ -22,23 +22,6 @@
   }
 }
 
-.header {
-  display: flex;
-  align-items: center;
-}
-
-.close {
-  margin: 0 0 0 auto;
-  display: block;
-  width: 24px;
-  height: 24px;
-  color: var(--color-text);
-  transition: opacity 0.35s ease;
-}
-
-@media (hover: hover) {
-  .close:hover {
-    opacity: 0.86;
-    cursor: pointer;
-  }
+.body {
+  position: relative;
 }
