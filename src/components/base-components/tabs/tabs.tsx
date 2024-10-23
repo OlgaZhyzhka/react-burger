@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC } from 'react'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { IngredientType } from '@/utils/types'
@@ -32,4 +32,4 @@ const Tabs: FC<TabsProps> = ({ currentTab, onTabClick }) => (
   </div>
 )
 
-export default memo(Tabs)
+export default Tabs

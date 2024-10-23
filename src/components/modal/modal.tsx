@@ -1,4 +1,4 @@
-import { FC, memo, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { createPortal } from 'react-dom'
 
 import { modalRoot } from '@/utils/constants'
@@ -22,4 +22,5 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) 
     </div>,
     document.getElementById(modalRoot)!,
   )
-export default memo(Modal)
+
+export default Modal
