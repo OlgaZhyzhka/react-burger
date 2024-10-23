@@ -4,6 +4,7 @@ import { Ingredient } from '@/utils/interfaces'
 import { API_URL } from '@/utils/constants'
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
+import { Loader } from '@/components/base-components/loader'
 
 const MainPage = () => {
   const [ingredients, setIngredients] = useState<Ingredient[]>([])
@@ -26,7 +27,7 @@ const MainPage = () => {
   }, [])
 
   if (loading) {
-    return <p>Loading...</p>
+    return <Loader />
   }
 
   return (
