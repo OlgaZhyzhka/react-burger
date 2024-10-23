@@ -14,3 +14,9 @@ export interface Ingredient {
   image_large: string
   __v: number
 }
+
+export interface ApiState {
+  data: Ingredient[]
+  loading: boolean
+  error: string | null
+}

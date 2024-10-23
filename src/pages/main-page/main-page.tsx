@@ -1,29 +1,34 @@
 import { useEffect, useState } from 'react'
 
-import { Ingredient } from '@/utils/interfaces'
-import { API_URL } from '@/utils/constants'
+import { ApiState } from '@/utils/interfaces'
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
 import { Loader } from '@/components/base-components/loader'
+import { fetchIngredients } from '@/utils/api/api-service'
 
 const MainPage = () => {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
+  const [state, setState] = useState<ApiState>({
+    data: [],
+    loading: false,
+    error: null,
+  })
+
+  const { loading, error, data } = state
 
   useEffect(() => {
-    setError(null)
-    setLoading(true)
-    fetch(API_URL)
-      .then(res => res.json())
-      .then(data => {
-        setIngredients(data.data)
-        setLoading(false)
-      })
-      .catch(err => {
-        setError(err)
-        setLoading(false)
-      })
+    const getIngredients = async () => {
+      setState(prevState => ({ ...prevState, loading: true, error: null }))
+      try {
+        const data = await fetchIngredients()
+        setState(prevState => ({ ...prevState, data, loading: false }))
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setState(prevState => ({ ...prevState, error: err.message, loading: false }))
+        }
+      }
+    }
+
+    getIngredients()
   }, [])
 
   if (loading) {
@@ -34,7 +39,7 @@ const MainPage = () => {
     <section className="page container">
       <div className="row">
         <div className="col">
-          {error ? <p>{error}</p> : <BurgerIngredients ingredients={ingredients} />}
+          {error ? <p>{error}</p> : <BurgerIngredients ingredients={data} />}
         </div>
         <div className="col">
           <BurgerConstructor />
