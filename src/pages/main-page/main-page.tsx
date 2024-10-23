@@ -17,13 +17,13 @@ const MainPage = () => {
 
   useEffect(() => {
     const getIngredients = async () => {
-      setState(prevState => ({ ...prevState, loading: true, error: null }))
+      setState({ ...state, loading: true, error: null })
       try {
         const data = await fetchIngredients()
-        setState(prevState => ({ ...prevState, data, loading: false }))
+        setState({ ...state, data, loading: false })
       } catch (err: unknown) {
         if (err instanceof Error) {
-          setState(prevState => ({ ...prevState, error: err.message, loading: false }))
+          setState({ ...state, error: err.message, loading: false })
         }
       }
     }
