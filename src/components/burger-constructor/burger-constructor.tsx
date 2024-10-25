@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import {
   Button,
   ConstructorElement,
@@ -6,17 +6,14 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
+import useModal from '@/hooks/use-modal'
 import { ingredients } from '@/utils/constants'
 import { Modal } from '@/components/modal'
 import { OrderDetails } from './order-details'
 import styles from './burger-constructor.module.scss'
 
 const BurgerConstructor = () => {
-  const [currentOrder, setCurrentOrder] = useState<Record<string, string> | null>(null)
-
-  const handleOrderClick = () => {
-    setCurrentOrder({ id: '034536' })
-  }
+  const { isOpen, openModal, closeModal } = useModal()
 
   return (
     <section className={classNames(styles.root, 'pt-25 pr-4')}>
@@ -89,17 +86,19 @@ const BurgerConstructor = () => {
           <span className="text text_type_digits-default mr-2"> 610 </span>
           <CurrencyIcon type="primary" />
         </span>
-        <Button htmlType="button" type="primary" size="large" onClick={handleOrderClick}>
+        <Button htmlType="button" type="primary" size="large" onClick={openModal}>
           Оформить заказ
         </Button>
       </div>
-      {currentOrder && (
-        <Modal onClose={() => setCurrentOrder(null)}>
-          <OrderDetails id={currentOrder.id} />
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          <OrderDetails id="034536" />
         </Modal>
       )}
     </section>
   )
 }
+
+BurgerConstructor.displayName = 'BurgerConstructor'
 
 export default memo(BurgerConstructor)

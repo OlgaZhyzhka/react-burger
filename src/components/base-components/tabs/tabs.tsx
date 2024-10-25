@@ -41,4 +41,6 @@ const Tabs: FC<TabsProps> = ({ onTabChange }) => {
   )
 }
 
+Tabs.displayName = 'Tabs'
+
 export default memo(Tabs)

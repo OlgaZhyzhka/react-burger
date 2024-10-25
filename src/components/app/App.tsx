@@ -9,8 +9,13 @@ import { Loader } from '@/components/base-components/loader'
 
 const App = () => {
   const { data, loading } = useIngredients()
-
   const memoSortedIngredients = useMemo(() => sortIngredients(data), [data])
+  // const a = useRef(1)
+
+  // useEffect(() => {
+  //   a.current +=1
+  //   console.log(a)
+  // }, [])
 
   if (loading) {
     return <Loader />
