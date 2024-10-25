@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { IngredientType } from './types'
 
 export interface Ingredient {
@@ -15,8 +17,22 @@ export interface Ingredient {
   __v: number
 }
 
+export interface SortIngredients {
+  bun: Ingredient[]
+  sauce: Ingredient[]
+  main: Ingredient[]
+}
+
 export interface ApiState {
   data: Ingredient[]
   loading: boolean
   error: string | null
+}
+
+export interface ErrorBoundaryProps {
+  children: ReactNode
+}
+
+export interface ErrorBoundaryState {
+  hasError: boolean
 }

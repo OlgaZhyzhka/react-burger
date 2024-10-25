@@ -13,6 +13,7 @@
   margin-right: -16px;
   padding-right: 16px;
   overflow-y: auto;
+  scroll-snap-type: y mandatory;
 }
 
 .footer {
@@ -27,4 +28,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.element {
+  max-width: initial;
+  scroll-snap-align: start;
+}
+
+.anchor {
+  flex-grow: 0;
 }

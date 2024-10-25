@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC, PropsWithChildren, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { modalRoot } from '@/utils/constants'
@@ -11,8 +11,21 @@ type ModalProps = {
   onClose: VoidFunction
 }
 
-const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) =>
-  createPortal(
+const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) => {
+  const handleEscKey = (event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      onClose()
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscKey)
+    return () => {
+      document.removeEventListener('keydown', handleEscKey)
+    }
+  }, [])
+
+  return createPortal(
     <div className={styles.root}>
       <div className={styles.container}>
         <ModalHeader title={title} onClose={onClose} />
@@ -22,5 +35,6 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) 
     </div>,
     document.getElementById(modalRoot)!,
   )
+}
 
 export default Modal

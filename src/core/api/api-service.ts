@@ -1,5 +1,5 @@
-import { API_URL } from '../constants'
-import { Ingredient } from '../interfaces'
+import { API_URL } from '@/utils/constants'
+import { Ingredient } from '@/utils/interfaces'
 
 export const fetchIngredients = async (): Promise<Ingredient[]> => {
   const response = await fetch(API_URL)

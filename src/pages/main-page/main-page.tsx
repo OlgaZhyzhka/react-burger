@@ -1,45 +1,19 @@
-import { useEffect, useState } from 'react'
+import { FC } from 'react'
 
-import { ApiState } from '@/utils/interfaces'
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
-import { Loader } from '@/components/base-components/loader'
-import { fetchIngredients } from '@/utils/api/api-service'
+import { SortIngredients } from '@/utils/interfaces'
 
-const MainPage = () => {
-  const [state, setState] = useState<ApiState>({
-    data: [],
-    loading: false,
-    error: null,
-  })
+type MainPageProps = {
+  data: SortIngredients
+}
 
-  const { loading, error, data } = state
-
-  useEffect(() => {
-    const getIngredients = async () => {
-      setState({ ...state, loading: true, error: null })
-      try {
-        const data = await fetchIngredients()
-        setState({ ...state, data, loading: false })
-      } catch (err: unknown) {
-        if (err instanceof Error) {
-          setState({ ...state, error: err.message, loading: false })
-        }
-      }
-    }
-
-    getIngredients()
-  }, [])
-
-  if (loading) {
-    return <Loader />
-  }
-
+const MainPage: FC<MainPageProps> = ({ data }) => {
   return (
     <section className="page container">
       <div className="row">
         <div className="col">
-          {error ? <p>{error}</p> : <BurgerIngredients ingredients={data} />}
+          <BurgerIngredients ingredients={data} />
         </div>
         <div className="col">
           <BurgerConstructor />
