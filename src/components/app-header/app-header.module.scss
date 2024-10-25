@@ -1,0 +1,10 @@
+.root {
+  min-height: var(--header-height);
+  box-shadow: var(--box-shadow1);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

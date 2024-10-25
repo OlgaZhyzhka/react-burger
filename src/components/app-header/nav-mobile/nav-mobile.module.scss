@@ -1,0 +1,49 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--modal-bg);
+  z-index: var(--z-index-nav);
+}
+
+.header {
+  min-height: 64px;
+  padding: 16px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: 28px;
+  line-height: 1;
+}
+.link {
+  padding: 12px 8px;
+  display: flex;
+  align-items: center;
+  color: var(--primary-light);
+}
+
+.inactive {
+  color: var(--dark-grey);
+}
+
+@media (hover: hover) {
+  .link:hover {
+    color: var(--dark-grey);
+  }
+  .inactive:hover {
+    color: var(--primary-light);
+  }
+}

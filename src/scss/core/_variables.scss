@@ -1,0 +1,49 @@
+:root {
+  --color-white: #fff;
+  --color-black: #000;
+  --bg: #131316;
+  --neon: #b5ff3d;
+  --modal-bg: #1c1c21;
+  --modal-edge: rgba(76, 76, 255, 0.2);
+  --accent: #4c4cff;
+  --active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), #4c4cff;
+  --input: #2f2f37;
+  --success: #00cccc;
+  --error: #e52b1a;
+
+  --primary-light: #f2f2f3;
+  --dark-grey: #8585ad;
+  --disabled: #3a3a55;
+
+  --color-text: var(--primary-light);
+
+  --button-normal: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  --button-active: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%);
+  --box-shadow1: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
+    0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 1px rgba(0, 0, 0, 0.04);
+
+  --font-family-base: 'JetBrains Mono', monospace;
+  --font-family-secondary: 'Iceland', sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.5;
+
+  --transition-duration: 0.35s;
+  --transition-function: cubic-bezier(0.5, 0, 0.5, 1);
+  --z-index-modal-overlay: 1000;
+  --z-index-modal: 1001;
+  --z-index-loader: 1010;
+  --z-index-nav: 1020;
+
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  font-weight: 400;
+  color: var(--primary-light);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}

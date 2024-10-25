@@ -1,0 +1,19 @@
+.item {
+  text-align: center;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  color: var(--dark-grey);
+}
+
+.value {
+  display: block;
+  font-family: var(--font-family-secondary);
+  font-size: 28px;
+}
