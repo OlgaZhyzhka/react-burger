@@ -3,14 +3,10 @@ import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import useModal from '@/hooks/use-modal'
-import { Ingredient } from '@/utils/interfaces'
 import { Modal } from '@/components/modal'
 import { IngredientDetails } from '../ingredient-details'
+import { IngredientItemProps } from './types/ingredient-item'
 import styles from './ingredient-item.module.scss'
-
-type IngredientItemProps = {
-  ingredient: Ingredient
-}
 
 const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
   const { isOpen, openModal, closeModal } = useModal()

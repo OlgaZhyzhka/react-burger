@@ -3,10 +3,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { IngredientType } from '@/utils/types'
 import { IngredientTypes } from '@/utils/constants'
-
-type TabsProps = {
-  onTabChange?: (value: IngredientType) => void
-}
+import { TabsProps } from './types/tab-props'
 
 const Tabs: FC<TabsProps> = ({ onTabChange }) => {
   const [currentTab, setCurrentTab] = useState<IngredientType>(IngredientTypes.bun)

@@ -1,16 +1,12 @@
 import { FC, memo, useCallback } from 'react'
 import classNames from 'classnames'
 
-import { SortIngredients } from '@/utils/interfaces'
 import { IngredientType } from '@/utils/types'
 
 import { Tabs } from '@/components/base-components/tabs'
 import { IngredientGroups } from './ingredient-groups'
+import { BurgerIngredientsProps } from './types/burger-ingredients'
 import styles from './burger-ingredients.module.scss'
-
-type BurgerIngredientsProps = {
-  ingredients: SortIngredients
-}
 
 const BurgerIngredients: FC<BurgerIngredientsProps> = ({ ingredients }) => {
   const handleTabChange = useCallback((newTab: IngredientType) => {

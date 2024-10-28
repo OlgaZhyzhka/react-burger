@@ -1,11 +1,7 @@
 import { FC, PropsWithChildren } from 'react'
 
+import { ModalHeaderProps } from './types/modal-header'
 import styles from './modal-header.module.scss'
-
-type ModalHeaderProps = {
-  title?: string
-  onClose: VoidFunction
-}
 
 const ModalHeader: FC<PropsWithChildren<ModalHeaderProps>> = ({ title, onClose }) => (
   <div className={styles.header}>

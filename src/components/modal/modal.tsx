@@ -1,29 +1,28 @@
-import { FC, PropsWithChildren, useEffect } from 'react'
+import { FC, PropsWithChildren, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { modalRoot } from '@/utils/constants'
 import { ModalOverlay } from '@/components/modal/modal-overlay'
 import { ModalHeader } from './modal-header'
+import { ModalProps } from './types/modal'
 import styles from './modal.module.scss'
 
-type ModalProps = {
-  title?: string
-  onClose: VoidFunction
-}
-
 const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) => {
-  const handleEscKey = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
-      onClose()
-    }
-  }
+  const handleEscKey = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    },
+    [onClose],
+  )
 
   useEffect(() => {
     document.addEventListener('keydown', handleEscKey)
     return () => {
       document.removeEventListener('keydown', handleEscKey)
     }
-  }, [])
+  }, [handleEscKey])
 
   return createPortal(
     <div className={styles.root}>

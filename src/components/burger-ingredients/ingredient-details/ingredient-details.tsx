@@ -1,11 +1,7 @@
 import { FC } from 'react'
 
-import { Ingredient } from '@/utils/interfaces'
+import { IngredientDetailsProps } from './types/ingredient-details'
 import styles from './ingredient-details.module.scss'
-
-type IngredientDetailsProps = {
-  ingredient: Ingredient
-}
 
 const IngredientDetails: FC<IngredientDetailsProps> = ({ ingredient }) => (
   <div className={styles.item}>

@@ -2,11 +2,8 @@ import { FC } from 'react'
 import classNames from 'classnames'
 
 import checkIcon from './check.svg'
+import { OrderDetailsProps } from './types/order-details'
 import styles from './order-details.module.scss'
-
-type OrderDetailsProps = {
-  id: string
-}
 
 const OrderDetails: FC<OrderDetailsProps> = ({ id }) => {
   return (

@@ -1,13 +1,9 @@
 import { FC, memo } from 'react'
 import classNames from 'classnames'
 
-import { SortIngredients } from '@/utils/interfaces'
 import { IngredientGroup } from '../ingredient-group'
+import { IngredientGroupsProps } from './types/ingredient-groups'
 import styles from './ingredient-groups.module.scss'
-
-type IngredientGroupsProps = {
-  ingredients: SortIngredients
-}
 
 const IngredientGroups: FC<IngredientGroupsProps> = ({ ingredients }) => (
   <div className={classNames(styles.tabs, 'custom-scroll')}>

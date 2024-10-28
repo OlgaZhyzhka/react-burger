@@ -2,11 +2,7 @@ import { FC } from 'react'
 
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
-import { SortIngredients } from '@/utils/interfaces'
-
-type MainPageProps = {
-  data: SortIngredients
-}
+import { MainPageProps } from './types/main-page'
 
 const MainPage: FC<MainPageProps> = ({ data }) => {
   return (
