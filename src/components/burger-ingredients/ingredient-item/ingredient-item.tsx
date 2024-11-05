@@ -5,17 +5,17 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 import useModal from '@/hooks/use-modal'
 import { Modal } from '@/components/modal'
 import { IngredientDetails } from '../ingredient-details'
-import { IngredientItemProps } from './types/ingredient-item'
+import { IngredientItemProps } from './types/ingredient-item-props'
 import styles from './ingredient-item.module.scss'
 
-const IngredientItem: FC<IngredientItemProps> = ({ ingredient }) => {
+const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
   const { isOpen, openModal, closeModal } = useModal()
 
   return (
     <>
       <li className={styles.item} onClick={openModal}>
         <span className={styles.counter}>
-          <Counter count={1} size="default" extraClass="m-1" />
+          {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
         </span>
         <img className="ml-4 mr-4" src={ingredient.image} alt={ingredient.name} />
         <span className={classNames(styles.price, 'mt-1 mb-1')}>

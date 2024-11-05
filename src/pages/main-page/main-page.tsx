@@ -2,14 +2,13 @@ import { FC } from 'react'
 
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
-import { MainPageProps } from './types/main-page'
 
-const MainPage: FC<MainPageProps> = ({ data }) => {
+const MainPage: FC = () => {
   return (
     <section className="page container">
       <div className="row">
         <div className="col">
-          <BurgerIngredients ingredients={data} />
+          <BurgerIngredients />
         </div>
         <div className="col">
           <BurgerConstructor />

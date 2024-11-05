@@ -1,10 +1,11 @@
-import { FC, PropsWithChildren, useCallback, useEffect } from 'react'
+import { FC, useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { modalRoot } from '@/utils/constants'
+import { PropsWithChildren } from '@/utils/types'
 import { ModalOverlay } from '@/components/modal/modal-overlay'
 import { ModalHeader } from './modal-header'
-import { ModalProps } from './types/modal'
+import { ModalProps } from './types/modal-props'
 import styles from './modal.module.scss'
 
 const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) => {

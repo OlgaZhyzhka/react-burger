@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { IngredientDetailsProps } from './types/ingredient-details'
+import { IngredientDetailsProps } from './types/ingredient-details-props'
 import styles from './ingredient-details.module.scss'
 
 const IngredientDetails: FC<IngredientDetailsProps> = ({ ingredient }) => (

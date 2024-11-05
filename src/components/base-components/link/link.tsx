@@ -1,7 +1,8 @@
-import { FC, PropsWithChildren } from 'react'
+import { FC } from 'react'
 import classNames from 'classnames'
 
-import { LinkProps } from './types/link'
+import { PropsWithChildren } from '@/utils/types'
+import { LinkProps } from './types/link-props.ts'
 import styles from './link.module.scss'
 
 const Link: FC<PropsWithChildren<LinkProps>> = ({

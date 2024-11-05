@@ -29,6 +29,23 @@ export interface ApiState {
   error: string | null
 }
 
+export interface Burger {
+  bun: Ingredient | null
+  ingredients: Ingredient[]
+}
+
+export interface OrderData {
+  ingredients: string[]
+}
+
+export interface OrderBurger {
+  name: string
+  order: {
+    number: number
+  }
+  success: boolean
+}
+
 export interface ErrorBoundaryProps {
   children: ReactNode
 }

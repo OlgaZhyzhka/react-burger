@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import classNames from 'classnames'
 
-import checkIcon from './check.svg'
-import { OrderDetailsProps } from './types/order-details'
+import { CheckIcon } from '@/components/base-components/check-icon'
+import { OrderDetailsProps } from './types/order-details-props'
 import styles from './order-details.module.scss'
 
 const OrderDetails: FC<OrderDetailsProps> = ({ id }) => {
@@ -12,7 +12,7 @@ const OrderDetails: FC<OrderDetailsProps> = ({ id }) => {
       <span className={classNames(styles.subtitle, 'text text_type_main-medium')}>
         идентификатор заказа
       </span>
-      <img className={styles.icon} src={checkIcon} alt="check" />
+      <CheckIcon className={styles.icon} />
       <p>Ваш заказ начали готовить</p>
       <p className={styles.description}>Дождитесь готовности на орбитальной станции</p>
     </div>
