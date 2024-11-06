@@ -13,5 +13,15 @@ const initialState: ingredientState = {
 export const ingredientSlice = createSlice({
   name: 'ingredient',
   initialState,
-  reducers: {},
+  selectors: {
+    getIngredient: state => state.ingredient,
+  },
+  reducers: {
+    setIngredient: (state, { payload }) => {
+      state.ingredient = payload
+    },
+  },
 })
+
+export const { setIngredient } = ingredientSlice.actions
+export const { getIngredient } = ingredientSlice.selectors

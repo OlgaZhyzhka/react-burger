@@ -12,13 +12,12 @@ import { Loader } from '@/components/base-components/loader'
 const App = () => {
   const dispatch = useAppDispatch()
   const { loading } = useAppSelector(getIngredientsState)
-  // const sortedIngredients = useAppSelector(getSortedIngredients)
 
   useEffect(() => {
     dispatch(loadIngredients())
   }, [])
 
-  if (!loading) {
+  if (loading) {
     return <Loader />
   }
 

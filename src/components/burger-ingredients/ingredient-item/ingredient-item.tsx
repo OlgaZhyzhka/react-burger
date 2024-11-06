@@ -2,18 +2,28 @@ import { FC } from 'react'
 import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import useModal from '@/hooks/use-modal'
 import { Modal } from '@/components/modal'
+import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
+import { getIngredient, setIngredient } from '@/services/ingredient/reducer'
+import { addBurgerIngredient } from '@/services/burger-constructor/reducer'
 import { IngredientDetails } from '../ingredient-details'
 import { IngredientItemProps } from './types/ingredient-item-props'
 import styles from './ingredient-item.module.scss'
 
 const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
-  const { isOpen, openModal, closeModal } = useModal()
+  const dispatch = useAppDispatch()
+  const selectedIngredient = useAppSelector(getIngredient)
+  const handleClick = () => {
+    dispatch(setIngredient(ingredient))
+    dispatch(addBurgerIngredient(ingredient))
+  }
+  const handleClose = () => {
+    dispatch(setIngredient(null))
+  }
 
   return (
     <>
-      <li className={styles.item} onClick={openModal}>
+      <li className={styles.item} onClick={handleClick}>
         <span className={styles.counter}>
           {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
         </span>
@@ -24,9 +34,10 @@ const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
         </span>
         <h3 className="text text_type_main-default m-0">{ingredient.name}</h3>
       </li>
-      {isOpen && (
-        <Modal title="Детали ингредиента" onClose={closeModal}>
-          <IngredientDetails ingredient={ingredient} />
+
+      {selectedIngredient && (
+        <Modal title="Детали ингредиента" onClose={handleClose}>
+          <IngredientDetails />
         </Modal>
       )}
     </>

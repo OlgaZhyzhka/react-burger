@@ -2,14 +2,11 @@ import { FC, memo, useCallback } from 'react'
 import classNames from 'classnames'
 
 import { IngredientType } from '@/utils/types'
-import { useAppSelector } from '@/hooks/store-hooks'
-import { getSortedIngredients } from '@/services/ingredients/reducer'
 import { Tabs } from '@/components/base-components/tabs'
 import { IngredientGroups } from './ingredient-groups'
 import styles from './burger-ingredients.module.scss'
 
 const BurgerIngredients: FC = () => {
-  const sortedIngredients = useAppSelector(getSortedIngredients)
   const handleTabChange = useCallback((newTab: IngredientType) => {
     console.log('Current tab:', newTab)
   }, [])
@@ -18,7 +15,7 @@ const BurgerIngredients: FC = () => {
     <section className={classNames(styles.root, 'pt-10')}>
       <h1 className={'text_type_main-large mt-0 mb-5'}>Соберите бургер</h1>
       <Tabs onTabChange={handleTabChange} />
-      <IngredientGroups ingredients={sortedIngredients} />
+      <IngredientGroups />
     </section>
   )
 }

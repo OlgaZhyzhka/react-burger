@@ -5,13 +5,13 @@ import { loadIngredients } from '@/services/ingredients/actions'
 import { Ingredient, SortIngredients } from '@/utils/interfaces'
 
 export interface IngredientsState {
-  ingredients: Ingredient[] | null
+  data: Ingredient[] | null
   loading: boolean
   error: unknown
 }
 
 const initialState: IngredientsState = {
-  ingredients: null,
+  data: null,
   loading: false,
   error: null,
 }
@@ -22,20 +22,20 @@ export const ingredientsSlice = createSlice({
   reducers: {},
   selectors: {
     getIngredientsState: state => state,
-    getIngredients: state => state.ingredients,
+    getIngredients: state => state.data,
     getSortedIngredients: createSelector(
       [
         (state: IngredientsState): Ingredient[] | null =>
           ingredientsSlice.getSelectors().getIngredients(state),
       ],
-      ingredients => {
+      data => {
         const sortedIngredients: SortIngredients = {
           bun: [],
           sauce: [],
           main: [],
         }
 
-        ingredients?.forEach((ingredient: Ingredient) => {
+        data?.forEach((ingredient: Ingredient) => {
           sortedIngredients[ingredient.type].push(ingredient)
         })
 
@@ -46,7 +46,8 @@ export const ingredientsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(loadIngredients.fulfilled, (state, { payload }) => {
-        state.ingredients = payload
+        state.data = payload
+        state.loading = false
       })
       .addCase(loadIngredients.pending, state => {
         state.loading = true
