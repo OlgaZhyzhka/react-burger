@@ -1,19 +1,22 @@
 import { memo } from 'react'
+import { useDrop } from 'react-dnd'
 import { Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { Modal } from '@/components/modal'
-import { OrderDetails } from './order-details'
 import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
+import { Ingredient } from '@/utils/interfaces'
 import { deleteOrder, getOrderState } from '@/services/order/reducer'
 import { createOrder } from '@/services/order/actions'
 import {
+  addBurgerIngredient,
   clearBurger,
   getBurgerConstructor,
   getOrderIngredients,
   totalPrice,
 } from '@/services/burger-constructor/reducer'
 import { deleteBurgerIngredient } from '@/services/burger-constructor/reducer'
+import { Modal } from '@/components/modal'
+import { OrderDetails } from './order-details'
 import styles from './burger-constructor.module.scss'
 import BurgerTotal from './burger-total/burger-total.tsx'
 
@@ -24,6 +27,15 @@ const BurgerConstructor = () => {
   const orderIngredients = useAppSelector(getOrderIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
   const isOrderButtonDisabled = !bun || ingredients.length === 0
+  const [{ isOver }, dropRef] = useDrop({
+    accept: 'ingredient',
+    drop: item => {
+      dispatch(addBurgerIngredient(item as Ingredient))
+    },
+    collect: monitor => ({
+      isOver: monitor.isOver(),
+    }),
+  })
   const handleClick = () => {
     dispatch(createOrder(orderIngredients))
     dispatch(clearBurger())
@@ -38,7 +50,7 @@ const BurgerConstructor = () => {
   }
 
   return (
-    <section className={classNames(styles.root, 'pt-25 pr-4')}>
+    <section className={classNames(styles.root, 'pt-25 pr-4', isOver && styles.over)}>
       <div className={classNames(styles.anchor, 'mb-4')}>
         {bun ? (
           <ConstructorElement
@@ -54,7 +66,7 @@ const BurgerConstructor = () => {
           </div>
         )}
       </div>
-      <div className={classNames(styles.inner, 'custom-scroll')}>
+      <div className={classNames(styles.inner, 'custom-scroll')} ref={dropRef}>
         {ingredients.length > 0 ? (
           ingredients.map(ingredient => (
             <div className={styles.element} key={ingredient.key}>
