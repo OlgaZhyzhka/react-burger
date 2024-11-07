@@ -1,5 +1,6 @@
 import { IngredientType } from '@/utils/types'
 
 export type TabsProps = {
-  onTabChange?: (value: IngredientType) => void
+  activeTab: IngredientType
+  onTabChange: (value: IngredientType) => void
 }
