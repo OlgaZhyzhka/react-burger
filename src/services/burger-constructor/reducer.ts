@@ -1,7 +1,6 @@
 import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
 
-import { Burger, Ingredient, IngredientCount } from '@/utils/interfaces'
-import { createSelector } from 'reselect'
+import { Burger, Ingredient } from '@/utils/interfaces'
 
 export interface burgerConstructorState {
   burger: Burger
@@ -17,67 +16,6 @@ const initialState: burgerConstructorState = {
 export const burgerConstructorSlice = createSlice({
   name: 'burgerConstructor',
   initialState,
-  selectors: {
-    getBurgerConstructorState: state => state,
-    getBurgerConstructor: state => state.burger,
-    getIngredientsCount: createSelector(
-      [
-        (state: burgerConstructorState): Burger | null =>
-          burgerConstructorSlice.getSelectors().getBurgerConstructor(state),
-      ],
-      burger => {
-        const ingredientCount: IngredientCount = {}
-
-        if (burger?.bun) {
-          ingredientCount[burger.bun._id] = 2
-        }
-
-        burger?.ingredients.forEach((ingredient: Ingredient) => {
-          if (ingredientCount[ingredient._id]) {
-            ingredientCount[ingredient._id] += 1
-          } else {
-            ingredientCount[ingredient._id] = 1
-          }
-        })
-
-        return ingredientCount
-      },
-    ),
-    totalPrice: createSelector([(state: burgerConstructorState) => state.burger], burger => {
-      if (!burger) {
-        return 0
-      }
-
-      const ingredientsPrice = burger.ingredients.reduce(
-        (acc, ingredient) => acc + ingredient.price,
-        0,
-      )
-      const bunPrice = burger.bun ? burger.bun.price * 2 : 0
-
-      return ingredientsPrice + bunPrice
-    }),
-    getOrderIngredients: createSelector(
-      [
-        (state: burgerConstructorState): Burger | null =>
-          burgerConstructorSlice.getSelectors().getBurgerConstructor(state),
-      ],
-      burger => {
-        if (!burger || !burger.bun) {
-          return { ingredients: [] }
-        }
-
-        const { bun, ingredients } = burger
-
-        return {
-          ingredients: [
-            bun._id,
-            ...ingredients.map((ingredient: Ingredient) => ingredient._id),
-            bun._id,
-          ],
-        }
-      },
-    ),
-  },
   reducers: {
     addBurgerIngredient: {
       reducer: (state, action: PayloadAction<Ingredient>) => {
@@ -118,5 +56,3 @@ export const burgerConstructorSlice = createSlice({
 
 export const { addBurgerIngredient, deleteBurgerIngredient, clearBurger, sortBurgerIngredients } =
   burgerConstructorSlice.actions
-export const { getBurgerConstructor, getIngredientsCount, getOrderIngredients, totalPrice } =
-  burgerConstructorSlice.selectors

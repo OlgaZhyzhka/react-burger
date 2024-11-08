@@ -1,5 +1,6 @@
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import { useDrop } from 'react-dnd'
+import { unwrapResult } from '@reduxjs/toolkit'
 import { Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
@@ -8,24 +9,18 @@ import { Ingredient } from '@/utils/interfaces'
 import { DragType } from '@/utils/constants'
 import { deleteOrder, getOrderState } from '@/services/order/reducer'
 import { createOrder } from '@/services/order/actions'
-import {
-  addBurgerIngredient,
-  clearBurger,
-  getBurgerConstructor,
-  getOrderIngredients,
-  totalPrice,
-} from '@/services/burger-constructor/reducer'
+import { addBurgerIngredient, clearBurger } from '@/services/burger-constructor/reducer'
 import { deleteBurgerIngredient } from '@/services/burger-constructor/reducer'
+import { getBurgerConstructor, getOrderIngredients } from '@/services/burger-constructor/selectors'
 import { Modal } from '@/components/modal'
 import { BurgerConstructorItem } from '@/components/burger-constructor/burger-constructor-item'
 import { OrderDetails } from './order-details'
-import styles from './burger-constructor.module.scss'
 import BurgerTotal from './burger-total/burger-total.tsx'
+import styles from './burger-constructor.module.scss'
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch()
   const { loading, data: currentOrder } = useAppSelector(getOrderState)
-  const price = useAppSelector(totalPrice)
   const orderIngredients = useAppSelector(getOrderIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
   const isOrderButtonDisabled = !bun || ingredients.length === 0
@@ -38,10 +33,20 @@ const BurgerConstructor = () => {
       isOver: monitor.isOver(),
     }),
   })
+  const price = useMemo(() => {
+    const ingredientsPrice = ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
+    const bunPrice = bun ? bun.price * 2 : 0
+    return ingredientsPrice + bunPrice
+  }, [bun, ingredients])
 
-  const handleClick = () => {
-    dispatch(createOrder(orderIngredients))
-    dispatch(clearBurger())
+  const handleClick = async () => {
+    try {
+      const resultAction = await dispatch(createOrder(orderIngredients))
+      unwrapResult(resultAction)
+      dispatch(clearBurger())
+    } catch (error) {
+      console.error('Failed to create order:', error)
+    }
   }
   const handleClose = () => {
     dispatch(deleteOrder())

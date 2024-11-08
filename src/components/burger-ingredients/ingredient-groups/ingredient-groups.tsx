@@ -1,10 +1,11 @@
-import { forwardRef, memo, useImperativeHandle, useRef } from 'react'
+import { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react'
 import classNames from 'classnames'
 
 import { IngredientType } from '@/utils/types'
+import { IngredientCount } from '@/utils/interfaces'
 import { useAppSelector } from '@/hooks/store-hooks'
-import { getSortedIngredients } from '@/services/ingredients/reducer'
-import { getIngredientsCount } from '@/services/burger-constructor/reducer'
+import { getBurgerConstructor } from '@/services/burger-constructor/selectors'
+import { getSortedIngredients } from '@/services/ingredients/selectors'
 import { IngredientGroup } from '../ingredient-group'
 import { IngredientGroupsProps } from './types/ingredient-groups-props'
 import styles from './ingredient-groups.module.scss'
@@ -14,7 +15,17 @@ const IngredientGroups = forwardRef<
   IngredientGroupsProps
 >(({ onScroll }, ref) => {
   const sortedIngredients = useAppSelector(getSortedIngredients)
-  const ingredientsCount = useAppSelector(getIngredientsCount)
+  const { bun, ingredients } = useAppSelector(getBurgerConstructor)
+  const ingredientsCount = useMemo(() => {
+    const count: IngredientCount = {}
+    if (bun) {
+      count[bun._id] = 2
+    }
+    ingredients.forEach(ingredient => {
+      count[ingredient._id] = (count[ingredient._id] || 0) + 1
+    })
+    return count
+  }, [bun, ingredients])
 
   const bunRef = useRef<HTMLHeadingElement | null>(null)
   const sauceRef = useRef<HTMLHeadingElement | null>(null)
