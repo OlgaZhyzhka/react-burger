@@ -5,6 +5,7 @@ import classNames from 'classnames'
 
 import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
 import { Ingredient } from '@/utils/interfaces'
+import { DragType } from '@/utils/constants'
 import { deleteOrder, getOrderState } from '@/services/order/reducer'
 import { createOrder } from '@/services/order/actions'
 import {
@@ -16,6 +17,7 @@ import {
 } from '@/services/burger-constructor/reducer'
 import { deleteBurgerIngredient } from '@/services/burger-constructor/reducer'
 import { Modal } from '@/components/modal'
+import { BurgerConstructorItem } from '@/components/burger-constructor/burger-constructor-item'
 import { OrderDetails } from './order-details'
 import styles from './burger-constructor.module.scss'
 import BurgerTotal from './burger-total/burger-total.tsx'
@@ -28,7 +30,7 @@ const BurgerConstructor = () => {
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
   const isOrderButtonDisabled = !bun || ingredients.length === 0
   const [{ isOver }, dropRef] = useDrop({
-    accept: 'ingredient',
+    accept: DragType,
     drop: item => {
       dispatch(addBurgerIngredient(item as Ingredient))
     },
@@ -36,6 +38,7 @@ const BurgerConstructor = () => {
       isOver: monitor.isOver(),
     }),
   })
+
   const handleClick = () => {
     dispatch(createOrder(orderIngredients))
     dispatch(clearBurger())
@@ -69,14 +72,12 @@ const BurgerConstructor = () => {
       <div className={classNames(styles.inner, 'custom-scroll')} ref={dropRef}>
         {ingredients.length > 0 ? (
           ingredients.map(ingredient => (
-            <div className={styles.element} key={ingredient.key}>
-              <ConstructorElement
-                text={ingredient.name}
-                price={ingredient.price}
-                thumbnail={ingredient.image_mobile}
-                handleClose={() => onDelete(ingredient.key)}
-              />
-            </div>
+            <BurgerConstructorItem
+              key={ingredient.key}
+              ingredient={ingredient}
+              index={ingredients.indexOf(ingredient)}
+              onDelete={onDelete}
+            />
           ))
         ) : (
           <div className="constructor-element text-center">

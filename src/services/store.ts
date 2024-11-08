@@ -15,7 +15,6 @@ const rootReducer = combineSlices(
 export const configureStore = () => {
   return createStore({
     reducer: rootReducer,
-    // preloadedState: null,
     devTools: process.env.NODE_ENV !== 'production',
   })
 }

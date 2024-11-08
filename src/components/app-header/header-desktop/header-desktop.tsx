@@ -4,8 +4,9 @@ import {
   Logo,
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components'
-import { Link } from '@/components/base-components/link'
 import classNames from 'classnames'
+
+import { Link } from '@/components/base-components/link'
 
 import styles from './header-desktop.module.scss'
 

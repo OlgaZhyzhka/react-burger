@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import classNames from 'classnames'
 
 import { useAppSelector } from '@/hooks/store-hooks'
@@ -6,7 +5,7 @@ import { getOrder } from '@/services/order/reducer'
 import { CheckIcon } from '@/components/base-components/check-icon'
 import styles from './order-details.module.scss'
 
-const OrderDetails: FC = () => {
+const OrderDetails = () => {
   const data = useAppSelector(getOrder)
 
   if (!data) return null

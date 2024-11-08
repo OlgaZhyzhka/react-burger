@@ -1,10 +1,8 @@
-import { FC } from 'react'
-
 import { useAppSelector } from '@/hooks/store-hooks'
 import { getIngredient } from '@/services/ingredient/reducer'
 import styles from './ingredient-details.module.scss'
 
-const IngredientDetails: FC = () => {
+const IngredientDetails = () => {
   const ingredient = useAppSelector(getIngredient)
 
   if (!ingredient) return null
