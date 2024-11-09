@@ -2,7 +2,8 @@
 
 ## React + TypeScript + Vite
 
-This project is a React application bootstrapped with [Vite](https://vitejs.dev/). It uses TypeScript and ESLint for type checking and linting.
+This project is a React application bootstrapped with [Vite](https://vitejs.dev/). It uses TypeScript and ESLint for
+type checking and linting.
 
 ## Usage
 
@@ -12,10 +13,10 @@ This project is a React application bootstrapped with [Vite](https://vitejs.dev/
 git clone https://github.com/OlgaZhyzhka/react-burger.git
 ```
 
-switch to the branch `sprint-1/step-2`
+switch to the branch `sprint-2/step-2`
 
 ```bash
-git checkout sprint-1/step-2
+git checkout sprint-2/step-2
 ```
 
 ### Install dependencies
@@ -39,6 +40,9 @@ npm run build
 ## Features
 
 - React
+- Redux Toolkit
+- Redux Thunk
+- React DnD
 - TypeScript
 - Vite
 - ESLint

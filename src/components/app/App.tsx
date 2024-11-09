@@ -1,21 +1,20 @@
-import { useMemo } from 'react'
+import { useEffect } from 'react'
 
 import { ErrorBoundary } from '@/core/error-boundary'
-import { useIngredients } from '@/hooks'
-import { sortIngredients } from '@/utils/helpers'
+import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
+import { loadIngredients } from '@/services/ingredients/actions'
+import { getIngredientsState } from '@/services/ingredients/selectors'
 import { MainPage } from '@/pages/main-page'
 import { AppHeader } from '@/components/app-header'
 import { Loader } from '@/components/base-components/loader'
 
 const App = () => {
-  const { data, loading } = useIngredients()
-  const memoSortedIngredients = useMemo(() => sortIngredients(data), [data])
-  // const a = useRef(1)
+  const dispatch = useAppDispatch()
+  const { loading } = useAppSelector(getIngredientsState)
 
-  // useEffect(() => {
-  //   a.current +=1
-  //   console.log(a)
-  // }, [])
+  useEffect(() => {
+    dispatch(loadIngredients())
+  }, [])
 
   if (loading) {
     return <Loader />
@@ -24,7 +23,7 @@ const App = () => {
   return (
     <ErrorBoundary>
       <AppHeader />
-      <MainPage data={memoSortedIngredients} />
+      <MainPage />
     </ErrorBoundary>
   )
 }

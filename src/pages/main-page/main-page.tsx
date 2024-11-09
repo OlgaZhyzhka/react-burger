@@ -1,23 +1,22 @@
 import { FC } from 'react'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
-import { SortIngredients } from '@/utils/interfaces'
 
-type MainPageProps = {
-  data: SortIngredients
-}
-
-const MainPage: FC<MainPageProps> = ({ data }) => {
+const MainPage: FC = () => {
   return (
     <section className="page container">
       <div className="row">
-        <div className="col">
-          <BurgerIngredients ingredients={data} />
-        </div>
-        <div className="col">
-          <BurgerConstructor />
-        </div>
+        <DndProvider backend={HTML5Backend}>
+          <div className="col">
+            <BurgerIngredients />
+          </div>
+          <div className="col">
+            <BurgerConstructor />
+          </div>
+        </DndProvider>
       </div>
     </section>
   )

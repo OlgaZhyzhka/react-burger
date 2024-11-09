@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: var(--z-index-modal-overlay);
 }
 
 .container {

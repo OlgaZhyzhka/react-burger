@@ -15,6 +15,7 @@ export interface Ingredient {
   image_mobile: string
   image_large: string
   __v: number
+  key?: string
 }
 
 export interface SortIngredients {
@@ -27,6 +28,25 @@ export interface ApiState {
   data: Ingredient[]
   loading: boolean
   error: string | null
+}
+
+export interface Burger {
+  bun: Ingredient | null
+  ingredients: Ingredient[]
+}
+
+export interface IngredientCount {
+  [key: string]: number
+}
+
+export interface OrderDTO {
+  ingredients: string[]
+}
+
+export interface OrderBurger {
+  name: string
+  order: { number: number }
+  success: boolean
 }
 
 export interface ErrorBoundaryProps {

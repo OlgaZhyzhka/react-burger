@@ -1,15 +1,9 @@
-import { FC, MouseEventHandler, PropsWithChildren } from 'react'
+import { FC } from 'react'
 import classNames from 'classnames'
 
+import { PropsWithChildren } from '@/utils/types'
+import { LinkProps } from './types/link-props.ts'
 import styles from './link.module.scss'
-
-type LinkProps = {
-  href: string
-  className?: string
-  target?: string
-  rel?: string
-  onClick?: MouseEventHandler<HTMLAnchorElement>
-}
 
 const Link: FC<PropsWithChildren<LinkProps>> = ({
   href,
