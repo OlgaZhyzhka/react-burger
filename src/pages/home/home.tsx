@@ -1,11 +1,10 @@
-import { FC } from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
 
-const MainPage: FC = () => {
+const Main = () => {
   return (
     <section className="page container">
       <div className="row">
@@ -22,4 +21,4 @@ const MainPage: FC = () => {
   )
 }
 
-export default MainPage
+export default Main
