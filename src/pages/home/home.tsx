@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
 
-const Main = () => {
+const Home = () => {
   return (
     <section className="page container">
       <div className="row">
@@ -21,4 +21,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Home
