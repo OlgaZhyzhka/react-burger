@@ -1,10 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { fetchOrder } from '@/core/api/api-service'
+import { fetchOrder } from '@/core/api'
 import { OrderDTO } from '@/utils/interfaces'
 
-const CREATE_ORDER = 'order/createOrder'
-
-export const createOrder = createAsyncThunk(CREATE_ORDER, async (orderDTO: OrderDTO) => {
+export const createOrder = createAsyncThunk('order/createOrder', async (orderDTO: OrderDTO) => {
   return await fetchOrder(orderDTO)
 })

@@ -6,11 +6,12 @@
 .link {
   display: inline-flex;
   align-items: center;
-  color: var(--primary-light);
+  text-decoration: none;
+  color: var(--dark-grey);
 }
 
-.inactive {
-  color: var(--dark-grey);
+.active {
+  color: var(--primary-light);
 }
 
 .logo {
@@ -21,9 +22,6 @@
 
 @media (hover: hover) {
   .link:hover {
-    color: var(--dark-grey);
-  }
-  .inactive:hover {
-    color: var(--primary-light);
+    text-decoration: underline;
   }
 }

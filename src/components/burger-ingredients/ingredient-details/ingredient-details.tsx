@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useAppSelector } from '@/hooks/store-hooks'
@@ -8,7 +9,9 @@ const IngredientDetails = () => {
   const ingredients = useAppSelector(getIngredients)
 
   const { ingredientId } = useParams<{ ingredientId: string }>()
-  const ingredient = ingredients?.find(item => item._id === ingredientId)
+  const ingredient = useMemo(() => {
+    return ingredients?.find(item => item._id === ingredientId)
+  }, [ingredients, ingredientId])
 
   if (!ingredient) return null
 

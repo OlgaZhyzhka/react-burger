@@ -5,19 +5,19 @@ import { ErrorBoundary } from '@/core/error-boundary'
 import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
 import { loadIngredients } from '@/services/ingredients/actions'
 import { getIngredientsState } from '@/services/ingredients/selectors'
-import { Home } from '@/pages/home'
-import { NotFound404 } from '@/pages/not-found-404'
+import { ROUTES } from '@/utils/constants'
 import { AppHeader } from '@/components/app-header'
 import { Loader } from '@/components/base-components/loader'
 import { Modal } from '@/components/modal'
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details'
+import { AppRoutes } from '@/components/app-routes'
 
 const App = () => {
   const dispatch = useAppDispatch()
   const { loading } = useAppSelector(getIngredientsState)
   const location = useLocation()
   const navigate = useNavigate()
-  const background = location.state && location.state.background
+  const background = (location.state as { background?: Location }) && location.state.background
 
   const handleModalClose = () => {
     navigate(-1)
@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(loadIngredients())
-  }, [])
+  }, [dispatch])
 
   if (loading) {
     return <Loader />
@@ -34,16 +34,12 @@ const App = () => {
   return (
     <ErrorBoundary>
       <AppHeader />
-      <Routes location={background || location}>
-        <Route path="/" element={<Home />} />
-        <Route path="/ingredients/:ingredientId" element={<IngredientDetails />} />
-        <Route path="*" element={<NotFound404 />} />
-      </Routes>
+      <AppRoutes location={location} background={background} />
 
       {background && (
         <Routes>
           <Route
-            path="/ingredients/:ingredientId"
+            path={ROUTES.ingredient}
             element={
               <Modal onClose={handleModalClose}>
                 <IngredientDetails />
