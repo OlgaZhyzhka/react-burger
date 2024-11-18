@@ -27,8 +27,8 @@ export const URLS = {
   user: '/auth/user',
   ingredients: '/ingredients',
   order: '/orders',
-  passwordForgot: '/password-reset',
-  passwordReset: 'password-reset/reset',
+  passwordReset: '/password-reset',
+  passwordResetSubmit: 'password-reset/reset',
 } as const
 
 export const MODE = {

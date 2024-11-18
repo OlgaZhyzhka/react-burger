@@ -79,6 +79,9 @@ export const fetchLogout = async (): Promise<void> => {
     const response = await fetchWithRefresh(`${API_URL}${URLS.logout}`, {
       method: 'POST',
       headers: apiConfig.headers,
+      body: JSON.stringify({
+        token: localStorage.getItem('refreshToken'),
+      }),
     })
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
@@ -110,6 +113,19 @@ export const fetchUpdateUser = async (userDTO: AuthDTO): Promise<UserResponse> =
     })
   } catch (error) {
     console.error('Failed to update user:', error)
+    throw error
+  }
+}
+
+export const fetchForgotPassword = async (authDTO: AuthDTO): Promise<void> => {
+  try {
+    return await fetchWithRefresh(`${API_URL}${URLS.passwordReset}`, {
+      method: 'POST',
+      headers: apiConfig.headers,
+      body: JSON.stringify(authDTO),
+    })
+  } catch (error) {
+    console.error('Failed to send password reset email:', error)
     throw error
   }
 }

@@ -1,7 +1,9 @@
 const NotFound404 = () => {
   return (
-    <section className="page container">
-      <h1>404 page</h1>
+    <section className="page page_center container">
+      <div className="page__section">
+        <h2>404 page</h2>
+      </div>
     </section>
   )
 }
