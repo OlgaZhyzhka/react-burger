@@ -11,7 +11,6 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ component, onlyUnAuth = false
   const isAuthChecked = useAppSelector(getIsAuthChecked)
   const user = useAppSelector(getUser)
   const location = useLocation()
-  console.log(onlyUnAuth)
 
   if (!isAuthChecked) {
     return <Loader />
@@ -23,8 +22,7 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ component, onlyUnAuth = false
   }
 
   if (onlyUnAuth && user) {
-    console.log(location)
-    console.log('only for unauth')
+    console.log('only for unauth', location)
     const { from } = (location.state as { from: Location }) || { from: { pathname: ROUTES.home } }
     return <Navigate to={from} />
   }

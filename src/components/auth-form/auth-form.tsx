@@ -1,41 +1,67 @@
-import { FC, useState } from 'react'
+import { FC, useEffect } from 'react'
+import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { AuthDTO } from '@/utils/interfaces'
-import { AuthFormProps } from '@/components/auth-form/types/auth-form-props'
+import { useFormHandler } from '@/hooks'
+import { MODE } from '@/utils/constants'
+import { useAppDispatch, useAppSelector } from '@/services/store'
+import { getAuthError, setAuthError } from '@/services/user/reducer'
+import { PasswordInput } from '@/components/base-components/password-input'
+import { AuthFormProps } from './types/auth-form-props'
 
-const AuthForm: FC<AuthFormProps> = ({ onSubmit, isRegister = false }) => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [name, setName] = useState('')
+const AuthForm: FC<AuthFormProps> = ({ onSubmit, mode = MODE.login }) => {
+  const dispatch = useAppDispatch()
+  const authError = useAppSelector(getAuthError)
+  const { values, errors, validate, handleChange } = useFormHandler()
+
+  useEffect(() => {
+    dispatch(setAuthError(null))
+  }, [dispatch])
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    const authDTO: AuthDTO = { email, password, ...(isRegister && { name }) }
-    onSubmit(authDTO)
+    if (validate()) {
+      onSubmit({ ...values })
+    }
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      {isRegister && (
-        <div>
-          <label htmlFor="name">Name</label>
-          <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} />
-        </div>
-      )}
-      <div>
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" value={email} onChange={e => setEmail(e.target.value)} />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={e => setPassword(e.target.value)}
+      {mode === MODE.register && (
+        <Input
+          type={'text'}
+          placeholder={'Имя'}
+          onChange={e => handleChange(e)}
+          value={values.name || ''}
+          name={'name'}
+          error={!!errors.name}
+          errorText={errors.name}
+          size={'default'}
+          extraClass="mb-6"
         />
-      </div>
-      <button type="submit">{isRegister ? 'Register' : 'Login'}</button>
+      )}
+      <Input
+        type={'email'}
+        placeholder={'E-mail'}
+        onChange={e => handleChange(e)}
+        value={values.email || ''}
+        name={'email'}
+        error={!!errors.email}
+        errorText={errors.email}
+        size={'default'}
+        extraClass="mb-6"
+      />
+      <PasswordInput
+        value={values.password || ''}
+        onChange={e => handleChange(e)}
+        error={!!errors.password}
+        errorText={errors.password}
+      />
+      <Button htmlType="submit" type="primary" size="medium">
+        {mode === MODE.register ? 'Зарегистрироваться' : 'Войти'}
+      </Button>
+      {authError && (
+        <p className="text text_type_main-default text_color_error mt-4">{authError}</p>
+      )}
     </form>
   )
 }

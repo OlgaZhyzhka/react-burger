@@ -1,9 +1,5 @@
 const Profile = () => {
-  return (
-    <section className="page container">
-      <h1>Profile page</h1>
-    </section>
-  )
+  return <section className="page page_profile container"></section>
 }
 
 export default Profile

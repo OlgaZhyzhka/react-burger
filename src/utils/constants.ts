@@ -30,3 +30,11 @@ export const URLS = {
   passwordForgot: '/password-reset',
   passwordReset: 'password-reset/reset',
 } as const
+
+export const MODE = {
+  login: 'login',
+  register: 'register',
+  forgotPassword: 'forgot-password',
+  resetPassword: 'reset-password',
+  profile: 'profile',
+} as const
