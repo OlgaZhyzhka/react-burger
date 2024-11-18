@@ -25,14 +25,14 @@ export const userSlice = createSlice({
     setIsAuthChecked: (state, action: PayloadAction<boolean>) => {
       state.isAuthChecked = action.payload
     },
-    setAuthError: (state, action: PayloadAction<string | null>) => {
+    setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload
     },
   },
   selectors: {
     getUser: state => state.user,
     getIsAuthChecked: state => state.isAuthChecked,
-    getAuthError: state => state.error,
+    getError: state => state.error,
   },
   extraReducers: builder => {
     builder.addCase(login.fulfilled, (state, { payload }) => {
@@ -50,5 +50,5 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setUser, setIsAuthChecked, setAuthError } = userSlice.actions
-export const { getUser, getIsAuthChecked, getAuthError } = userSlice.selectors
+export const { setUser, setIsAuthChecked, setError } = userSlice.actions
+export const { getUser, getIsAuthChecked, getError } = userSlice.selectors

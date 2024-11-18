@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, PropsWithChildren } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
 
 import { ROUTES } from '@/utils/constants'
@@ -7,7 +7,10 @@ import { getIsAuthChecked, getUser } from '@/services/user/reducer'
 import { Loader } from '@/components/base-components/loader'
 import { ProtectedRouteProps } from './types/protected-route-props'
 
-const ProtectedRoute: FC<ProtectedRouteProps> = ({ component, onlyUnAuth = false }) => {
+const ProtectedRoute: FC<PropsWithChildren<ProtectedRouteProps>> = ({
+  component,
+  onlyUnAuth = false,
+}) => {
   const isAuthChecked = useAppSelector(getIsAuthChecked)
   const user = useAppSelector(getUser)
   const location = useLocation()
@@ -17,12 +20,10 @@ const ProtectedRoute: FC<ProtectedRouteProps> = ({ component, onlyUnAuth = false
   }
 
   if (!onlyUnAuth && !user) {
-    console.log('only for auth')
     return <Navigate to={ROUTES.login} state={{ from: location }} replace />
   }
 
   if (onlyUnAuth && user) {
-    console.log('only for unauth', location)
     const { from } = (location.state as { from: Location }) || { from: { pathname: ROUTES.home } }
     return <Navigate to={from} />
   }

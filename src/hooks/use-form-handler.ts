@@ -1,15 +1,17 @@
 import { useState } from 'react'
 
 type InitialValues = {
-  email: string
-  password: string
+  email?: string
+  password?: string
   name?: string
+  code?: string
 }
 
 const initialFormValues: InitialValues = {
   email: '',
   password: '',
   name: '',
+  code: '',
 }
 
 const useFormHandler = (initialValues = initialFormValues) => {

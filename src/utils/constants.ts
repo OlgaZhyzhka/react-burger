@@ -34,7 +34,7 @@ export const URLS = {
 export const MODE = {
   login: 'login',
   register: 'register',
-  forgotPassword: 'forgot-password',
-  resetPassword: 'reset-password',
+  forgotPassword: 'forgotPassword',
+  resetPassword: 'resetPassword',
   profile: 'profile',
 } as const

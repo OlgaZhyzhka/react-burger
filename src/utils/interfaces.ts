@@ -58,8 +58,8 @@ export interface ErrorBoundaryState {
 }
 
 export interface AuthDTO {
-  email: string
-  password: string
+  email?: string
+  password?: string
   name?: string
 }
 
