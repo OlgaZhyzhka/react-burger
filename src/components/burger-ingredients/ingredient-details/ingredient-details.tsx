@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useAppSelector } from '@/hooks/store-hooks'
+import { useAppSelector } from '@/services/store'
 import { getIngredients } from '@/services/ingredients/selectors'
 import styles from './ingredient-details.module.scss'
 

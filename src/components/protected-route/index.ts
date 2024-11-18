@@ -1,1 +1,2 @@
-export { default as ProtectedRoute } from './protected-route'
+export { ProtectedRouteOnlyAuth } from './protected-route'
+export { ProtectedRouteOnlyUnAuth } from './protected-route'

@@ -2,9 +2,10 @@ import { useEffect } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 
 import { ErrorBoundary } from '@/core/error-boundary'
-import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
+import { useAppDispatch, useAppSelector } from '@/services/store'
 import { loadIngredients } from '@/services/ingredients/actions'
 import { getIngredientsState } from '@/services/ingredients/selectors'
+import { checkUserAuth } from '@/services/user/actions'
 import { ROUTES } from '@/utils/constants'
 import { AppHeader } from '@/components/app-header'
 import { Loader } from '@/components/base-components/loader'
@@ -24,6 +25,7 @@ const App = () => {
   }
 
   useEffect(() => {
+    dispatch(checkUserAuth())
     dispatch(loadIngredients())
   }, [dispatch])
 

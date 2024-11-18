@@ -1,6 +1,6 @@
 import classNames from 'classnames'
 
-import { useAppSelector } from '@/hooks/store-hooks'
+import { useAppSelector } from '@/services/store'
 import { getOrder } from '@/services/order/reducer'
 import { CheckIcon } from '@/components/base-components/check-icon'
 import styles from './order-details.module.scss'

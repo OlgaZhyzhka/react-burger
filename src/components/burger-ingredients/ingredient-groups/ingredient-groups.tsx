@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import { IngredientType } from '@/utils/types'
 import { IngredientCount } from '@/utils/interfaces'
-import { useAppSelector } from '@/hooks/store-hooks'
+import { useAppSelector } from '@/services/store'
 import { getBurgerConstructor } from '@/services/burger-constructor/selectors'
 import { getSortedIngredients } from '@/services/ingredients/selectors'
 import { IngredientGroup } from '../ingredient-group'
