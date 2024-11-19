@@ -27,7 +27,7 @@ const HeaderDesktop = () => {
           Конструктор
         </NavLink>
         <NavLink
-          to=""
+          to={ROUTES.orderFeed}
           className={({ isActive }) =>
             classNames(isActive && styles.active, styles.link, 'pl-5 pr-5 pt-4 pb-4')
           }>

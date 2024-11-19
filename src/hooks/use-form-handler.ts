@@ -1,5 +1,9 @@
 import { useState } from 'react'
 
+type ValidationSchema = {
+  [key: string]: (value: string) => string | null
+}
+
 type InitialValues = {
   email?: string
   password?: string
@@ -14,7 +18,10 @@ const initialFormValues: InitialValues = {
   code: '',
 }
 
-const useFormHandler = (initialValues = initialFormValues) => {
+const useFormHandler = (
+  validationSchema: ValidationSchema = {},
+  initialValues = initialFormValues,
+) => {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
@@ -25,9 +32,10 @@ const useFormHandler = (initialValues = initialFormValues) => {
 
   const validate = () => {
     const newErrors: { [key: string]: string } = {}
-    if (!values.email) newErrors.email = 'Email is required'
-    if (values.password && values.password.length < 6)
-      newErrors.password = 'Password must be at least 6 characters long'
+    for (const key in validationSchema) {
+      const error = validationSchema[key](values[key as keyof InitialValues] || '')
+      if (error) newErrors[key] = error
+    }
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }

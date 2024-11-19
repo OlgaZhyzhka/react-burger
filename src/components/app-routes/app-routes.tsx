@@ -9,6 +9,7 @@ import { Register } from '@/pages/register'
 import { ForgotPassword } from '@/pages/forgot-password'
 import { ResetPassword } from '@/pages/reset-password'
 import { Profile } from '@/pages/profile'
+import { OrderFeed } from '@/pages/order-feed'
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details'
 import { ProtectedRouteOnlyAuth, ProtectedRouteOnlyUnAuth } from '@/components/protected-route'
 import { AppRoutesProps } from './types/app-routes-props'
@@ -18,6 +19,7 @@ const AppRoutes: FC<AppRoutesProps> = ({ location, background }) => (
     <Route path={ROUTES.home} element={<Home />} />
     <Route path={ROUTES.login} element={<ProtectedRouteOnlyUnAuth component={<Login />} />} />
     <Route path={ROUTES.profile} element={<ProtectedRouteOnlyAuth component={<Profile />} />} />
+    <Route path={ROUTES.orderFeed} element={<ProtectedRouteOnlyAuth component={<OrderFeed />} />} />
     <Route path={ROUTES.register} element={<ProtectedRouteOnlyUnAuth component={<Register />} />} />
     <Route
       path={ROUTES.forgotPassword}

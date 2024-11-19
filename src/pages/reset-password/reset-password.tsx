@@ -10,7 +10,8 @@ const ResetPassword = () => {
 
   const handleSubmit = (authDTO: AuthDTO) => {
     console.log(authDTO)
-    localStorage.deleteItem('resetPassword')
+    localStorage.removeItem('resetPassword')
+    navigate(ROUTES.login)
   }
 
   useEffect(() => {
@@ -18,7 +19,7 @@ const ResetPassword = () => {
     if (!resetPasswordAllowed) {
       navigate(ROUTES.forgotPassword)
     } else {
-      localStorage.removeItem('resetPassword')
+      // localStorage.removeItem('resetPassword')
     }
   }, [navigate])
 

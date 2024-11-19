@@ -2,51 +2,115 @@ import { FC, useEffect } from 'react'
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useFormHandler } from '@/hooks'
-import { MODE } from '@/utils/constants'
+import {
+  forgotPasswordValidationSchema,
+  loginValidationSchema,
+  MODE,
+  registerValidationSchema,
+  resetPasswordValidationSchema,
+} from '@/utils/constants'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { getError, setError } from '@/services/user/reducer'
 import { PasswordInput } from '@/components/base-components/password-input'
 import { FormFooter } from './form-footer'
 import { FormProps } from './types/form-props'
-import styles from './form.module.scss'
 
 const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
   const dispatch = useAppDispatch()
   const formError = useAppSelector(getError)
-  const { values, errors, validate, handleChange } = useFormHandler()
-  let buttonText
-  switch (mode) {
-    case MODE.register:
-      buttonText = 'Зарегистрироваться'
-      break
-    case MODE.forgotPassword:
-      buttonText = 'Восстановить'
-      break
-    case MODE.resetPassword || MODE.profile:
-      buttonText = 'Сохранить'
-      break
-    default:
-      buttonText = 'Войти'
+  const getValidationShema = () => {
+    switch (mode) {
+      case MODE.login:
+        return loginValidationSchema
+      case MODE.register:
+        return registerValidationSchema
+      case MODE.forgotPassword:
+        return forgotPasswordValidationSchema
+      case MODE.resetPassword:
+        return resetPasswordValidationSchema
+      default:
+        return {}
+    }
   }
-  let placeholderEmail
-  switch (mode) {
-    case MODE.register || MODE.login:
-      placeholderEmail = 'E-mail'
-      break
-    case MODE.forgotPassword:
-      placeholderEmail = 'Укажите E-mail'
-      break
-    case MODE.profile:
-      placeholderEmail = 'Логин'
-      break
-    default:
-      placeholderEmail = 'E-mail'
-  }
-  // const isAuthForm = mode !== MODE.profile
+
+  const { values, errors, validate, handleChange } = useFormHandler(getValidationShema())
 
   useEffect(() => {
     dispatch(setError(null))
   }, [dispatch])
+
+  const renderNameInput = () => (
+    <Input
+      type={'text'}
+      placeholder={'Имя'}
+      onChange={e => handleChange(e)}
+      value={values.name || ''}
+      name={'name'}
+      error={!!errors.name}
+      errorText={errors.name}
+      size={'default'}
+      extraClass="mb-6"
+    />
+  )
+
+  const renderEmailInput = (placeholder: string) => (
+    <Input
+      type={'email'}
+      placeholder={placeholder}
+      onChange={e => handleChange(e)}
+      value={values.email || ''}
+      name={'email'}
+      error={!!errors.email}
+      errorText={errors.email}
+      size={'default'}
+      extraClass="mb-6"
+    />
+  )
+
+  const renderPasswordInput = () => (
+    <PasswordInput
+      value={values.password || ''}
+      onChange={e => handleChange(e)}
+      error={!!errors.password}
+      errorText={errors.password}
+    />
+  )
+
+  const renderCodeInput = () => (
+    <Input
+      type={'text'}
+      placeholder={'Введите код из письма'}
+      onChange={e => handleChange(e)}
+      value={values.code || ''}
+      name={'code'}
+      error={!!errors.code}
+      errorText={errors.code}
+      size={'default'}
+      extraClass="mb-6"
+    />
+  )
+
+  const getButtonText = () => {
+    switch (mode) {
+      case MODE.register:
+        return 'Зарегистрироваться'
+      case MODE.forgotPassword:
+        return 'Восстановить'
+      case MODE.resetPassword:
+        return 'Сохранить'
+      default:
+        return 'Войти'
+    }
+  }
+
+  const getEmailPlaceholder = () => {
+    switch (mode) {
+      case MODE.forgotPassword:
+        return 'Укажите E-mail'
+      default:
+        return 'E-mail'
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -56,57 +120,14 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
   }
 
   return (
-    <form className={styles.root} onSubmit={handleSubmit}>
-      {(mode === MODE.register || mode === MODE.profile) && (
-        <Input
-          type={'text'}
-          placeholder={'Имя'}
-          onChange={e => handleChange(e)}
-          value={values.name || ''}
-          name={'name'}
-          error={!!errors.name}
-          errorText={errors.name}
-          size={'default'}
-          extraClass="mb-6"
-        />
-      )}
-      {mode !== MODE.resetPassword && (
-        <Input
-          type={'email'}
-          placeholder={placeholderEmail}
-          onChange={e => handleChange(e)}
-          value={values.email || ''}
-          name={'email'}
-          error={!!errors.email}
-          errorText={errors.email}
-          size={'default'}
-          extraClass="mb-6"
-        />
-      )}
-      {(mode === MODE.login || mode === MODE.register || mode === MODE.resetPassword) && (
-        <PasswordInput
-          value={values.password || ''}
-          onChange={e => handleChange(e)}
-          error={!!errors.password}
-          errorText={errors.password}
-        />
-      )}
-      {mode === MODE.resetPassword && (
-        <Input
-          type={'text'}
-          placeholder={'Введите код из письма'}
-          onChange={e => handleChange(e)}
-          value={values.code || ''}
-          name={'code'}
-          error={!!errors.code}
-          errorText={errors.code}
-          size={'default'}
-          extraClass="mb-6"
-        />
-      )}
+    <form onSubmit={handleSubmit}>
+      {mode === MODE.register && renderNameInput()}
+      {mode !== MODE.resetPassword && renderEmailInput(getEmailPlaceholder())}
+      {mode !== MODE.forgotPassword && renderPasswordInput()}
+      {mode === MODE.resetPassword && renderCodeInput()}
 
       <Button htmlType="submit" type="primary" size="medium">
-        {buttonText}
+        {getButtonText()}
       </Button>
 
       <FormFooter mode={mode} />

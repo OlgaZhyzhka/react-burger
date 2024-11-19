@@ -16,6 +16,7 @@ export const ROUTES = {
   resetPassword: '/reset-password',
   profile: '/profile',
   ingredient: '/ingredients/:ingredientId',
+  orderFeed: '/order-feed',
   notFound: '*',
 } as const
 
@@ -36,5 +37,26 @@ export const MODE = {
   register: 'register',
   forgotPassword: 'forgotPassword',
   resetPassword: 'resetPassword',
-  profile: 'profile',
 } as const
+
+export const resetPasswordValidationSchema = {
+  code: (value: string) => (!value ? 'Code is required' : null),
+  password: (value: string) =>
+    value.length < 6 ? 'Password must be at least 6 characters long' : null,
+}
+
+export const loginValidationSchema = {
+  email: (value: string) => (!value ? 'Email is required' : null),
+  password: (value: string) => (!value ? 'Password is required' : null),
+}
+
+export const registerValidationSchema = {
+  email: (value: string) => (!value ? 'Email is required' : null),
+  password: (value: string) =>
+    value.length < 6 ? 'Password must be at least 6 characters long' : null,
+  name: (value: string) => (!value ? 'Name is required' : null),
+}
+
+export const forgotPasswordValidationSchema = {
+  email: (value: string) => (!value ? 'Email is required' : null),
+}

@@ -1,11 +1,16 @@
-import { MODE } from '@/utils/constants'
-import { Form } from '@/components/form'
+import { useNavigate } from 'react-router-dom'
+
+import { MODE, ROUTES } from '@/utils/constants'
 import { AuthDTO } from '@/utils/interfaces'
+import { Form } from '@/components/form'
 
 const ForgotPassword = () => {
+  const navigate = useNavigate()
+
   const handleSubmit = (authData: AuthDTO) => {
     console.log('ForgotPassword', authData)
-    localStorage.setItem('resetPassword', JSON.stringify(true))
+    localStorage.setItem('resetPassword', 'true')
+    navigate(ROUTES.resetPassword)
   }
 
   return (
