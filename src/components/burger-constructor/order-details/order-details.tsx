@@ -1,18 +1,39 @@
+import { FC } from 'react'
+import { ThreeDots } from 'react-loader-spinner'
 import classNames from 'classnames'
 
+import { OrderBurger } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
 import { getOrder } from '@/services/order/reducer'
 import { CheckIcon } from '@/components/base-components/check-icon'
 import styles from './order-details.module.scss'
 
-const OrderDetails = () => {
-  const data = useAppSelector(getOrder)
+type OrderDetailsProps = {
+  loading: boolean
+}
 
-  if (!data) return null
+const OrderDetails: FC<OrderDetailsProps> = ({ loading }) => {
+  const order: OrderBurger | null = useAppSelector(getOrder)
 
-  const {
-    order: { number },
-  } = data
+  if (loading && !order) {
+    return (
+      <div className={styles.loader}>
+        <h2>Оформляем ваш заказ...</h2>
+        <ThreeDots
+          visible={true}
+          height="80"
+          width="80"
+          color="#4c4cff"
+          radius="9"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </div>
+    )
+  }
+
+  const number = order?.order.number
 
   return (
     <div className={styles.root}>

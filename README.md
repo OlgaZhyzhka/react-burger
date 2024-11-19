@@ -16,7 +16,7 @@ git clone https://github.com/OlgaZhyzhka/react-burger.git
 switch to the branch `sprint-2/step-2`
 
 ```bash
-git checkout sprint-2/step-2
+git checkout sprint-3/step-1
 ```
 
 ### Install dependencies
@@ -43,6 +43,7 @@ npm run build
 - Redux Toolkit
 - Redux Thunk
 - React DnD
+- React Router
 - TypeScript
 - Vite
 - ESLint
