@@ -1,16 +1,32 @@
 import { useNavigate } from 'react-router-dom'
 
 import { MODE, ROUTES } from '@/utils/constants'
-import { AuthDTO } from '@/utils/interfaces'
+import { ForgotPasswordDTO } from '@/utils/types'
+import { fetchForgotPassword } from '@/core/api/api-service'
+import { setError } from '@/services/user/reducer'
+import { useAppDispatch } from '@/services/store'
 import { Form } from '@/components/form'
 
 const ForgotPassword = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const handleSubmit = (authData: AuthDTO) => {
-    console.log('ForgotPassword', authData)
-    localStorage.setItem('resetPassword', 'true')
-    navigate(ROUTES.resetPassword)
+  const handleSubmit = async ({ email }: ForgotPasswordDTO) => {
+    if (!email) {
+      dispatch(setError('Email is required'))
+      return
+    }
+
+    try {
+      await fetchForgotPassword({ email })
+      localStorage.setItem('resetPassword', 'true')
+      navigate(ROUTES.resetPassword)
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        dispatch(setError(err.message || 'Failed to send password reset email'))
+      }
+      console.error(err)
+    }
   }
 
   return (

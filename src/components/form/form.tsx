@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useFormHandler } from '@/hooks'
 import {
@@ -14,6 +14,7 @@ import { getError, setError } from '@/services/user/reducer'
 import { PasswordInput } from '@/components/base-components/password-input'
 import { FormFooter } from './form-footer'
 import { FormProps } from './types/form-props'
+import FormButton from '@/components/form/form-button/form-button'
 
 const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
   const dispatch = useAppDispatch()
@@ -112,10 +113,9 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async () => {
     if (validate()) {
-      onSubmit({ ...values })
+      await onSubmit({ ...values })
     }
   }
 
@@ -126,9 +126,7 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
       {mode !== MODE.forgotPassword && renderPasswordInput()}
       {mode === MODE.resetPassword && renderCodeInput()}
 
-      <Button htmlType="submit" type="primary" size="medium">
-        {getButtonText()}
-      </Button>
+      <FormButton onClick={handleSubmit} buttonText={getButtonText()} />
 
       <FormFooter mode={mode} />
       {formError && (

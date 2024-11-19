@@ -5,22 +5,12 @@ type ValidationSchema = {
 }
 
 type InitialValues = {
-  email?: string
-  password?: string
-  name?: string
-  code?: string
-}
-
-const initialFormValues: InitialValues = {
-  email: '',
-  password: '',
-  name: '',
-  code: '',
+  [key: string]: string
 }
 
 const useFormHandler = (
   validationSchema: ValidationSchema = {},
-  initialValues = initialFormValues,
+  initialValues: InitialValues = {},
 ) => {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState<{ [key: string]: string }>({})

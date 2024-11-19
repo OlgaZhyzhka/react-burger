@@ -1,12 +1,12 @@
 import { API_URL, URLS } from '@/utils/constants'
+import { AuthDTO, AuthResponse, Ingredient, OrderBurger, OrderDTO } from '@/utils/interfaces'
 import {
-  AuthDTO,
-  AuthResponse,
-  Ingredient,
-  OrderBurger,
-  OrderDTO,
+  ForgotPasswordDTO,
+  LoginDTO,
+  ResetPasswordDTO,
+  UpdateUserDTO,
   UserResponse,
-} from '@/utils/interfaces'
+} from '@/utils/types'
 import { fetchWithRefresh, apiConfig } from './api-utils'
 
 export const fetchIngredients = async (): Promise<Ingredient[]> => {
@@ -34,7 +34,7 @@ export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderBurger> => {
   }
 }
 
-export const fetchLogin = async (authDTO: AuthDTO): Promise<AuthResponse> => {
+export const fetchLogin = async (authDTO: LoginDTO): Promise<AuthResponse> => {
   try {
     const response = await fetchWithRefresh(`${API_URL}${URLS.login}`, {
       method: 'POST',
@@ -76,16 +76,19 @@ export const fetchRegister = async (authDTO: AuthDTO): Promise<AuthResponse> => 
 
 export const fetchLogout = async (): Promise<void> => {
   try {
-    const response = await fetchWithRefresh(`${API_URL}${URLS.logout}`, {
+    const token = localStorage.getItem('refreshToken')
+
+    if (!token) {
+      throw new Error('No refresh token found')
+    }
+
+    await fetchWithRefresh(`${API_URL}${URLS.logout}`, {
       method: 'POST',
       headers: apiConfig.headers,
-      body: JSON.stringify({
-        token: localStorage.getItem('refreshToken'),
-      }),
+      body: JSON.stringify({ token }),
     })
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')
-    return response
   } catch (error) {
     console.error('Logout failed:', error)
     throw error
@@ -104,7 +107,7 @@ export const fetchGetUser = async (): Promise<UserResponse> => {
   }
 }
 
-export const fetchUpdateUser = async (userDTO: AuthDTO): Promise<UserResponse> => {
+export const fetchUpdateUser = async (userDTO: UpdateUserDTO): Promise<UserResponse> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.user}`, {
       method: 'PATCH',
@@ -117,15 +120,28 @@ export const fetchUpdateUser = async (userDTO: AuthDTO): Promise<UserResponse> =
   }
 }
 
-export const fetchForgotPassword = async (authDTO: AuthDTO): Promise<void> => {
+export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise<void> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.passwordReset}`, {
       method: 'POST',
       headers: apiConfig.headers,
-      body: JSON.stringify(authDTO),
+      body: JSON.stringify({ email }),
     })
   } catch (error) {
     console.error('Failed to send password reset email:', error)
+    throw error
+  }
+}
+
+export const fetchResetPassword = async ({ password, code }: ResetPasswordDTO): Promise<void> => {
+  try {
+    await fetchWithRefresh(`${API_URL}${URLS.passwordResetSubmit}`, {
+      method: 'POST',
+      headers: apiConfig.headers,
+      body: JSON.stringify({ password, token: code }),
+    })
+  } catch (error) {
+    console.error('Failed to reset password:', error)
     throw error
   }
 }

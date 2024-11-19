@@ -58,9 +58,9 @@ export interface ErrorBoundaryState {
 }
 
 export interface AuthDTO {
-  email?: string
-  password?: string
-  name?: string
+  email: string
+  password: string
+  name: string
 }
 
 export interface User {
@@ -74,5 +74,3 @@ export interface AuthResponse {
   refreshToken: string
   user: User
 }
-
-export type UserResponse = Omit<AuthResponse, 'accessToken' | 'refreshToken'>

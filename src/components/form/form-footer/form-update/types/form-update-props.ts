@@ -1,5 +1,5 @@
 import { AuthDTO } from '@/utils/interfaces'
 
 export type FormUpdateProps = {
-  onSubmit: (authDTO: AuthDTO) => void
+  onSubmit(authDTO: AuthDTO): Promise<void>
 }

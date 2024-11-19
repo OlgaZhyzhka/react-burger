@@ -29,7 +29,7 @@ export const URLS = {
   ingredients: '/ingredients',
   order: '/orders',
   passwordReset: '/password-reset',
-  passwordResetSubmit: 'password-reset/reset',
+  passwordResetSubmit: '/password-reset/reset',
 } as const
 
 export const MODE = {
