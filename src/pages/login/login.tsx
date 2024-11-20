@@ -1,14 +1,11 @@
-// import { Link } from 'react-router-dom'
-
-// import { ROUTES } from '@/utils/constants'
-import { AuthDTO } from '@/utils/interfaces'
+import { LoginDTO } from '@/utils/types'
 import { login } from '@/services/user/actions'
 import { useAppDispatch } from '@/services/store'
 import { Form } from '@/components/form'
 
 const Login = () => {
   const dispatch = useAppDispatch()
-  const handleSubmit = (authDTO: AuthDTO) => {
+  const handleSubmit = (authDTO: LoginDTO) => {
     dispatch(login(authDTO))
   }
 

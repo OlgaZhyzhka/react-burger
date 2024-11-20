@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 import { User } from '@/utils/interfaces'
-import { login, logout } from './actions'
+import { UserResponse } from '@/utils/types'
+import { login, logout, update } from './actions'
 
 interface UserState {
   user: User | null
@@ -45,6 +46,10 @@ export const userSlice = createSlice({
     })
     builder.addCase(logout.fulfilled, state => {
       state.user = null
+      state.error = null
+    })
+    builder.addCase(update.fulfilled, (state, { payload }: PayloadAction<UserResponse>) => {
+      state.user = payload.user
       state.error = null
     })
   },

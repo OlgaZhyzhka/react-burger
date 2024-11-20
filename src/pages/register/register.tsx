@@ -7,7 +7,6 @@ import { Form } from '@/components/form'
 const Register = () => {
   const dispatch = useAppDispatch()
   const handleSubmit = (authDTO: AuthDTO) => {
-    console.log('Register', authDTO)
     dispatch(register(authDTO))
   }
 

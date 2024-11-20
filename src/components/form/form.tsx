@@ -9,14 +9,15 @@ import {
   registerValidationSchema,
   resetPasswordValidationSchema,
 } from '@/utils/constants'
+import { AuthDTO } from '@/utils/interfaces'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { getError, setError } from '@/services/user/reducer'
 import { PasswordInput } from '@/components/base-components/password-input'
+import { FormButton } from './form-button'
 import { FormFooter } from './form-footer'
 import { FormProps } from './types/form-props'
-import FormButton from '@/components/form/form-button/form-button'
 
-const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
+const Form: FC<FormProps<AuthDTO>> = ({ onSubmit, mode = MODE.login }) => {
   const dispatch = useAppDispatch()
   const formError = useAppSelector(getError)
   const getValidationShema = () => {
@@ -113,9 +114,9 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
     }
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (validate()) {
-      await onSubmit({ ...values })
+      onSubmit(values as AuthDTO)
     }
   }
 

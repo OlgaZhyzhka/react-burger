@@ -1,4 +1,4 @@
 export type FormButtonProps = {
-  onClick(): Promise<void>
+  onClick(): void
   buttonText: string
 }

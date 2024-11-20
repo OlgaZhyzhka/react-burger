@@ -1,23 +1,25 @@
 import { FC, useEffect } from 'react'
-import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useFormHandler } from '@/hooks'
 import { useAppDispatch, useAppSelector } from '@/services/store'
-import { getError, setError } from '@/services/user/reducer'
-import { PasswordInput } from '@/components/base-components/password-input'
+import { getError, getUser, setError } from '@/services/user/reducer'
 import { FormUpdateProps } from './types/form-update-props'
+import { FormButton } from '@/components/form/form-button'
 
 const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
   const dispatch = useAppDispatch()
+  const user = useAppSelector(getUser)
   const formError = useAppSelector(getError)
-  const { values, errors, validate, handleChange } = useFormHandler()
+  const { values, errors, validate, handleChange } = useFormHandler({}, { ...user })
 
   useEffect(() => {
     dispatch(setError(null))
   }, [dispatch])
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleIconClick = () => {}
+
+  const handleSubmit = () => {
     if (validate()) {
       onSubmit({ ...values })
     }
@@ -31,6 +33,8 @@ const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
         onChange={e => handleChange(e)}
         value={values.name || ''}
         name={'name'}
+        icon={'EditIcon'}
+        onIconClick={handleIconClick}
         error={!!errors.name}
         errorText={errors.name}
         size={'default'}
@@ -42,21 +46,28 @@ const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
         onChange={e => handleChange(e)}
         value={values.email || ''}
         name={'email'}
+        icon={'EditIcon'}
+        onIconClick={handleIconClick}
         error={!!errors.email}
         errorText={errors.email}
         size={'default'}
         extraClass="mb-6"
       />
-      <PasswordInput
-        value={values.password || ''}
+      <Input
+        type={'password'}
+        placeholder={'Пароль'}
         onChange={e => handleChange(e)}
+        icon={'EditIcon'}
+        onIconClick={handleIconClick}
+        value={values.password || ''}
+        name={'password'}
         error={!!errors.password}
         errorText={errors.password}
+        size={'default'}
+        extraClass="mb-6"
       />
 
-      <Button htmlType="submit" type="primary" size="medium">
-        Сохранить
-      </Button>
+      <FormButton onClick={handleSubmit} buttonText={'Сохранить'} />
 
       {formError && (
         <p className="text text_type_main-default text_color_error mt-4">{formError}</p>

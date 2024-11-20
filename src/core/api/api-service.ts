@@ -107,7 +107,7 @@ export const fetchGetUser = async (): Promise<UserResponse> => {
   }
 }
 
-export const fetchUpdateUser = async (userDTO: UpdateUserDTO): Promise<UserResponse> => {
+export const fetchUpdateUserData = async (userDTO: UpdateUserDTO): Promise<UserResponse> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.user}`, {
       method: 'PATCH',

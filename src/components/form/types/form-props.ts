@@ -1,6 +1,6 @@
 import { MODE_TYPE } from '@/utils/types'
 
-export type FormProps = {
+export type FormProps<T = Record<string, string>> = {
   mode?: MODE_TYPE
-  onSubmit(data: Record<string, string>): Promise<void>
+  onSubmit(data: T): void
 }

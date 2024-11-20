@@ -1,12 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-import { fetchGetUser, fetchLogin, fetchLogout, fetchRegister } from '@/core/api'
+import {
+  fetchGetUser,
+  fetchLogin,
+  fetchLogout,
+  fetchRegister,
+  fetchUpdateUserData,
+} from '@/core/api'
 import { AuthDTO, AuthResponse } from '@/utils/interfaces'
+import { LoginDTO, UpdateUserDTO } from '@/utils/types'
 import { setIsAuthChecked, setUser } from './reducer'
 
 export const login = createAsyncThunk(
   'user/login',
-  async (authDTO: AuthDTO): Promise<AuthResponse> => {
+  async (authDTO: LoginDTO): Promise<AuthResponse> => {
     return await fetchLogin(authDTO)
   },
 )
@@ -20,6 +27,10 @@ export const register = createAsyncThunk(
 
 export const logout = createAsyncThunk('user/logout', async () => {
   return await fetchLogout()
+})
+
+export const update = createAsyncThunk('user/update', async (userData: UpdateUserDTO) => {
+  return await fetchUpdateUserData(userData)
 })
 
 export const checkUserAuth = createAsyncThunk('user/checkUserAuth', async (_, { dispatch }) => {
