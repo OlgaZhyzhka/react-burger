@@ -42,8 +42,8 @@ const Profile = () => {
             </li>
           </ul>
 
-          <p className="text text_type_main-default text_color_inactive">
-            В этом разделе вы можете изменить свои персональные данные
+          <p className="profile__text text text_type_main-default text_color_inactive">
+            В этом разделе вы можете <br /> изменить свои персональные данные
           </p>
         </div>
         <div className="col-9">

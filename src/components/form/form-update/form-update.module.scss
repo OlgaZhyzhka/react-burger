@@ -1,0 +1,11 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+@media screen and (min-width: 1200px) {
+  .root {
+    width: 480px;
+  }
+}

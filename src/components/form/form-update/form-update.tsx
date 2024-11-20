@@ -1,73 +1,84 @@
-import { FC, useEffect } from 'react'
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
+import { FC, useEffect, useState } from 'react'
+import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useFormHandler } from '@/hooks'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { getError, getUser, setError } from '@/services/user/reducer'
-import { FormUpdateProps } from './types/form-update-props'
+import EditableInput from '@/components/base-components/editable-input/editable-input'
 import { FormButton } from '@/components/form/form-button'
+import { FormUpdateProps } from './types/form-update-props'
+import styles from './form-update.module.scss'
 
 const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
+  const [isDirty, setIsDirty] = useState(false)
   const dispatch = useAppDispatch()
   const user = useAppSelector(getUser)
   const formError = useAppSelector(getError)
-  const { values, errors, validate, handleChange } = useFormHandler({}, { ...user })
+  const { values, errors, validate, handleChange, resetForm } = useFormHandler({}, { ...user })
 
   useEffect(() => {
     dispatch(setError(null))
   }, [dispatch])
 
-  const handleIconClick = () => {}
-
   const handleSubmit = () => {
     if (validate()) {
       onSubmit({ ...values })
+      setIsDirty(false)
+      dispatch(setError(null))
     }
   }
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(e)
+    setIsDirty(true)
+  }
+
+  const handleCancel = () => {
+    setIsDirty(false)
+    dispatch(setError(null))
+    resetForm()
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
-      <Input
+    <form className={styles.root} onSubmit={handleSubmit}>
+      <EditableInput
         type={'text'}
         placeholder={'Имя'}
-        onChange={e => handleChange(e)}
-        value={values.name || ''}
         name={'name'}
-        icon={'EditIcon'}
-        onIconClick={handleIconClick}
+        value={values.name || ''}
         error={!!errors.name}
         errorText={errors.name}
-        size={'default'}
-        extraClass="mb-6"
+        onChange={handleInputChange}
+        isDirty={isDirty}
       />
-      <Input
+      <EditableInput
         type={'email'}
         placeholder={'Логин'}
-        onChange={e => handleChange(e)}
-        value={values.email || ''}
         name={'email'}
-        icon={'EditIcon'}
-        onIconClick={handleIconClick}
+        value={values.email || ''}
         error={!!errors.email}
         errorText={errors.email}
-        size={'default'}
-        extraClass="mb-6"
+        onChange={handleInputChange}
+        isDirty={isDirty}
       />
-      <Input
+      <EditableInput
         type={'password'}
         placeholder={'Пароль'}
-        onChange={e => handleChange(e)}
-        icon={'EditIcon'}
-        onIconClick={handleIconClick}
-        value={values.password || ''}
         name={'password'}
+        value={values.password || ''}
         error={!!errors.password}
         errorText={errors.password}
-        size={'default'}
-        extraClass="mb-6"
+        onChange={handleInputChange}
+        isDirty={isDirty}
       />
-
-      <FormButton onClick={handleSubmit} buttonText={'Сохранить'} />
+      {isDirty && (
+        <div className={styles.footer}>
+          <Button htmlType="button" type="secondary" size="medium" onClick={handleCancel}>
+            Отмена
+          </Button>
+          <FormButton onClick={handleSubmit} buttonText={'Сохранить'} />
+        </div>
+      )}
 
       {formError && (
         <p className="text text_type_main-default text_color_error mt-4">{formError}</p>

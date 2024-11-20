@@ -9,7 +9,6 @@ import {
   registerValidationSchema,
   resetPasswordValidationSchema,
 } from '@/utils/constants'
-import { AuthDTO } from '@/utils/interfaces'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { getError, setError } from '@/services/user/reducer'
 import { PasswordInput } from '@/components/base-components/password-input'
@@ -17,7 +16,7 @@ import { FormButton } from './form-button'
 import { FormFooter } from './form-footer'
 import { FormProps } from './types/form-props'
 
-const Form: FC<FormProps<AuthDTO>> = ({ onSubmit, mode = MODE.login }) => {
+const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
   const dispatch = useAppDispatch()
   const formError = useAppSelector(getError)
   const getValidationShema = () => {
@@ -116,7 +115,7 @@ const Form: FC<FormProps<AuthDTO>> = ({ onSubmit, mode = MODE.login }) => {
 
   const handleSubmit = () => {
     if (validate()) {
-      onSubmit(values as AuthDTO)
+      onSubmit({ ...values })
     }
   }
 

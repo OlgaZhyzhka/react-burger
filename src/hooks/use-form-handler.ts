@@ -1,50 +1,40 @@
 import { useState } from 'react'
 
-type ValidationSchema<T> = {
-  [K in keyof T]?: (value: T[K]) => string | null
+type ValidationSchema = {
+  [key: string]: (value: string) => string | null
 }
 
-type UseFormHandlerProps<T> = {
-  validationSchema?: ValidationSchema<T>
-  initialValues: T
+type InitialValues = {
+  [key: string]: string
 }
 
-export const useFormHandler = <T extends Record<string, string>>({
-  validationSchema = {},
-  initialValues,
-}: UseFormHandlerProps<T>) => {
-  const [values, setValues] = useState<T>(initialValues)
-  const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})
+const useFormHandler = (
+  validationSchema: ValidationSchema = {},
+  initialValues: InitialValues = {},
+) => {
+  const [values, setValues] = useState(initialValues)
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-    setValues(prev => ({
-      ...prev,
-      [name]: value as T[keyof T],
-    }))
+    setValues(prev => ({ ...prev, [name]: value }))
   }
 
-  const validate = (): boolean => {
-    const newErrors: Partial<Record<keyof T, string>> = {}
-
+  const validate = () => {
+    const newErrors: { [key: string]: string } = {}
     for (const key in validationSchema) {
-      const validator = validationSchema[key]
-      if (validator) {
-        const error = validator(values[key])
-        if (error) {
-          newErrors[key] = error
-        }
-      }
+      const error = validationSchema[key](values[key as keyof InitialValues] || '')
+      if (error) newErrors[key] = error
     }
-
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const resetForm = () => {
     setValues(initialValues)
-    setErrors({})
   }
 
-  return { values, errors, handleChange, validate, resetForm }
+  return { values, errors, validate, handleChange, resetForm }
 }
+
+export default useFormHandler

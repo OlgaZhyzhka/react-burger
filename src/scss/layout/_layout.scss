@@ -29,6 +29,11 @@
     }
   }
 
+  &_profile {
+    .profile__text {
+      opacity: .4;
+    }
+  }
 }
 
 .row {
@@ -44,7 +49,9 @@
   display: flex;
 }
 
-.col, .col-3, .col-9 {
+.col,
+.col-3,
+.col-9 {
   padding: 0 var(--gutter);
 }
 
@@ -87,11 +94,11 @@ a {
 
 @media screen and (min-width: 1200px) {
   .col-3 {
-    flex: 0 0 25%;
+    flex: 0 0 28%;
   }
 
   .col-9 {
-    flex: 0 0 75%;
+    flex: 0 0 72%;
   }
 
   .page_profile {
