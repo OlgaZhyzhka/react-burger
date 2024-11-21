@@ -1,5 +1,6 @@
 import { FC, useRef, useState } from 'react'
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
+
 import { PasswordInputProps } from './types/password-input-props'
 
 const PasswordInput: FC<PasswordInputProps> = ({ value, onChange, error, errorText }) => {

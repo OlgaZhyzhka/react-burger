@@ -1,12 +1,12 @@
 import { FC } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { useDrag } from 'react-dnd'
 import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { DragType } from '@/utils/constants'
+import { DragType, ROUTES } from '@/utils/constants'
 import { IngredientItemProps } from './types/ingredient-item-props'
 import styles from './ingredient-item.module.scss'
-import { Link, useLocation } from 'react-router-dom'
 
 const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
   const location = useLocation()
@@ -24,7 +24,7 @@ const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
       <li className={styles.item} ref={dragRef}>
         <Link
           key={ingredientId}
-          to={`/ingredients/${ingredientId}`}
+          to={ROUTES.ingredient}
           state={{ background: location }}
           className={styles.link}>
           <span className={styles.counter}>
