@@ -1,5 +1,4 @@
 import { FC, useEffect } from 'react'
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useFormHandler } from '@/hooks'
 import {
@@ -12,6 +11,7 @@ import {
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { getError, setError } from '@/services/user/reducer'
 import { PasswordInput } from '@/components/base-components/password-input'
+import { FormInput } from '@/components/form/form-input'
 import { FormButton } from './form-button'
 import { FormFooter } from './form-footer'
 import { FormProps } from './types/form-props'
@@ -35,61 +35,6 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
   }
 
   const { values, errors, validate, handleChange } = useFormHandler(getValidationShema())
-
-  useEffect(() => {
-    dispatch(setError(null))
-  }, [dispatch])
-
-  const renderNameInput = () => (
-    <Input
-      type={'text'}
-      placeholder={'Имя'}
-      onChange={e => handleChange(e)}
-      value={values.name || ''}
-      name={'name'}
-      error={!!errors.name}
-      errorText={errors.name}
-      size={'default'}
-      extraClass="mb-6"
-    />
-  )
-
-  const renderEmailInput = (placeholder: string) => (
-    <Input
-      type={'email'}
-      placeholder={placeholder}
-      onChange={e => handleChange(e)}
-      value={values.email || ''}
-      name={'email'}
-      error={!!errors.email}
-      errorText={errors.email}
-      size={'default'}
-      extraClass="mb-6"
-    />
-  )
-
-  const renderPasswordInput = () => (
-    <PasswordInput
-      value={values.password || ''}
-      onChange={e => handleChange(e)}
-      error={!!errors.password}
-      errorText={errors.password}
-    />
-  )
-
-  const renderCodeInput = () => (
-    <Input
-      type={'text'}
-      placeholder={'Введите код из письма'}
-      onChange={e => handleChange(e)}
-      value={values.code || ''}
-      name={'code'}
-      error={!!errors.code}
-      errorText={errors.code}
-      size={'default'}
-      extraClass="mb-6"
-    />
-  )
 
   const getButtonText = () => {
     switch (mode) {
@@ -119,12 +64,57 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
     }
   }
 
+  useEffect(() => {
+    dispatch(setError(null))
+  }, [dispatch])
+
   return (
     <form onSubmit={handleSubmit}>
-      {mode === MODE.register && renderNameInput()}
-      {mode !== MODE.resetPassword && renderEmailInput(getEmailPlaceholder())}
-      {mode !== MODE.forgotPassword && renderPasswordInput()}
-      {mode === MODE.resetPassword && renderCodeInput()}
+      {mode === MODE.register && (
+        <FormInput
+          type={'text'}
+          placeholder={'Имя'}
+          onChange={e => handleChange(e)}
+          value={values.name || ''}
+          name={'name'}
+          error={!!errors.name}
+          errorText={errors.name}
+          autocomplete={'name'}
+        />
+      )}
+      {mode !== MODE.resetPassword && (
+        <FormInput
+          type={'email'}
+          placeholder={getEmailPlaceholder()}
+          onChange={e => handleChange(e)}
+          value={values.email || ''}
+          name={'email'}
+          error={!!errors.email}
+          errorText={errors.email}
+          autocomplete={'email'}
+        />
+      )}
+      {mode !== MODE.forgotPassword && (
+        <PasswordInput
+          value={values.password || ''}
+          onChange={e => handleChange(e)}
+          error={!!errors.password}
+          errorText={errors.password}
+          autocomplete={'current-password'}
+        />
+      )}
+      {mode === MODE.resetPassword && (
+        <FormInput
+          type={'text'}
+          placeholder={'Введите код из письма'}
+          onChange={e => handleChange(e)}
+          value={values.code || ''}
+          name={'code'}
+          error={!!errors.code}
+          errorText={errors.code}
+          autocomplete={'one-time-code'}
+        />
+      )}
 
       <FormButton onClick={handleSubmit} buttonText={getButtonText()} />
 

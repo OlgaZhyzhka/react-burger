@@ -12,7 +12,10 @@ import { fetchWithRefresh, apiConfig } from './api-utils'
 export const fetchIngredients = async (): Promise<Ingredient[]> => {
   try {
     const response = await fetchWithRefresh(`${API_URL}${URLS.ingredients}`, {
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
     })
     return response.data
   } catch (error) {
@@ -25,7 +28,10 @@ export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderBurger> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.order}`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify(orderDTO),
     })
   } catch (error) {
@@ -38,7 +44,10 @@ export const fetchLogin = async (authDTO: LoginDTO): Promise<AuthResponse> => {
   try {
     const response = await fetchWithRefresh(`${API_URL}${URLS.login}`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify(authDTO),
     })
 
@@ -58,7 +67,10 @@ export const fetchRegister = async (authDTO: AuthDTO): Promise<AuthResponse> => 
   try {
     const response = await fetchWithRefresh(`${API_URL}${URLS.register}`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify(authDTO),
     })
 
@@ -84,7 +96,10 @@ export const fetchLogout = async (): Promise<void> => {
 
     await fetchWithRefresh(`${API_URL}${URLS.logout}`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify({ token }),
     })
     localStorage.removeItem('accessToken')
@@ -98,7 +113,10 @@ export const fetchLogout = async (): Promise<void> => {
 export const fetchGetUser = async (): Promise<UserResponse> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.user}`, {
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
     })
   } catch (error) {
     localStorage.removeItem('accessToken')
@@ -111,7 +129,10 @@ export const fetchUpdateUserData = async (userDTO: UpdateUserDTO): Promise<UserR
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.user}`, {
       method: 'PATCH',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify(userDTO),
     })
   } catch (error) {
@@ -124,7 +145,10 @@ export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.passwordReset}`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify({ email }),
     })
   } catch (error) {
@@ -137,7 +161,10 @@ export const fetchResetPassword = async ({ password, code }: ResetPasswordDTO): 
   try {
     await fetchWithRefresh(`${API_URL}${URLS.passwordResetSubmit}`, {
       method: 'POST',
-      headers: apiConfig.headers,
+      headers: {
+        ...apiConfig.headers,
+        authorization: localStorage.getItem('accessToken') || '',
+      },
       body: JSON.stringify({ password, token: code }),
     })
   } catch (error) {

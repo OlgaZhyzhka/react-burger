@@ -3,7 +3,6 @@ import { API_URL, URLS } from '@/utils/constants'
 export const apiConfig = {
   headers: {
     'Content-Type': 'application/json',
-    authorization: localStorage.getItem('accessToken') || '',
   },
 }
 

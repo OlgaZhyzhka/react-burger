@@ -5,6 +5,7 @@ export type EditableInputProps = {
   value: string
   error: boolean
   errorText: string | undefined
+  autocomplete: string
   isDirty?: boolean
   onChange(e: React.ChangeEvent<HTMLInputElement>): void
 }

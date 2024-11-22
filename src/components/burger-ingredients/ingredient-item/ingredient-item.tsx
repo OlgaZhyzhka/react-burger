@@ -4,7 +4,7 @@ import { useDrag } from 'react-dnd'
 import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { DragType, ROUTES } from '@/utils/constants'
+import { DragType } from '@/utils/constants'
 import { IngredientItemProps } from './types/ingredient-item-props'
 import styles from './ingredient-item.module.scss'
 
@@ -24,7 +24,7 @@ const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
       <li className={styles.item} ref={dragRef}>
         <Link
           key={ingredientId}
-          to={ROUTES.ingredient}
+          to={`/ingredients/${ingredientId}`}
           state={{ background: location }}
           className={styles.link}>
           <span className={styles.counter}>
