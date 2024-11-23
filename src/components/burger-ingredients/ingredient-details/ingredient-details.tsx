@@ -1,9 +1,17 @@
-import { useAppSelector } from '@/hooks/store-hooks'
-import { getIngredient } from '@/services/ingredient/reducer'
+import { useMemo } from 'react'
+import { useParams } from 'react-router-dom'
+
+import { useAppSelector } from '@/services/store'
+import { getIngredients } from '@/services/ingredients/selectors'
 import styles from './ingredient-details.module.scss'
 
 const IngredientDetails = () => {
-  const ingredient = useAppSelector(getIngredient)
+  const ingredients = useAppSelector(getIngredients)
+
+  const { ingredientId } = useParams<{ ingredientId: string }>()
+  const ingredient = useMemo(() => {
+    return ingredients?.find(item => item._id === ingredientId)
+  }, [ingredients, ingredientId])
 
   if (!ingredient) return null
 

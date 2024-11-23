@@ -1,0 +1,7 @@
+export { fetchIngredients } from './api-service'
+export { fetchOrder } from './api-service'
+export { fetchLogin } from './api-service'
+export { fetchRegister } from './api-service'
+export { fetchLogout } from './api-service'
+export { fetchGetUser } from './api-service'
+export { fetchUpdateUserData } from './api-service'

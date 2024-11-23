@@ -1,7 +1,8 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Button, MenuIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { Link } from '@/components/base-components/link'
+import { ROUTES } from '@/utils/constants'
 import { NavMobile } from '../nav-mobile'
 import logoIcon from './logo.svg'
 
@@ -10,7 +11,7 @@ const HeaderMobile = () => {
 
   return (
     <>
-      <Link href="/">
+      <Link to={ROUTES.home}>
         <img src={logoIcon} alt="check" />
       </Link>
       <Button

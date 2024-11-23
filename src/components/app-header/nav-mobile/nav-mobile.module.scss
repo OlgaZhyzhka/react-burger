@@ -28,22 +28,27 @@
   font-size: 28px;
   line-height: 1;
 }
+
 .link {
-  padding: 12px 8px;
   display: flex;
+  padding: 12px 8px;
   align-items: center;
+  text-decoration: none;
+  color: var(--dark-grey);
+}
+
+.active {
   color: var(--primary-light);
 }
 
-.inactive {
-  color: var(--dark-grey);
+.logo {
+  @media screen and (min-width: 1200px) {
+    margin-left: 100px;
+  }
 }
 
 @media (hover: hover) {
   .link:hover {
-    color: var(--dark-grey);
-  }
-  .inactive:hover {
-    color: var(--primary-light);
+    text-decoration: underline;
   }
 }

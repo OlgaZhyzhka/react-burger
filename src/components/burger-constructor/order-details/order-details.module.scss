@@ -1,4 +1,5 @@
-.root {
+.root,
+.loader {
   text-align: center;
   padding: 40px 0;
 }
@@ -22,4 +23,11 @@
 
 .description {
   color: var(--dark-grey);
+}
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

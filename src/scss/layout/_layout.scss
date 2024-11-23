@@ -14,6 +14,26 @@
   align-items: stretch;
   height: calc(100vh - var(--header-height));
   padding-bottom: 30px;
+
+  &_center {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow-y: auto;
+
+    .page__section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  &_profile {
+    .profile__text {
+      opacity: 0.4;
+    }
+  }
 }
 
 .row {
@@ -29,9 +49,14 @@
   display: flex;
 }
 
+.col,
+.col-3,
+.col-9 {
+  padding: 0 var(--gutter);
+}
+
 .col {
   flex: 1;
-  padding: 0 var(--gutter);
 }
 
 .mt-0 {
@@ -44,4 +69,51 @@
 
 .text-center {
   text-align: center;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-duration) var(--transition-function);
+
+  &:hover {
+    color: var(--color-text);
+  }
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  .button {
+    display: block;
+    padding-left: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .col-3 {
+    flex: 0 0 28%;
+  }
+
+  .col-9 {
+    flex: 0 0 72%;
+  }
+
+  .page_profile {
+    padding-top: 120px;
+
+    .menu {
+      margin-bottom: 80px;
+    }
+
+    .col-3 {
+      padding-right: 0;
+    }
+
+    .col-9 {
+      padding-left: 60px;
+    }
+  }
 }

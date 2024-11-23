@@ -56,3 +56,21 @@ export interface ErrorBoundaryProps {
 export interface ErrorBoundaryState {
   hasError: boolean
 }
+
+export interface AuthDTO {
+  email: string
+  password: string
+  name: string
+}
+
+export interface User {
+  email: string
+  name: string
+}
+
+export interface AuthResponse {
+  success: boolean
+  accessToken: string
+  refreshToken: string
+  user: User
+}

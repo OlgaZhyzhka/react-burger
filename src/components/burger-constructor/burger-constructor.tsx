@@ -1,17 +1,19 @@
 import { memo, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useDrop } from 'react-dnd'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { useAppDispatch, useAppSelector } from '@/hooks/store-hooks'
 import { Ingredient } from '@/utils/interfaces'
-import { DragType } from '@/utils/constants'
+import { DragType, ROUTES } from '@/utils/constants'
+import { useAppDispatch, useAppSelector } from '@/services/store'
 import { deleteOrder, getOrderState } from '@/services/order/reducer'
 import { createOrder } from '@/services/order/actions'
 import { addBurgerIngredient, clearBurger } from '@/services/burger-constructor/reducer'
 import { deleteBurgerIngredient } from '@/services/burger-constructor/reducer'
 import { getBurgerConstructor, getOrderIngredients } from '@/services/burger-constructor/selectors'
+import { getUser } from '@/services/user/reducer'
 import { Modal } from '@/components/modal'
 import { BurgerConstructorItem } from '@/components/burger-constructor/burger-constructor-item'
 import { OrderDetails } from './order-details'
@@ -20,9 +22,11 @@ import styles from './burger-constructor.module.scss'
 
 const BurgerConstructor = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { loading, data: currentOrder } = useAppSelector(getOrderState)
   const orderIngredients = useAppSelector(getOrderIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
+  const user = useAppSelector(getUser)
   const isOrderButtonDisabled = !bun || ingredients.length === 0
   const [{ isOver }, dropRef] = useDrop({
     accept: DragType,
@@ -40,6 +44,11 @@ const BurgerConstructor = () => {
   }, [bun, ingredients])
 
   const handleClick = async () => {
+    if (!user) {
+      navigate(ROUTES.login)
+      return
+    }
+
     try {
       const resultAction = await dispatch(createOrder(orderIngredients))
       unwrapResult(resultAction)
@@ -51,6 +60,7 @@ const BurgerConstructor = () => {
   const handleClose = () => {
     dispatch(deleteOrder())
   }
+
   const onDelete = (key: string | undefined) => {
     if (key != null) {
       dispatch(deleteBurgerIngredient(key))
@@ -117,9 +127,9 @@ const BurgerConstructor = () => {
           Оформить заказ
         </Button>
       </div>
-      {currentOrder && !loading && (
+      {(currentOrder || loading) && (
         <Modal onClose={handleClose}>
-          <OrderDetails />
+          <OrderDetails loading />
         </Modal>
       )}
     </section>

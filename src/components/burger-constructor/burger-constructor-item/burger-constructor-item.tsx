@@ -4,7 +4,7 @@ import type { XYCoord } from 'dnd-core'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { DragConstructorItemType } from '@/utils/constants'
-import { useAppDispatch } from '@/hooks/store-hooks'
+import { useAppDispatch } from '@/services/store'
 import { sortBurgerIngredients } from '@/services/burger-constructor/reducer'
 import { BurgerConstructorItemProps } from './types/burger-constructor-item-props'
 import styles from './burger-constructor-item.module.scss'
