@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { Ingredient } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
 import { getIngredients } from '@/services/ingredients/selectors'
 import styles from './ingredient-details.module.scss'
@@ -9,7 +10,7 @@ const IngredientDetails = () => {
   const ingredients = useAppSelector(getIngredients)
 
   const { ingredientId } = useParams<{ ingredientId: string }>()
-  const ingredient = useMemo(() => {
+  const ingredient: Ingredient | undefined = useMemo<Ingredient | undefined>(() => {
     return ingredients?.find(item => item._id === ingredientId)
   }, [ingredients, ingredientId])
 

@@ -10,7 +10,7 @@ import styles from './modal.module.scss'
 
 const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) => {
   const handleEscKey = useCallback(
-    (event: KeyboardEvent) => {
+    (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
         onClose()
       }
