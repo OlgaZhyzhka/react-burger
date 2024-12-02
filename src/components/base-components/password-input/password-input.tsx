@@ -4,13 +4,13 @@ import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 import { PasswordInputProps } from './types/password-input-props'
 
 const PasswordInput: FC<PasswordInputProps> = ({ value, onChange, error, errorText }) => {
-  const inputPasswordRef = useRef(null)
+  const inputPasswordRef = useRef<HTMLInputElement>(null)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const handleIconClick = () => {
     setIsPasswordVisible(!isPasswordVisible)
     if (inputPasswordRef.current) {
-      const input = inputPasswordRef.current as HTMLInputElement
+      const input = inputPasswordRef.current
       input.type = isPasswordVisible ? 'password' : 'text'
     }
   }

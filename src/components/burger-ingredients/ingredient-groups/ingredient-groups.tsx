@@ -16,7 +16,7 @@ const IngredientGroups = forwardRef<
 >(({ onScroll }, ref) => {
   const sortedIngredients = useAppSelector(getSortedIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
-  const ingredientsCount = useMemo(() => {
+  const ingredientsCount = useMemo<IngredientCount>(() => {
     const count: IngredientCount = {}
     if (bun) {
       count[bun._id] = 2

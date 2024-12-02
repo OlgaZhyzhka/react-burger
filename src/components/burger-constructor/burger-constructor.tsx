@@ -37,7 +37,7 @@ const BurgerConstructor = () => {
       isOver: monitor.isOver(),
     }),
   })
-  const price = useMemo(() => {
+  const price = useMemo<number>(() => {
     const ingredientsPrice = ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
     const bunPrice = bun ? bun.price * 2 : 0
     return ingredientsPrice + bunPrice
