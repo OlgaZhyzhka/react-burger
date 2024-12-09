@@ -2,7 +2,7 @@ import { ThreeDots } from 'react-loader-spinner'
 
 import styles from './loader.module.scss'
 
-const Loader = () => (
+const Loader = (): React.JSX.Element => (
   <div className={styles.root}>
     <ThreeDots
       visible={true}

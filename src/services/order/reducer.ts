@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import { OrderBurger } from '@/utils/interfaces'
+import type { OrderBurger } from '@/utils/interfaces'
 import { createOrder } from '@/services/order/actions'
 
 export interface OrderState {

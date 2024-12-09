@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 import { loadIngredients } from '@/services/ingredients/actions'
-import { Ingredient } from '@/utils/interfaces'
+import type { Ingredient } from '@/utils/interfaces'
 
 export interface IngredientsState {
   data: Ingredient[] | null

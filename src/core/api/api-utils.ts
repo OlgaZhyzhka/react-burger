@@ -1,4 +1,5 @@
 import { API_URL, URLS } from '@/utils/constants'
+import type { ApiResponse, ErrorData } from '@/utils/interfaces'
 
 export const apiConfig = {
   headers: {
@@ -6,15 +7,15 @@ export const apiConfig = {
   },
 }
 
-const checkResponse = async (response: Response) => {
+const checkResponse = async (response: Response): Promise<ApiResponse> => {
   if (!response.ok) {
-    const errorData = await response.json()
+    const errorData: ErrorData = (await response.json()) as ErrorData
     throw new Error(errorData.message || 'An error occurred')
   }
-  return response.json()
+  return (await response.json()) as ApiResponse
 }
 
-export const refreshToken = async () => {
+export const refreshToken = async (): Promise<ApiResponse> => {
   const response = await fetch(`${API_URL}${URLS.token}`, {
     method: 'POST',
     headers: {
@@ -36,10 +37,13 @@ export const refreshToken = async () => {
   return refreshData
 }
 
-export const fetchWithRefresh = async (url: string, options: RequestInit) => {
+export const fetchWithRefresh = async <T>(
+  url: string,
+  options: RequestInit,
+): Promise<ApiResponse<T>> => {
   try {
     const res = await fetch(url, options)
-    return await checkResponse(res)
+    return (await checkResponse(res)) as ApiResponse<T>
   } catch (error: unknown) {
     if (error instanceof Error && error.message === 'jwt expired') {
       const refreshData = await refreshToken()
@@ -48,7 +52,7 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
         authorization: refreshData.accessToken,
       }
       const res = await fetch(url, options)
-      return await checkResponse(res)
+      return (await checkResponse(res)) as ApiResponse<T>
     } else {
       return Promise.reject(error)
     }

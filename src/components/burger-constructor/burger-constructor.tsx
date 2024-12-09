@@ -1,11 +1,12 @@
 import { memo, useMemo } from 'react'
 import { useNavigate } from 'react-router-dom'
+import type { NavigateFunction } from 'react-router'
 import { useDrop } from 'react-dnd'
 import { unwrapResult } from '@reduxjs/toolkit'
 import { Button, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { Ingredient } from '@/utils/interfaces'
+import type { Ingredient } from '@/utils/interfaces'
 import { DragType, ROUTES } from '@/utils/constants'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { deleteOrder, getOrderState } from '@/services/order/reducer'
@@ -20,9 +21,9 @@ import { OrderDetails } from './order-details'
 import BurgerTotal from './burger-total/burger-total.tsx'
 import styles from './burger-constructor.module.scss'
 
-const BurgerConstructor = () => {
+const BurgerConstructor = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
-  const navigate = useNavigate()
+  const navigate: NavigateFunction = useNavigate()
   const { loading, data: currentOrder } = useAppSelector(getOrderState)
   const orderIngredients = useAppSelector(getOrderIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
@@ -37,13 +38,13 @@ const BurgerConstructor = () => {
       isOver: monitor.isOver(),
     }),
   })
-  const price = useMemo<number>(() => {
+  const price = useMemo<number>((): number => {
     const ingredientsPrice = ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
     const bunPrice = bun ? bun.price * 2 : 0
     return ingredientsPrice + bunPrice
   }, [bun, ingredients])
 
-  const handleClick = async () => {
+  const handleClick = async (): Promise<void> => {
     if (!user) {
       navigate(ROUTES.login)
       return
@@ -57,11 +58,11 @@ const BurgerConstructor = () => {
       console.error('Failed to create order:', error)
     }
   }
-  const handleClose = () => {
+  const handleClose = (): void => {
     dispatch(deleteOrder())
   }
 
-  const onDelete = (key: string | undefined) => {
+  const onDelete = (key: string | undefined): void => {
     if (key != null) {
       dispatch(deleteBurgerIngredient(key))
     }

@@ -1,6 +1,7 @@
-import React, { ErrorInfo } from 'react'
+import React from 'react'
+import type { ErrorInfo } from 'react'
 
-import { ErrorBoundaryProps, ErrorBoundaryState } from '@/utils/interfaces'
+import type { ErrorBoundaryProps, ErrorBoundaryState } from '@/utils/interfaces'
 
 class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -13,11 +14,11 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
     return { hasError: true }
   }
 
-  componentDidCatch(error: Error, info: ErrorInfo) {
+  componentDidCatch(error: Error, info: ErrorInfo): void {
     console.error('Error!', error, info)
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.hasError) {
       return <h1>Ups something wrong</h1>
     }

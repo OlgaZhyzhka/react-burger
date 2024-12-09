@@ -43,23 +43,23 @@ export const MODE = {
 } as const
 
 export const resetPasswordValidationSchema = {
-  code: (value: string) => (!value ? 'Code is required' : null),
-  password: (value: string) =>
+  code: (value: string): string | null => (!value ? 'Code is required' : null),
+  password: (value: string): string | null =>
     value.length < 6 ? 'Password must be at least 6 characters long' : null,
 }
 
 export const loginValidationSchema = {
-  email: (value: string) => (!value ? 'Email is required' : null),
-  password: (value: string) => (!value ? 'Password is required' : null),
+  email: (value: string): string | null => (!value ? 'Email is required' : null),
+  password: (value: string): string | null => (!value ? 'Password is required' : null),
 }
 
 export const registerValidationSchema = {
-  email: (value: string) => (!value ? 'Email is required' : null),
-  password: (value: string) =>
+  email: (value: string): string | null => (!value ? 'Email is required' : null),
+  password: (value: string): string | null =>
     value.length < 6 ? 'Password must be at least 6 characters long' : null,
-  name: (value: string) => (!value ? 'Name is required' : null),
+  name: (value: string): string | null => (!value ? 'Name is required' : null),
 }
 
 export const forgotPasswordValidationSchema = {
-  email: (value: string) => (!value ? 'Email is required' : null),
+  email: (value: string): string | null => (!value ? 'Email is required' : null),
 }

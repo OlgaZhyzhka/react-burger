@@ -1,4 +1,4 @@
-const ProfileOrder = () => {
+const ProfileOrder = (): React.JSX.Element => {
   return <h2>История заказов</h2>
 }
 

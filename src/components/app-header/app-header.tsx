@@ -5,8 +5,8 @@ import { HeaderDesktop } from './header-desktop'
 import { HeaderMobile } from './header-mobile'
 import styles from './app-header.module.scss'
 
-const AppHeader = () => {
-  const isDesktop = useMediaQuery('(min-width: 1200px)')
+const AppHeader = (): React.JSX.Element => {
+  const isDesktop: boolean = useMediaQuery('(min-width: 1200px)')
 
   return (
     <header className={classNames(styles.root, 'pt-4 pb-4')}>

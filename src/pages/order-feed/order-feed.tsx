@@ -1,4 +1,4 @@
-const OrderFeed = () => {
+const OrderFeed = (): React.JSX.Element => {
   return (
     <section className="page container">
       <div className="col">

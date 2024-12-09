@@ -1,9 +1,7 @@
-import { FC } from 'react'
-
 import checkIcon from './check.svg'
-import { CheckIconProps } from './types/check-icon-props'
+import type { CheckIconProps } from './types/check-icon-props'
 
-const CheckIcon: FC<CheckIconProps> = ({ className = '' }) => (
+const CheckIcon = ({ className = '' }: CheckIconProps): React.JSX.Element => (
   <img className={className} src={checkIcon} alt="check" />
 )
 

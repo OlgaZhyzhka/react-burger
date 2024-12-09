@@ -7,20 +7,20 @@ import {
   fetchRegister,
   fetchUpdateUserData,
 } from '@/core/api'
-import { AuthDTO, AuthResponse } from '@/utils/interfaces'
-import { LoginDTO, UpdateUserDTO } from '@/utils/types'
+import type { AuthDTO, ApiResponse } from '@/utils/interfaces'
+import type { LoginDTO, UpdateUserDTO } from '@/utils/types'
 import { setIsAuthChecked, setUser } from './reducer'
 
 export const login = createAsyncThunk(
   'user/login',
-  async (authDTO: LoginDTO): Promise<AuthResponse> => {
+  async (authDTO: LoginDTO): Promise<ApiResponse> => {
     return await fetchLogin(authDTO)
   },
 )
 
 export const register = createAsyncThunk(
   'user/login',
-  async (authDTO: AuthDTO): Promise<AuthResponse> => {
+  async (authDTO: AuthDTO): Promise<ApiResponse> => {
     return await fetchRegister(authDTO)
   },
 )

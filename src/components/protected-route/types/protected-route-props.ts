@@ -1,6 +1,6 @@
-import React from 'react'
+import type { PropsWithChildren } from '@/utils/types'
 
-export type ProtectedRouteProps = {
+export type ProtectedRouteProps = PropsWithChildren & {
   onlyUnAuth?: boolean
-  component: React.JSX.Element
+  children: React.JSX.Element
 }

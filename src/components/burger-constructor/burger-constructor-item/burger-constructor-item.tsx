@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react'
+import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import type { XYCoord } from 'dnd-core'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
@@ -6,15 +6,19 @@ import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burg
 import { DragConstructorItemType } from '@/utils/constants'
 import { useAppDispatch } from '@/services/store'
 import { sortBurgerIngredients } from '@/services/burger-constructor/reducer'
-import { BurgerConstructorItemProps } from './types/burger-constructor-item-props'
+import type { BurgerConstructorItemProps } from './types/burger-constructor-item-props'
 import styles from './burger-constructor-item.module.scss'
 
-const BurgerConstructorItem: FC<BurgerConstructorItemProps> = ({ ingredient, index, onDelete }) => {
+const BurgerConstructorItem = ({
+  ingredient,
+  index,
+  onDelete,
+}: BurgerConstructorItemProps): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const ref = useRef<HTMLDivElement>(null)
   const [, dropRef] = useDrop({
     accept: DragConstructorItemType,
-    hover: (item: { index: number }, monitor) => {
+    hover: (item: { index: number }, monitor): void => {
       if (!ref.current) {
         return
       }

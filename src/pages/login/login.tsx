@@ -1,11 +1,11 @@
-import { LoginDTO } from '@/utils/types'
+import type { LoginDTO } from '@/utils/types'
 import { login } from '@/services/user/actions'
 import { useAppDispatch } from '@/services/store'
 import { Form } from '@/components/form'
 
-const Login = () => {
+const Login = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
-  const handleSubmit = (authDTO: LoginDTO) => {
+  const handleSubmit = (authDTO: LoginDTO): void => {
     dispatch(login(authDTO))
   }
 

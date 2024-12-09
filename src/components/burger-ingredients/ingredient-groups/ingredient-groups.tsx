@@ -1,22 +1,22 @@
 import { forwardRef, memo, useImperativeHandle, useMemo, useRef } from 'react'
 import classNames from 'classnames'
 
-import { IngredientType } from '@/utils/types'
-import { IngredientCount } from '@/utils/interfaces'
+import type { IngredientType } from '@/utils/types'
+import type { IngredientCount } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
 import { getBurgerConstructor } from '@/services/burger-constructor/selectors'
 import { getSortedIngredients } from '@/services/ingredients/selectors'
 import { IngredientGroup } from '../ingredient-group'
-import { IngredientGroupsProps } from './types/ingredient-groups-props'
+import type { IngredientGroupsProps } from './types/ingredient-groups-props'
 import styles from './ingredient-groups.module.scss'
 
 const IngredientGroups = forwardRef<
   { [key in IngredientType]?: HTMLHeadingElement | null },
   IngredientGroupsProps
->(({ onScroll }, ref) => {
+>(({ onScroll }, ref): React.JSX.Element => {
   const sortedIngredients = useAppSelector(getSortedIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
-  const ingredientsCount = useMemo<IngredientCount>(() => {
+  const ingredientsCount = useMemo<IngredientCount>((): IngredientCount => {
     const count: IngredientCount = {}
     if (bun) {
       count[bun._id] = 2
@@ -31,11 +31,18 @@ const IngredientGroups = forwardRef<
   const sauceRef = useRef<HTMLHeadingElement | null>(null)
   const mainRef = useRef<HTMLHeadingElement | null>(null)
 
-  useImperativeHandle(ref, () => ({
-    bun: bunRef.current,
-    sauce: sauceRef.current,
-    main: mainRef.current,
-  }))
+  useImperativeHandle(
+    ref,
+    (): {
+      bun: HTMLHeadingElement | null
+      sauce: HTMLHeadingElement | null
+      main: HTMLHeadingElement | null
+    } => ({
+      bun: bunRef.current,
+      sauce: sauceRef.current,
+      main: mainRef.current,
+    }),
+  )
 
   return (
     <div className={classNames(styles.tabs, 'custom-scroll')} onScroll={onScroll}>

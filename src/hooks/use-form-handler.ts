@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-type ValidationSchema = {
+export type ValidationSchema = {
   [key: string]: (value: string) => string | null
 }
 
@@ -8,19 +8,27 @@ type InitialValues = {
   [key: string]: string
 }
 
+interface UseFormHandlerReturn {
+  values: InitialValues
+  errors: { [key: string]: string }
+  validate: () => boolean
+  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  resetForm: () => void
+}
+
 const useFormHandler = (
   validationSchema: ValidationSchema = {},
   initialValues: InitialValues = {},
-) => {
+): UseFormHandlerReturn => {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const { name, value } = e.target
-    setValues(prev => ({ ...prev, [name]: value }))
+    setValues((prev: InitialValues) => ({ ...prev, [name]: value }))
   }
 
-  const validate = () => {
+  const validate = (): boolean => {
     const newErrors: { [key: string]: string } = {}
     for (const key in validationSchema) {
       const error = validationSchema[key](values[key as keyof InitialValues] || '')
@@ -30,7 +38,7 @@ const useFormHandler = (
     return Object.keys(newErrors).length === 0
   }
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     setValues(initialValues)
   }
 

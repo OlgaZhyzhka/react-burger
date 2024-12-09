@@ -1,4 +1,4 @@
-import { IngredientType } from '@/utils/types'
+import type { IngredientType } from '@/utils/types'
 
 export type TabsProps = {
   activeTab: IngredientType

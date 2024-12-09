@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import type { NavigateFunction, Location as RouterLocation } from 'react-router'
 
 import { ErrorBoundary } from '@/core/error-boundary'
 import { useAppDispatch, useAppSelector } from '@/services/store'
@@ -13,18 +14,20 @@ import { Modal } from '@/components/modal'
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details'
 import { AppRoutes } from '@/components/app-routes'
 
-const App = () => {
+const App = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const { loading } = useAppSelector(getIngredientsState)
   const location = useLocation()
-  const navigate = useNavigate()
-  const background = (location.state as { background?: Location }) && location.state.background
+  const navigate: NavigateFunction = useNavigate()
+  const background: RouterLocation | undefined =
+    (location.state as RouterLocation) &&
+    (location.state as { background?: RouterLocation })?.background
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     navigate(-1)
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     dispatch(checkUserAuth())
     dispatch(loadIngredients())
   }, [dispatch])

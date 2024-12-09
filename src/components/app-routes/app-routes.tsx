@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import { ROUTES } from '@/utils/constants'
@@ -13,24 +12,24 @@ import { ProfileInfo } from '@/pages/profile/profile-info'
 import { ProfileOrder } from '@/pages/profile/profile-order'
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details'
 import { ProtectedRouteOnlyAuth, ProtectedRouteOnlyUnAuth } from '@/components/protected-route'
-import { AppRoutesProps } from './types/app-routes-props'
+import type { AppRoutesProps } from './types/app-routes-props'
 
-const AppRoutes: FC<AppRoutesProps> = ({ location, background }) => (
+const AppRoutes = ({ location, background }: AppRoutesProps): React.JSX.Element => (
   <Routes location={background || location}>
     <Route path={ROUTES.home} element={<Home />} />
-    <Route path={ROUTES.login} element={<ProtectedRouteOnlyUnAuth component={<Login />} />} />
-    <Route path={ROUTES.profile} element={<ProtectedRouteOnlyAuth component={<Profile />} />}>
+    <Route path={ROUTES.login} element={<ProtectedRouteOnlyUnAuth children={<Login />} />} />
+    <Route path={ROUTES.profile} element={<ProtectedRouteOnlyAuth children={<Profile />} />}>
       <Route index element={<ProfileInfo />} />
       <Route path={ROUTES.profileOrders} element={<ProfileOrder />} />
     </Route>
-    <Route path={ROUTES.register} element={<ProtectedRouteOnlyUnAuth component={<Register />} />} />
+    <Route path={ROUTES.register} element={<ProtectedRouteOnlyUnAuth children={<Register />} />} />
     <Route
       path={ROUTES.forgotPassword}
-      element={<ProtectedRouteOnlyUnAuth component={<ForgotPassword />} />}
+      element={<ProtectedRouteOnlyUnAuth children={<ForgotPassword />} />}
     />
     <Route
       path={ROUTES.resetPassword}
-      element={<ProtectedRouteOnlyUnAuth component={<ResetPassword />} />}
+      element={<ProtectedRouteOnlyUnAuth children={<ResetPassword />} />}
     />
     <Route path={ROUTES.ingredient} element={<IngredientDetails />} />
     <Route path={ROUTES.notFound} element={<NotFound404 />} />

@@ -1,6 +1,6 @@
 import { API_URL, URLS } from '@/utils/constants'
-import { AuthDTO, AuthResponse, Ingredient, OrderBurger, OrderDTO } from '@/utils/interfaces'
-import {
+import type { AuthDTO, ApiResponse, Ingredient, OrderBurger, OrderDTO } from '@/utils/interfaces'
+import type {
   ForgotPasswordDTO,
   LoginDTO,
   ResetPasswordDTO,
@@ -17,14 +17,14 @@ export const fetchIngredients = async (): Promise<Ingredient[]> => {
         authorization: localStorage.getItem('accessToken') || '',
       },
     })
-    return response.data
+    return response.data as Ingredient[]
   } catch (error) {
     console.error('Failed to fetch ingredients:', error)
     throw error
   }
 }
 
-export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderBurger> => {
+export const fetchOrder = async (orderDTO: OrderDTO): Promise<ApiResponse<OrderBurger>> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.order}`, {
       method: 'POST',
@@ -40,7 +40,7 @@ export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderBurger> => {
   }
 }
 
-export const fetchLogin = async (authDTO: LoginDTO): Promise<AuthResponse> => {
+export const fetchLogin = async (authDTO: LoginDTO): Promise<ApiResponse> => {
   try {
     const response = await fetchWithRefresh(`${API_URL}${URLS.login}`, {
       method: 'POST',
@@ -63,7 +63,7 @@ export const fetchLogin = async (authDTO: LoginDTO): Promise<AuthResponse> => {
   }
 }
 
-export const fetchRegister = async (authDTO: AuthDTO): Promise<AuthResponse> => {
+export const fetchRegister = async (authDTO: AuthDTO): Promise<ApiResponse> => {
   try {
     const response = await fetchWithRefresh(`${API_URL}${URLS.register}`, {
       method: 'POST',
@@ -141,7 +141,7 @@ export const fetchUpdateUserData = async (userDTO: UpdateUserDTO): Promise<UserR
   }
 }
 
-export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise<void> => {
+export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise<ApiResponse> => {
   try {
     return await fetchWithRefresh(`${API_URL}${URLS.passwordReset}`, {
       method: 'POST',

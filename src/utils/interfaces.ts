@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import { IngredientType } from './types'
+import type { IngredientType } from './types'
 
 export interface Ingredient {
   _id: string
@@ -46,7 +46,6 @@ export interface OrderDTO {
 export interface OrderBurger {
   name: string
   order: { number: number }
-  success: boolean
 }
 
 export interface ErrorBoundaryProps {
@@ -68,9 +67,14 @@ export interface User {
   name: string
 }
 
-export interface AuthResponse {
+export interface ErrorData {
+  message?: string
+}
+
+export interface ApiResponse<T = unknown> extends ErrorData {
   success: boolean
   accessToken: string
   refreshToken: string
   user: User
+  data?: T
 }

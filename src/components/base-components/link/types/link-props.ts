@@ -1,6 +1,8 @@
-import { MouseEventHandler } from 'react'
+import type { MouseEventHandler } from 'react'
 
-export type LinkProps = {
+import type { PropsWithOptionalChildren } from '@/utils/types'
+
+export type LinkProps = PropsWithOptionalChildren & {
   href: string
   className?: string
   target?: string

@@ -1,15 +1,15 @@
-import { FC } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import type { Location as RouterLocation } from 'react-router'
 import { useDrag } from 'react-dnd'
 import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { DragType } from '@/utils/constants'
-import { IngredientItemProps } from './types/ingredient-item-props'
+import type { IngredientItemProps } from './types/ingredient-item-props'
 import styles from './ingredient-item.module.scss'
 
-const IngredientItem: FC<IngredientItemProps> = ({ ingredient, count }) => {
-  const location = useLocation()
+const IngredientItem = ({ ingredient, count }: IngredientItemProps): React.JSX.Element => {
+  const location: RouterLocation = useLocation()
   const ingredientId = ingredient['_id']
   const [, dragRef] = useDrag({
     type: DragType,

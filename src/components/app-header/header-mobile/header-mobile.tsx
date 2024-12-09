@@ -6,7 +6,7 @@ import { ROUTES } from '@/utils/constants'
 import { NavMobile } from '../nav-mobile'
 import logoIcon from './logo.svg'
 
-const HeaderMobile = () => {
+const HeaderMobile = (): React.JSX.Element => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (

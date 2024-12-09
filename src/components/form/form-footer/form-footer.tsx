@@ -1,10 +1,9 @@
-import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
 import { MODE, ROUTES } from '@/utils/constants'
-import { FormFooterProps } from './types/form-footer-props'
+import type { FormFooterProps } from './types/form-footer-props'
 
-const FormFooter: FC<FormFooterProps> = ({ mode }) => {
+const FormFooter = ({ mode }: FormFooterProps): React.JSX.Element => {
   return (
     <div className="mt-20">
       {mode === MODE.login && (

@@ -1,8 +1,8 @@
-import { FC } from 'react'
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { FormInputProps } from './types/form-input-props'
 
-const FormInput: FC<FormInputProps> = ({
+import type { FormInputProps } from './types/form-input-props'
+
+const FormInput = ({
   type,
   name,
   placeholder,
@@ -10,7 +10,7 @@ const FormInput: FC<FormInputProps> = ({
   onChange,
   error,
   errorText,
-}) => {
+}: FormInputProps): React.JSX.Element => {
   return (
     <Input
       type={type}

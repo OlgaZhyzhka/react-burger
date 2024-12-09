@@ -12,8 +12,8 @@ import { getUser } from '@/services/user/reducer'
 import { useAppSelector } from '@/services/store'
 import styles from './header-desktop.module.scss'
 
-const HeaderDesktop = () => {
-  const name = useAppSelector(getUser)?.name
+const HeaderDesktop = (): React.JSX.Element => {
+  const name: string | undefined = useAppSelector(getUser)?.name
 
   return (
     <>

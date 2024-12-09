@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-
-import { User } from '@/utils/interfaces'
-import { UserResponse } from '@/utils/types'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
+import type { User } from '@/utils/interfaces'
+import type { UserResponse } from '@/utils/types'
 import { login, logout, update } from './actions'
 
 interface UserState {

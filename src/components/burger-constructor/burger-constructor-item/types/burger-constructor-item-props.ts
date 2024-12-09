@@ -1,4 +1,4 @@
-import { Ingredient } from '@/utils/interfaces'
+import type { Ingredient } from '@/utils/interfaces'
 
 export type BurgerConstructorItemProps = {
   ingredient: Ingredient

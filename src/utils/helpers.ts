@@ -1,5 +1,5 @@
-import { Ingredient } from './interfaces'
-import { IngredientType } from './types'
+import type { Ingredient } from './interfaces'
+import type { IngredientType } from './types'
 
 export const sortIngredients = (
   ingredients: Ingredient[],

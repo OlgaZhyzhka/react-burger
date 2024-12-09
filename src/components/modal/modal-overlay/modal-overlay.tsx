@@ -1,9 +1,7 @@
-import { FC } from 'react'
-
-import { ModalOverlayProps } from './types/modal-overlay-props'
+import type { ModalOverlayProps } from './types/modal-overlay-props'
 import styles from './modal-overlay.module.scss'
 
-const ModalOverlay: FC<ModalOverlayProps> = ({ onClose }) => (
+const ModalOverlay = ({ onClose }: ModalOverlayProps): React.JSX.Element => (
   <div className={styles.root} onClick={onClose}></div>
 )
 

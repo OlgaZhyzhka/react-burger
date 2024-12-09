@@ -1,21 +1,24 @@
 import { createSelector } from 'reselect'
 
-import { RootState } from '@/services/store'
-import { IngredientsState } from './reducer'
-import { Ingredient, SortIngredients } from '@/utils/interfaces'
+import type { Ingredient, SortIngredients } from '@/utils/interfaces'
+import type { RootState } from '../store'
+import type { IngredientsState } from './reducer'
 
 export const getIngredientsState = (state: RootState): IngredientsState => state.ingredients
 export const getIngredients = (state: RootState): Ingredient[] | null => state.ingredients.data
-export const getSortedIngredients = createSelector([getIngredients], (data): SortIngredients => {
-  const sortedIngredients: SortIngredients = {
-    bun: [],
-    sauce: [],
-    main: [],
-  }
+export const getSortedIngredients = createSelector(
+  [getIngredients],
+  (data: Ingredient[] | null): SortIngredients => {
+    const sortedIngredients: SortIngredients = {
+      bun: [],
+      sauce: [],
+      main: [],
+    }
 
-  data?.forEach((ingredient: Ingredient) => {
-    sortedIngredients[ingredient.type].push(ingredient)
-  })
+    data?.forEach((ingredient: Ingredient): void => {
+      sortedIngredients[ingredient.type].push(ingredient)
+    })
 
-  return sortedIngredients
-})
+    return sortedIngredients
+  },
+)

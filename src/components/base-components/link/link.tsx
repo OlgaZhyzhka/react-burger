@@ -1,18 +1,16 @@
-import { FC } from 'react'
 import classNames from 'classnames'
 
-import { PropsWithChildren } from '@/utils/types'
-import { LinkProps } from './types/link-props.ts'
+import type { LinkProps } from './types/link-props.ts'
 import styles from './link.module.scss'
 
-const Link: FC<PropsWithChildren<LinkProps>> = ({
+const Link = ({
   href,
   className,
   target,
   rel,
   children,
   onClick,
-}) => (
+}: LinkProps): React.JSX.Element => (
   <a
     href={href}
     className={classNames(styles.link, className || '')}
