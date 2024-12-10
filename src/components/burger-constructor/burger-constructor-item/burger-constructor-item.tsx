@@ -4,6 +4,7 @@ import type { XYCoord } from 'dnd-core'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { DragConstructorItemType } from '@/utils/constants'
+import type { TDragCollectedProps, TDragObject, TDropCollectedProps } from '@/utils/types'
 import { useAppDispatch } from '@/services/store'
 import { sortBurgerIngredients } from '@/services/burger-constructor/reducer'
 import type { BurgerConstructorItemProps } from './types/burger-constructor-item-props'
@@ -15,10 +16,10 @@ const BurgerConstructorItem = ({
   onDelete,
 }: BurgerConstructorItemProps): React.JSX.Element => {
   const dispatch = useAppDispatch()
-  const ref = useRef<HTMLDivElement>(null)
-  const [, dropRef] = useDrop({
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [, dropRef] = useDrop<TDragObject, unknown, TDropCollectedProps>({
     accept: DragConstructorItemType,
-    hover: (item: { index: number }, monitor): void => {
+    hover: (item: TDragObject, monitor): void => {
       if (!ref.current) {
         return
       }
@@ -26,7 +27,7 @@ const BurgerConstructorItem = ({
       const fromIndex = item.index
       const toIndex = index
 
-      if (fromIndex === toIndex) {
+      if (!fromIndex || !toIndex || fromIndex === toIndex) {
         return
       }
 
@@ -53,7 +54,7 @@ const BurgerConstructorItem = ({
       isOver: monitor.isOver(),
     }),
   })
-  const [{ isDragging }, dragRef] = useDrag({
+  const [{ isDragging }, dragRef] = useDrag<TDragObject, unknown, TDragCollectedProps>({
     type: DragConstructorItemType,
     item: { ...ingredient, index },
     collect: monitor => ({

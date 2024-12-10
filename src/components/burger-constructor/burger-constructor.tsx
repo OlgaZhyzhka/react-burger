@@ -8,6 +8,7 @@ import classNames from 'classnames'
 
 import type { Ingredient } from '@/utils/interfaces'
 import { DragType, ROUTES } from '@/utils/constants'
+import type { TDragObject, TDropCollectedProps } from '@/utils/types'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { deleteOrder, getOrderState } from '@/services/order/reducer'
 import { createOrder } from '@/services/order/actions'
@@ -29,7 +30,7 @@ const BurgerConstructor = (): React.JSX.Element => {
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
   const user = useAppSelector(getUser)
   const isOrderButtonDisabled = !bun || ingredients.length === 0
-  const [{ isOver }, dropRef] = useDrop({
+  const [{ isOver }, dropRef] = useDrop<TDragObject, unknown, TDropCollectedProps>({
     accept: DragType,
     drop: item => {
       dispatch(addBurgerIngredient(item as Ingredient))

@@ -1,7 +1,7 @@
 import { ThreeDots } from 'react-loader-spinner'
 import classNames from 'classnames'
 
-import type { OrderBurger } from '@/utils/interfaces'
+import type { OrderResponse } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
 import { getOrder } from '@/services/order/reducer'
 import { CheckIcon } from '@/components/base-components/check-icon'
@@ -9,7 +9,7 @@ import type { OrderDetailsProps } from './types/order-details-props'
 import styles from './order-details.module.scss'
 
 const OrderDetails = ({ loading }: OrderDetailsProps): React.JSX.Element => {
-  const order: OrderBurger | null = useAppSelector(getOrder)
+  const order: OrderResponse | null = useAppSelector(getOrder)
 
   if (loading && !order) {
     return (

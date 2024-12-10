@@ -1,5 +1,5 @@
 import { API_URL, URLS } from '@/utils/constants'
-import type { ApiResponse, ErrorData } from '@/utils/interfaces'
+import type { ApiResponse, ErrorResponse } from '@/utils/interfaces'
 
 export const apiConfig = {
   headers: {
@@ -7,12 +7,12 @@ export const apiConfig = {
   },
 }
 
-const checkResponse = async (response: Response): Promise<ApiResponse> => {
+const checkResponse = async <T>(response: Response): Promise<T> => {
   if (!response.ok) {
-    const errorData: ErrorData = (await response.json()) as ErrorData
+    const errorData: ErrorResponse = (await response.json()) as ErrorResponse
     throw new Error(errorData.message || 'An error occurred')
   }
-  return (await response.json()) as ApiResponse
+  return (await response.json()) as T
 }
 
 export const refreshToken = async (): Promise<ApiResponse> => {
@@ -26,7 +26,7 @@ export const refreshToken = async (): Promise<ApiResponse> => {
     }),
   })
 
-  const refreshData = await checkResponse(response)
+  const refreshData = await checkResponse<ApiResponse>(response)
 
   if (!refreshData.success) {
     throw new Error(refreshData.message || 'Failed to refresh token')
@@ -37,13 +37,10 @@ export const refreshToken = async (): Promise<ApiResponse> => {
   return refreshData
 }
 
-export const fetchWithRefresh = async <T>(
-  url: string,
-  options: RequestInit,
-): Promise<ApiResponse<T>> => {
+export const fetchWithRefresh = async <T>(url: string, options: RequestInit): Promise<T> => {
   try {
     const res = await fetch(url, options)
-    return (await checkResponse(res)) as ApiResponse<T>
+    return await checkResponse<T>(res)
   } catch (error: unknown) {
     if (error instanceof Error && error.message === 'jwt expired') {
       const refreshData = await refreshToken()
@@ -52,7 +49,7 @@ export const fetchWithRefresh = async <T>(
         authorization: refreshData.accessToken,
       }
       const res = await fetch(url, options)
-      return (await checkResponse(res)) as ApiResponse<T>
+      return await checkResponse<T>(res)
     } else {
       return Promise.reject(error)
     }

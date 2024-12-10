@@ -5,13 +5,14 @@ import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { DragType } from '@/utils/constants'
+import type { TDragCollectedProps, TDragObject } from '@/utils/types'
 import type { IngredientItemProps } from './types/ingredient-item-props'
 import styles from './ingredient-item.module.scss'
 
 const IngredientItem = ({ ingredient, count }: IngredientItemProps): React.JSX.Element => {
   const location: RouterLocation = useLocation()
   const ingredientId = ingredient['_id']
-  const [, dragRef] = useDrag({
+  const [, dragRef] = useDrag<TDragObject, unknown, TDragCollectedProps>({
     type: DragType,
     item: ingredient,
     collect: monitor => ({

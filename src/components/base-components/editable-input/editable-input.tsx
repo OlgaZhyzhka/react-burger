@@ -13,7 +13,7 @@ const EditableInput = ({
   errorText,
   isDirty,
 }: EditableInputProps): React.JSX.Element => {
-  const inputRef = useRef<HTMLInputElement>(null)
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const [isEditable, setIsEditable] = useState(false)
   const handleIconClick = (): void => {
     setIsEditable(!isEditable)

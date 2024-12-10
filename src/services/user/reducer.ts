@@ -2,7 +2,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { createSlice } from '@reduxjs/toolkit'
 import type { User } from '@/utils/interfaces'
 import type { UserResponse } from '@/utils/types'
-import { login, logout, update } from './actions'
+import { login, register, logout, update } from './actions'
 
 interface UserState {
   user: User | null
@@ -43,6 +43,14 @@ export const userSlice = createSlice({
     })
     builder.addCase(login.rejected, (state, { error }) => {
       state.error = error.message || 'Login failed. Please check your credentials and try again.'
+    })
+    builder.addCase(register.fulfilled, (state, { payload }) => {
+      state.user = payload.user
+      state.isAuthChecked = true
+      state.error = null
+    })
+    builder.addCase(register.rejected, (state, { error }) => {
+      state.error = error.message || 'Registration failed. Please try again.'
     })
     builder.addCase(logout.fulfilled, state => {
       state.user = null

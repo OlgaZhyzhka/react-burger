@@ -43,7 +43,7 @@ export interface OrderDTO {
   ingredients: string[]
 }
 
-export interface OrderBurger {
+export interface OrderResponse {
   name: string
   order: { number: number }
 }
@@ -67,14 +67,14 @@ export interface User {
   name: string
 }
 
-export interface ErrorData {
-  message?: string
+export interface ErrorResponse {
+  message: string
 }
 
-export interface ApiResponse<T = unknown> extends ErrorData {
+export interface ApiResponse {
   success: boolean
   accessToken: string
   refreshToken: string
   user: User
-  data?: T
+  message?: string
 }

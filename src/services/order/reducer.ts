@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-import type { OrderBurger } from '@/utils/interfaces'
+import type { OrderResponse } from '@/utils/interfaces'
 import { createOrder } from '@/services/order/actions'
 
 export interface OrderState {
-  data: OrderBurger | null
+  data: OrderResponse | null
   loading: boolean
   error: unknown
 }

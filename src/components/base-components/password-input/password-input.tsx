@@ -9,7 +9,7 @@ const PasswordInput = ({
   error,
   errorText,
 }: PasswordInputProps): React.JSX.Element => {
-  const inputPasswordRef = useRef<HTMLInputElement>(null)
+  const inputPasswordRef = useRef<HTMLInputElement | null>(null)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
   const handleIconClick = (): void => {

@@ -1,4 +1,5 @@
 import { forwardRef, memo } from 'react'
+import type { ForwardedRef } from 'react'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import type { IngredientType } from '@/utils/types'
@@ -6,7 +7,7 @@ import { IngredientTypes } from '@/utils/constants'
 import type { TabsProps } from './types/tab-props'
 
 const Tabs = forwardRef<HTMLDivElement, TabsProps>(
-  ({ activeTab, onTabChange }, ref): React.JSX.Element => {
+  ({ activeTab, onTabChange }: TabsProps, ref: ForwardedRef<HTMLDivElement>): React.JSX.Element => {
     const handleTabClick = (value: string): void => {
       const newTab = value as IngredientType
       onTabChange(newTab)
