@@ -18,6 +18,15 @@ export interface Ingredient {
   key?: string
 }
 
+export interface Order {
+  _id: string
+  status: string
+  name: string
+  createdAt: string
+  number: string
+  ingredients: Ingredient[]
+}
+
 export interface SortIngredients {
   bun: Ingredient[]
   sauce: Ingredient[]

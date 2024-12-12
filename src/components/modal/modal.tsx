@@ -26,7 +26,7 @@ const Modal = ({ title, children, onClose }: ModalProps): React.JSX.Element => {
 
   return createPortal(
     <div className={styles.root}>
-      <div className={styles.container}>
+      <div className={styles.container} aria-modal="true" role="dialog">
         <ModalHeader title={title} onClose={onClose} />
         <div className={styles.body}>{children}</div>
       </div>

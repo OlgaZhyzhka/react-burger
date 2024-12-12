@@ -13,13 +13,7 @@ export type AppDispatch = typeof store.dispatch
 export const useAppDispatch = useDispatch.withTypes<AppDispatch>()
 export const useAppSelector = useSelector.withTypes<RootState>()
 
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type */
-export const configureStore = () => {
-  return createStore({
-    reducer: rootReducer,
-    devTools: process.env.NODE_ENV !== 'production',
-  })
-}
-/* eslint-enable @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type */
-
-export const store = configureStore()
+export const store = createStore({
+  reducer: rootReducer,
+  devTools: process.env.NODE_ENV !== 'production',
+})

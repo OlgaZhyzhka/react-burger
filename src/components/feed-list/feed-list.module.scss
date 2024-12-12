@@ -1,0 +1,14 @@
+@import '@/scss/abstracts/mixins';
+
+.root {
+  @include resetList;
+}
+
+.item {
+  margin-bottom: 16px;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-text);
+}

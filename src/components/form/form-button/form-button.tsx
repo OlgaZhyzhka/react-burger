@@ -18,7 +18,7 @@ const FormButton = ({ onClick, buttonText }: FormButtonProps): React.JSX.Element
 
   return (
     <Button
-      htmlType="button"
+      htmlType="submit"
       type="primary"
       size="medium"
       disabled={isLoading}

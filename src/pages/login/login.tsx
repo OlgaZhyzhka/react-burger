@@ -12,7 +12,7 @@ const Login = (): React.JSX.Element => {
   return (
     <section className="page page_center container">
       <div className="page__section">
-        <h2 className="text text_type_main-medium text_color_inactive mb-6">Вход</h2>
+        <h1 className="text text_type_main-medium text_color_inactive mb-6">Вход</h1>
         <Form onSubmit={handleSubmit} />
       </div>
     </section>

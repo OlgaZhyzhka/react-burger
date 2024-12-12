@@ -8,6 +8,7 @@ import { loadIngredients } from '@/services/ingredients/actions'
 import { getIngredientsState } from '@/services/ingredients/selectors'
 import { checkUserAuth } from '@/services/user/actions'
 import { ROUTES } from '@/utils/constants'
+import { FeedDetails } from '@/components/feed-list/feed-details'
 import { AppHeader } from '@/components/app-header'
 import { Loader } from '@/components/base-components/loader'
 import { Modal } from '@/components/modal'
@@ -48,6 +49,14 @@ const App = (): React.JSX.Element => {
             element={
               <Modal onClose={handleModalClose}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={ROUTES.feedOrder}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedDetails />
               </Modal>
             }
           />

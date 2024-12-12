@@ -57,7 +57,7 @@ const NavMobile = ({ onClose }: NavMobileProps): React.JSX.Element => {
         </li>
         <li>
           <NavLink
-            to={ROUTES.orderFeed}
+            to={ROUTES.feed}
             className={({ isActive }) =>
               classNames(isActive && styles.active, styles.link, 'pl-5 pr-5 pt-4 pb-4')
             }

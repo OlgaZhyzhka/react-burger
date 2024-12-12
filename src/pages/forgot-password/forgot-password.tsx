@@ -33,9 +33,9 @@ const ForgotPassword = (): React.JSX.Element => {
   return (
     <section className="page page_center container">
       <div className="page__section">
-        <h2 className="text text_type_main-medium text_color_inactive mb-6">
+        <h1 className="text text_type_main-medium text_color_inactive mb-6">
           Восстановление пароля
-        </h2>
+        </h1>
         <Form mode={MODE.forgotPassword} onSubmit={handleSubmit} />
       </div>
     </section>

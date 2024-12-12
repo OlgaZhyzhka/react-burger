@@ -33,3 +33,5 @@ export type TDropCollectedProps = {
   handlerId?: Identifier | null
   isOver?: boolean
 }
+
+export type OrderStatus = 'pending' | 'cancel' | 'done'

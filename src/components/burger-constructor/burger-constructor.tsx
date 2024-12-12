@@ -70,7 +70,7 @@ const BurgerConstructor = (): React.JSX.Element => {
   }
 
   return (
-    <section className={classNames(styles.root, 'pt-25 pr-4', isOver && styles.over)}>
+    <section className={classNames(styles.root, 'pt-25 pr-4')}>
       <div className={classNames(styles.anchor, 'mb-4')}>
         {bun ? (
           <ConstructorElement
@@ -78,15 +78,23 @@ const BurgerConstructor = (): React.JSX.Element => {
             isLocked
             text={bun.name}
             price={bun.price}
+            extraClass={classNames(isOver && styles.over)}
             thumbnail={bun.image_mobile}
           />
         ) : (
-          <div className="constructor-element constructor-element_pos_top text-center">
+          <div
+            className={classNames(
+              styles.empty,
+              isOver && styles.over,
+              'constructor-element constructor-element_pos_top text-center',
+            )}>
             <span>Выберите булку</span>
           </div>
         )}
       </div>
-      <div className={classNames(styles.inner, 'custom-scroll')} ref={dropRef}>
+      <div
+        className={classNames(styles.inner, isOver && styles.over, 'custom-scroll')}
+        ref={dropRef}>
         {ingredients.length > 0 ? (
           ingredients.map(ingredient => (
             <BurgerConstructorItem
@@ -97,7 +105,12 @@ const BurgerConstructor = (): React.JSX.Element => {
             />
           ))
         ) : (
-          <div className="constructor-element text-center">
+          <div
+            className={classNames(
+              styles.empty,
+              isOver && styles.over,
+              'constructor-element text-center',
+            )}>
             <span>Выберите начинку</span>
           </div>
         )}
@@ -110,10 +123,15 @@ const BurgerConstructor = (): React.JSX.Element => {
             text={bun.name}
             price={bun.price}
             thumbnail={bun.image_mobile}
-            extraClass="mt-4 flex-0 max-w-initial"
+            extraClass={classNames(isOver && styles.over, 'mt-4 flex-0 max-w-initial')}
           />
         ) : (
-          <div className="constructor-element constructor-element_pos_bottom text-center">
+          <div
+            className={classNames(
+              styles.empty,
+              isOver && styles.over,
+              'constructor-element constructor-element_pos_bottom text-center',
+            )}>
             <span>Выберите булку</span>
           </div>
         )}

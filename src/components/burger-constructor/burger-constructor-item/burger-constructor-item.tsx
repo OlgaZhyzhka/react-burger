@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import type { XYCoord } from 'dnd-core'
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import classNames from 'classnames'
 
 import { DragConstructorItemType } from '@/utils/constants'
 import type { TDragCollectedProps, TDragObject, TDropCollectedProps } from '@/utils/types'
@@ -14,6 +15,7 @@ const BurgerConstructorItem = ({
   ingredient,
   index,
   onDelete,
+  className,
 }: BurgerConstructorItemProps): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const ref = useRef<HTMLDivElement | null>(null)
@@ -65,7 +67,7 @@ const BurgerConstructorItem = ({
   dropRef(dragRef(ref))
 
   return (
-    <div className={styles.element} ref={ref} style={{ opacity }}>
+    <div className={classNames(styles.element, className && '')} ref={ref} style={{ opacity }}>
       <span className={styles.icon}>
         <DragIcon type="primary" />
       </span>

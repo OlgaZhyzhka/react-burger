@@ -27,7 +27,7 @@ const HeaderDesktop = (): React.JSX.Element => {
           Конструктор
         </NavLink>
         <NavLink
-          to={ROUTES.orderFeed}
+          to={ROUTES.feed}
           className={({ isActive }) =>
             classNames(isActive && styles.active, styles.link, 'pl-5 pr-5 pt-4 pb-4')
           }>

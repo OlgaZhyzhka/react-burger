@@ -1,8 +1,8 @@
 import { Link, useLocation } from 'react-router-dom'
 import type { Location as RouterLocation } from 'react-router'
 import { useDrag } from 'react-dnd'
-import classNames from 'classnames'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import classNames from 'classnames'
 
 import { DragType } from '@/utils/constants'
 import type { TDragCollectedProps, TDragObject } from '@/utils/types'
@@ -24,14 +24,17 @@ const IngredientItem = ({ ingredient, count }: IngredientItemProps): React.JSX.E
     <>
       <li className={styles.item} ref={dragRef}>
         <Link
-          key={ingredientId}
           to={`/ingredients/${ingredientId}`}
           state={{ background: location }}
           className={styles.link}>
           <span className={styles.counter}>
             {count > 0 && <Counter count={count} size="default" extraClass="m-1" />}
           </span>
-          <img className="ml-4 mr-4" src={ingredient.image} alt={ingredient.name} />
+          <img
+            className={classNames(styles.image, 'ml-4 mr-4')}
+            src={ingredient.image}
+            alt={ingredient.name}
+          />
           <span className={classNames(styles.price, 'mt-1 mb-1')}>
             <span className="text text_type_digits-default mr-2"> {ingredient.price} </span>
             <CurrencyIcon type="primary" />
