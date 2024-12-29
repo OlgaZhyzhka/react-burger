@@ -60,6 +60,14 @@ const App = (): React.JSX.Element => {
               </Modal>
             }
           />
+          <Route
+            path={ROUTES.profileOrder}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
         </Routes>
       )}
     </ErrorBoundary>

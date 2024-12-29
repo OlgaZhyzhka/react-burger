@@ -7,7 +7,7 @@
 
 .item {
   display: grid;
-  grid-template-columns: 64px 1fr auto; /* Иконка, текст, цена */
+  grid-template-columns: 64px 1fr auto;
   align-items: center;
   min-height: 64px;
   gap: 16px;
@@ -16,6 +16,12 @@
   &:not(:last-child) {
     margin-bottom: 16px;
   }
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  gap: 8px
 }
 
 .number {

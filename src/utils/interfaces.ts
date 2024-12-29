@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 
-import type { IngredientType } from './types'
+import type { IngredientType, OrderStatusType } from './types'
 
 export interface Ingredient {
   _id: string
@@ -18,13 +18,20 @@ export interface Ingredient {
   key?: string
 }
 
+export interface Orders {
+  success: boolean
+  orders: Order[]
+  total: number
+  totalToday: number
+}
+
 export interface Order {
   _id: string
-  status: string
+  status: OrderStatusType
   name: string
   createdAt: string
   number: string
-  ingredients: Ingredient[]
+  ingredients: string[]
 }
 
 export interface SortIngredients {
@@ -86,4 +93,11 @@ export interface ApiResponse {
   refreshToken: string
   user: User
   message?: string
+}
+
+export interface FeedResponse {
+  success: boolean
+  orders: Order[]
+  total: number
+  totalToday: number
 }

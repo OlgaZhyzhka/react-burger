@@ -1,27 +1,73 @@
+import { useEffect } from 'react'
 import classNames from 'classnames'
 
-import { orders } from '@/utils/constants'
+import { useAppDispatch, useAppSelector } from '@/services/store'
+import { wsConnect, wsDisconnect } from '@/services/feed/actions'
+import {
+  getFeedOrders,
+  getFeedOrdersDone,
+  getFeedOrdersPending,
+  getFeedStatus,
+  getFeedTotal,
+  getFeedTotalToday,
+} from '@/services/feed/selectors'
+import { ROUTES, WebSocketStatus, WS_ALL_ORDERS, WS_URL } from '@/utils/constants'
 import { OrderList } from '@/components/order-list'
+import { Loader } from '@/components/base-components/loader'
 import { FeedList } from '@/components/feed-list'
 import styles from './feed.module.scss'
 
-const Feed = (): React.JSX.Element => {
+const Feed = (): React.JSX.Element | null => {
+  const status = useAppSelector(getFeedStatus)
+  const orders = useAppSelector(getFeedOrders)
+  const total = useAppSelector(getFeedTotal)
+  const totalToday = useAppSelector(getFeedTotalToday)
+  const ordersDone = useAppSelector(getFeedOrdersDone)
+  const ordersPending = useAppSelector(getFeedOrdersPending)
+  const dispatch = useAppDispatch()
+
+  const isDisconnected = status !== WebSocketStatus.OPEN
+
+  useEffect(() => {
+    dispatch(wsConnect({ url: `${WS_URL}${WS_ALL_ORDERS}` }))
+
+    return () => {
+      dispatch(wsDisconnect())
+    }
+  }, [dispatch])
+
+  if (status === WebSocketStatus.CONNECTING) {
+    return <Loader />
+  }
+
+  if (orders === null) {
+    return null
+  }
+
+  if (isDisconnected) {
+    return (
+      <section className="page page_order container">
+        <h1 className="text text_type_main-large mb-5">Ошибка подключения</h1>
+      </section>
+    )
+  }
+
   return (
     <section className="page page_order container">
       <div className="row">
         <div className="col">
-          <div className={styles.feed}>
+          <div className={classNames(styles.feed, styles.feedOrder)}>
             <h1 className="text text_type_main-large mb-5">Лента заказов</h1>
             <div className={classNames(styles.feedList, 'custom-scroll')}>
-              <FeedList orders={orders} />
+              <FeedList linkTo={ROUTES.feed} orders={orders} />
             </div>
           </div>
         </div>
         <div className="col">
-          <div className={styles.statistics}>
+          <div className={classNames(styles.feed, styles.statistics)}>
             <h2 className={classNames(styles.readyTitle, 'text text_type_main-medium')}>Готовы:</h2>
             <OrderList
-              orders={orders}
+              orders={ordersDone}
               className={classNames(
                 styles.readyList,
                 'text text_type_digits-default list-no-style',
@@ -31,7 +77,7 @@ const Feed = (): React.JSX.Element => {
               В работе:
             </h2>
             <OrderList
-              orders={orders}
+              orders={ordersPending}
               className={classNames(
                 styles.inWorkList,
                 'text text_type_digits-default list-no-style',
@@ -40,15 +86,19 @@ const Feed = (): React.JSX.Element => {
             <h2 className={classNames(styles.totalTitle, 'text text_type_main-medium')}>
               Выполнено за все время:
             </h2>
-            <span className={classNames(styles.totalValue, 'text text_type_digits-large')}>
-              28 752
-            </span>
+            {total && (
+              <span className={classNames(styles.totalValue, 'text text_type_digits-large')}>
+                {total}
+              </span>
+            )}
             <h2 className={classNames(styles.totalCurrentTitle, 'text text_type_main-medium')}>
               Выполнено за сегодня:
             </h2>
-            <span className={classNames(styles.totalCurrentValue, 'text text_type_digits-large')}>
-              138
-            </span>
+            {totalToday && (
+              <span className={classNames(styles.totalCurrentValue, 'text text_type_digits-large')}>
+                {totalToday}
+              </span>
+            )}
           </div>
         </div>
       </div>

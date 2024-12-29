@@ -2,10 +2,10 @@
 
 .root {
   @include resetList;
+  columns: 2;
 }
 
 .item {
-
   &:not(:last-child) {
     margin-bottom: 8px;
   }

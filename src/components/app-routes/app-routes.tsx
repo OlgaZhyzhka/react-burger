@@ -34,8 +34,30 @@ const AppRoutes = ({ location, background }: AppRoutesProps): React.JSX.Element 
       path={ROUTES.resetPassword}
       element={<ProtectedRouteOnlyUnAuth children={<ResetPassword />} />}
     />
-    <Route path={ROUTES.ingredient} element={<IngredientDetails />} />
-    <Route path={ROUTES.feedOrder} element={<FeedDetails />} />
+    <Route
+      path={ROUTES.ingredient}
+      element={
+        <div className="page page_center">
+          <IngredientDetails />
+        </div>
+      }
+    />
+    <Route
+      path={ROUTES.feedOrder}
+      element={
+        <div className="page page_center">
+          <FeedDetails />
+        </div>
+      }
+    />
+    <Route
+      path={ROUTES.profileOrder}
+      element={
+        <div className="page page_center">
+          <FeedDetails />
+        </div>
+      }
+    />
     <Route path={ROUTES.notFound} element={<NotFound404 />} />
   </Routes>
 )

@@ -3,13 +3,13 @@
   flex-direction: column;
 }
 
-.price {
-  grid-area: price;
-  justify-self: end;
-}
-
 .status {
   color: var(--success);
+}
+
+.number {
+  transform: translateY(-25px);
+  z-index: -1;
 }
 
 .body {

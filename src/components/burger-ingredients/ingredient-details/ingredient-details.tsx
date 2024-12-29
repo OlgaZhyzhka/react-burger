@@ -20,6 +20,7 @@ const IngredientDetails = (): React.JSX.Element | null => {
 
   return (
     <div className={styles.item}>
+      <h2 className="text text_type_main-large">Детали ингредиента</h2>
       <img src={ingredient.image_large} alt={ingredient.name} />
       <h3 className="text_type_main-medium mt-4 mb-8">{ingredient.name}</h3>
       <ul className={styles.list}>

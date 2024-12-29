@@ -4,6 +4,7 @@
     'number date'
     '. .' 24px
     'title title'
+    'status status'
     '. .' 24px
     'ingredients price'
     / 1fr auto;
@@ -23,6 +24,11 @@
 
 .title {
   grid-area: title;
+}
+
+.status {
+  grid-area: status;
+  color: var(--success);
 }
 
 .ingredients {

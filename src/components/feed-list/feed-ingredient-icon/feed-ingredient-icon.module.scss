@@ -7,7 +7,7 @@
   height: 64px;
   border-radius: 50%;
   background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%),
-  linear-gradient(0deg, #131316, #131316);
+    linear-gradient(0deg, #131316, #131316);
   border: 3px solid transparent;
 
   &::after {
@@ -40,5 +40,5 @@
 }
 
 .end {
-  opacity: .65;
+  opacity: 0.65;
 }

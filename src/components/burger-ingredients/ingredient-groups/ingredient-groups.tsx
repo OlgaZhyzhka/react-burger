@@ -3,7 +3,7 @@ import type { ForwardedRef } from 'react'
 import classNames from 'classnames'
 
 import type { IngredientType } from '@/utils/types'
-import type { IngredientCount } from '@/utils/interfaces'
+import type { Ingredient, IngredientCount } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
 import { getBurgerConstructor } from '@/services/burger-constructor/selectors'
 import { getSortedIngredients } from '@/services/ingredients/selectors'
@@ -26,7 +26,7 @@ const IngredientGroups = forwardRef<
       if (bun) {
         count[bun._id] = 2
       }
-      ingredients.forEach(ingredient => {
+      ingredients.forEach((ingredient: Ingredient) => {
         count[ingredient._id] = (count[ingredient._id] || 0) + 1
       })
       return count

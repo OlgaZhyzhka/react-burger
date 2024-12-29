@@ -6,18 +6,30 @@
 }
 
 .item {
-  transition: scale 0.15s ease-out;
+
   margin-left: -16px;
 
   &:first-child {
     margin-left: 0;
   }
 
-  &:hover {
-    scale: 1.05;
-    filter: drop-shadow(0 0 10px rgba(51, 51, 255, 0.45)) drop-shadow(0 0 30px rgba(51, 51, 255, 0.45));
-  }
 }
 
+@media (hover: hover) {
+  .root {
+    &:hover {
+      .item {
+        margin-left: -8px;
+      }
+    }
+  }
+  .item {
+    transition: scale 0.15s ease-out, margin-left 0.15s ease-out;
 
-
+    &:hover {
+      scale: 1.05;
+      z-index: 10 !important;
+      filter: drop-shadow(0 0 10px rgba(51, 51, 255, 0.45)) drop-shadow(0 0 30px rgba(51, 51, 255, 0.45));
+    }
+  }
+}

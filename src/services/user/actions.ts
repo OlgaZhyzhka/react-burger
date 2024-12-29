@@ -11,14 +11,14 @@ import type { AuthDTO, ApiResponse } from '@/utils/interfaces'
 import type { LoginDTO, UpdateUserDTO, UserResponse } from '@/utils/types'
 import { setIsAuthChecked, setUser } from './reducer'
 
-export const login = createAsyncThunk<ApiResponse, LoginDTO>(
+export const login = createAsyncThunk(
   'user/login',
   async (authDTO: LoginDTO): Promise<ApiResponse> => {
     return await fetchLogin(authDTO)
   },
 )
 
-export const register = createAsyncThunk<ApiResponse, AuthDTO>(
+export const register = createAsyncThunk(
   'user/register',
   async (authDTO: AuthDTO): Promise<ApiResponse> => {
     return await fetchRegister(authDTO)
@@ -29,7 +29,7 @@ export const logout = createAsyncThunk('user/logout', async (): Promise<void> =>
   return await fetchLogout()
 })
 
-export const update = createAsyncThunk<UserResponse, UpdateUserDTO>(
+export const update = createAsyncThunk(
   'user/update',
   async (userData: UpdateUserDTO): Promise<UserResponse> => {
     return await fetchUpdateUserData(userData)

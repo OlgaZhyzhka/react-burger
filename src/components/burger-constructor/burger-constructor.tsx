@@ -10,8 +10,8 @@ import type { Ingredient } from '@/utils/interfaces'
 import { DragType, ROUTES } from '@/utils/constants'
 import type { TDragObject, TDropCollectedProps } from '@/utils/types'
 import { useAppDispatch, useAppSelector } from '@/services/store'
-import { deleteOrder, getOrderState } from '@/services/order/reducer'
-import { createOrder } from '@/services/order/actions'
+import { deleteBurgerOrder, getBurgerOrderState } from '@/services/burger-order/reducer'
+import { createBurgerOrder } from '@/services/burger-order/actions'
 import { addBurgerIngredient, clearBurger } from '@/services/burger-constructor/reducer'
 import { deleteBurgerIngredient } from '@/services/burger-constructor/reducer'
 import { getBurgerConstructor, getOrderIngredients } from '@/services/burger-constructor/selectors'
@@ -25,7 +25,7 @@ import styles from './burger-constructor.module.scss'
 const BurgerConstructor = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const navigate: NavigateFunction = useNavigate()
-  const { loading, data: currentOrder } = useAppSelector(getOrderState)
+  const { loading, data: currentOrder } = useAppSelector(getBurgerOrderState)
   const orderIngredients = useAppSelector(getOrderIngredients)
   const { bun, ingredients } = useAppSelector(getBurgerConstructor)
   const user = useAppSelector(getUser)
@@ -40,7 +40,10 @@ const BurgerConstructor = (): React.JSX.Element => {
     }),
   })
   const price = useMemo<number>((): number => {
-    const ingredientsPrice = ingredients.reduce((acc, ingredient) => acc + ingredient.price, 0)
+    const ingredientsPrice = ingredients.reduce(
+      (acc: number, ingredient: Ingredient) => acc + ingredient.price,
+      0,
+    )
     const bunPrice = bun ? bun.price * 2 : 0
     return ingredientsPrice + bunPrice
   }, [bun, ingredients])
@@ -52,7 +55,7 @@ const BurgerConstructor = (): React.JSX.Element => {
     }
 
     try {
-      const resultAction = await dispatch(createOrder(orderIngredients))
+      const resultAction = await dispatch(createBurgerOrder(orderIngredients))
       unwrapResult(resultAction)
       dispatch(clearBurger())
     } catch (error) {
@@ -60,7 +63,7 @@ const BurgerConstructor = (): React.JSX.Element => {
     }
   }
   const handleClose = (): void => {
-    dispatch(deleteOrder())
+    dispatch(deleteBurgerOrder())
   }
 
   const onDelete = (key: string | undefined): void => {
@@ -96,7 +99,7 @@ const BurgerConstructor = (): React.JSX.Element => {
         className={classNames(styles.inner, isOver && styles.over, 'custom-scroll')}
         ref={dropRef}>
         {ingredients.length > 0 ? (
-          ingredients.map(ingredient => (
+          ingredients.map((ingredient: Ingredient) => (
             <BurgerConstructorItem
               key={ingredient.key}
               ingredient={ingredient}

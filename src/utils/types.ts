@@ -1,9 +1,13 @@
 import type { Identifier } from 'dnd-core'
 
-import type { IngredientTypes, MODE } from './constants'
+import type { IngredientTypes, MODE, OrderStatus, WebSocketStatus } from './constants'
 import type { AuthDTO, ApiResponse, Ingredient } from './interfaces'
 
 export type IngredientType = (typeof IngredientTypes)[keyof typeof IngredientTypes]
+
+export type WebSocketStatusType = (typeof WebSocketStatus)[keyof typeof WebSocketStatus]
+
+export type OrderStatusType = keyof typeof OrderStatus
 
 export type PropsWithChildren<P = unknown> = P & { children: React.JSX.Element }
 
@@ -34,4 +38,7 @@ export type TDropCollectedProps = {
   isOver?: boolean
 }
 
-export type OrderStatus = 'pending' | 'cancel' | 'done'
+export type WsConnectPayload = {
+  url: string
+  token?: string
+}

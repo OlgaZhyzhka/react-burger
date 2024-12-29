@@ -10,14 +10,16 @@ const FeedIngredientIcon = ({
 }: FeedIngredientIconProps): React.JSX.Element => {
   return hideItemCount > 0 ? (
     <div className={classNames(styles.root, className)}>
-      <img className={classNames(styles.image, styles.end)} src={image} alt="ingredient" />
+      {image && (
+        <img className={classNames(styles.image, styles.end)} src={image} alt="ingredient icon" />
+      )}
       <span className={classNames(styles.count, 'text text_type_main-default')}>
         +{hideItemCount}
       </span>
     </div>
   ) : (
     <div className={classNames(styles.root, className)}>
-      <img className={classNames(styles.image, className)} src={image} alt="ingredient" />
+      {image && <img className={styles.image} src={image} alt="ingredient icon" />}
     </div>
   )
 }

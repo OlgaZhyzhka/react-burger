@@ -22,3 +22,13 @@ export const getSortedIngredients = createSelector(
     return sortedIngredients
   },
 )
+export const getMappedIngredients = createSelector(
+  [getIngredients],
+  (data: Ingredient[] | null): Map<string, Ingredient> => {
+    const ingredientMap = new Map<string, Ingredient>()
+    data?.forEach(ingredient => {
+      ingredientMap.set(ingredient._id, ingredient)
+    })
+    return ingredientMap
+  },
+)

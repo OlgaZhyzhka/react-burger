@@ -1,5 +1,5 @@
 export type FeedIngredientIconProps = {
-  image: string
+  image: string | undefined
   hideItemCount?: number
   className?: string
 }
