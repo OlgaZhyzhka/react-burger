@@ -5,7 +5,7 @@ import type {
 } from '@reduxjs/toolkit'
 import type { RootState } from '@/services/store'
 import { refreshToken } from '@/core/api/api-utils'
-import { RECONNECT_PERIOD } from '@/utils/constants'
+import { ERROR_TOKEN, RECONNECT_PERIOD } from '@/utils/constants'
 import type { WsConnectPayload } from '@/utils/types'
 
 export type WsActionTypes<S, R> = {
@@ -64,7 +64,7 @@ export const socketMiddleware = <S, R>(
           try {
             const parsedData = JSON.parse(data) as R & { message?: string }
 
-            if (withTokenRefresh && parsedData.message === 'Invalid or missing token') {
+            if (withTokenRefresh && parsedData.message === ERROR_TOKEN) {
               refreshToken()
                 .then(refreshData => {
                   const wssUrl = new URL(url)

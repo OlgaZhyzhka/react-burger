@@ -1,20 +1,39 @@
+import { useMemo, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
 import type { Order } from '@/utils/interfaces'
 import { OrderStatus } from '@/utils/constants'
-import { useAppSelector } from '@/services/store'
+import { useAppDispatch, useAppSelector } from '@/services/store'
+import { getProfileFeedOrders } from '@/services/profile-feed/selectors'
 import { getFeedOrders } from '@/services/feed/selectors'
+import { getCurrentOrder } from '@/services/burger-order/reducer'
+import { getOrderByNumber } from '@/services/burger-order/actions'
 import BurgerTotal from '@/components/burger-constructor/burger-total/burger-total'
 import FeedOrderIngredients from '../feed-order-ingredients/feed-order-ingredients'
 import styles from './feed-details.module.scss'
 
 const FeedDetails = (): React.JSX.Element | null => {
+  const dispatch = useAppDispatch()
   const { feedId, orderId } = useParams<{ feedId?: string; orderId?: string }>()
   const id = feedId || orderId
-  const orders = useAppSelector(getFeedOrders)
-  const order = orders?.find((item: Order): boolean => item._id === id)
+  const feedOrders = useAppSelector(getFeedOrders)
+  const profileOrders = useAppSelector(getProfileFeedOrders)
+  const currentOrder = useAppSelector(getCurrentOrder)
+  const order = useMemo(() => {
+    return (
+      currentOrder ||
+      feedOrders?.find((item: Order): boolean => item._id === id) ||
+      profileOrders?.find((item: Order): boolean => item._id === id)
+    )
+  }, [feedOrders, profileOrders, id])
+
+  useEffect(() => {
+    if (!order && id) {
+      dispatch(getOrderByNumber(id))
+    }
+  }, [id])
 
   if (!order) return null
 

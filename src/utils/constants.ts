@@ -3,7 +3,7 @@ export const WS_URL = 'wss://norma.nomoreparties.space'
 export const WS_ALL_ORDERS = '/orders/all'
 export const WS_USER_ORDERS = '/orders'
 export const RECONNECT_PERIOD = 3000
-
+export const ERROR_TOKEN = 'Invalid or missing token'
 export const modalRoot = 'modal-root'
 export const DragType = 'ingredient'
 export const DragConstructorItemType = 'burger-ingredient'

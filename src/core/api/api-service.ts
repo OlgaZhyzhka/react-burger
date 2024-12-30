@@ -1,5 +1,13 @@
 import { API_URL, URLS } from '@/utils/constants'
-import type { AuthDTO, ApiResponse, Ingredient, OrderResponse, OrderDTO } from '@/utils/interfaces'
+import type {
+  AuthDTO,
+  ApiResponse,
+  Ingredient,
+  OrderResponse,
+  OrderDTO,
+  Order,
+  FetchOrderByNumberResponse,
+} from '@/utils/interfaces'
 import type {
   ForgotPasswordDTO,
   LoginDTO,
@@ -171,6 +179,25 @@ export const fetchResetPassword = async ({ password, code }: ResetPasswordDTO): 
     })
   } catch (error) {
     console.error('Failed to reset password:', error)
+    throw error
+  }
+}
+
+export const fetchOrderByNumber = async (number: string): Promise<Order> => {
+  try {
+    const response = await fetchWithRefresh<FetchOrderByNumberResponse>(
+      `${API_URL}/orders/${number}`,
+      {
+        headers: {
+          ...apiConfig.headers,
+          authorization: localStorage.getItem('accessToken') || '',
+        },
+      },
+    )
+
+    return response.orders[0]
+  } catch (error) {
+    console.error('Failed to get order by number:', error)
     throw error
   }
 }

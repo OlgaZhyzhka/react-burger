@@ -34,6 +34,10 @@ export interface Order {
   ingredients: string[]
 }
 
+export interface FetchOrderByNumberResponse {
+  orders: Order[]
+}
+
 export interface SortIngredients {
   bun: Ingredient[]
   sauce: Ingredient[]
