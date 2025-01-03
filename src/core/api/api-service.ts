@@ -183,7 +183,7 @@ export const fetchResetPassword = async ({ password, code }: ResetPasswordDTO): 
   }
 }
 
-export const fetchOrderByNumber = async (number: string): Promise<Order> => {
+export const fetchOrderByNumber = async (number: number): Promise<Order> => {
   try {
     const response = await fetchWithRefresh<FetchOrderByNumberResponse>(
       `${API_URL}/orders/${number}`,

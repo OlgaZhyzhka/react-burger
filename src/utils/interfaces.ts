@@ -30,7 +30,8 @@ export interface Order {
   status: OrderStatusType
   name: string
   createdAt: string
-  number: string
+  updatedAt: string
+  number: number
   ingredients: string[]
 }
 

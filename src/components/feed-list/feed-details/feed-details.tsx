@@ -16,33 +16,35 @@ import styles from './feed-details.module.scss'
 
 const FeedDetails = (): React.JSX.Element | null => {
   const dispatch = useAppDispatch()
-  const { feedId, orderId } = useParams<{ feedId?: string; orderId?: string }>()
-  const id = feedId || orderId
+  const { number } = useParams<{ number: string }>()
+  const orderNumber = number ? parseInt(number, 10) : null
   const feedOrders = useAppSelector(getFeedOrders)
   const profileOrders = useAppSelector(getProfileFeedOrders)
   const currentOrder = useAppSelector(getCurrentOrder)
   const order = useMemo(() => {
     return (
       currentOrder ||
-      feedOrders?.find((item: Order): boolean => item._id === id) ||
-      profileOrders?.find((item: Order): boolean => item._id === id)
+      feedOrders?.find((item: Order): boolean => item.number === orderNumber) ||
+      profileOrders?.find((item: Order): boolean => item.number === orderNumber)
     )
-  }, [feedOrders, profileOrders, id])
+  }, [feedOrders, profileOrders, orderNumber])
 
   useEffect(() => {
-    if (!order && id) {
-      dispatch(getOrderByNumber(id))
+    if (!order && orderNumber) {
+      dispatch(getOrderByNumber(orderNumber))
     }
-  }, [id])
+  }, [number])
 
   if (!order) return null
 
-  const { name, number, status, createdAt, ingredients } = order
+  const { name, number: orderNum, status, createdAt, ingredients } = order
   const date = new Date(createdAt)
 
   return (
     <article className={styles.root}>
-      <span className={classNames(styles.number, 'text text_type_digits-default')}>#{number}</span>
+      <span className={classNames(styles.number, 'text text_type_digits-default')}>
+        #{orderNum}
+      </span>
       <h2 className={classNames(styles.title, 'text text_type_main-medium mb-2')}>{name}</h2>
       <span className={classNames(styles.status, 'text text_type_main-default')}>
         {OrderStatus[status]}

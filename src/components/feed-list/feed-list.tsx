@@ -18,7 +18,7 @@ const FeedList = ({
       {orders.map((order, index) => (
         <li key={index} className={styles.item}>
           <Link
-            to={`${linkTo}/${order._id}`}
+            to={`${linkTo}/${order.number}`}
             state={{ background: location }}
             className={styles.link}>
             <FeedCard order={order} isStatus={isStatus} />

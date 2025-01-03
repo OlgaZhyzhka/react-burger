@@ -22,9 +22,9 @@ export const ROUTES = {
   profile: '/profile',
   profileInfo: '/profile/info',
   profileOrders: '/profile/orders',
-  profileOrder: '/profile/orders/:orderId',
+  profileOrder: '/profile/orders/:number',
   feed: '/feed',
-  feedOrder: '/feed/:feedId',
+  feedOrder: '/feed/:number',
   ingredient: '/ingredients/:ingredientId',
   notFound: '*',
 } as const
