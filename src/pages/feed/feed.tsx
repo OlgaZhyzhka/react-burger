@@ -4,9 +4,9 @@ import classNames from 'classnames'
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { wsConnect, wsDisconnect } from '@/services/feed/actions'
 import {
-  getFeedOrders,
   getFeedOrdersDone,
   getFeedOrdersPending,
+  getFeedOrdersWithTotalPrice,
   getFeedStatus,
   getFeedTotal,
   getFeedTotalToday,
@@ -19,7 +19,7 @@ import styles from './feed.module.scss'
 
 const Feed = (): React.JSX.Element | null => {
   const status = useAppSelector(getFeedStatus)
-  const orders = useAppSelector(getFeedOrders)
+  const orders = useAppSelector(getFeedOrdersWithTotalPrice)
   const total = useAppSelector(getFeedTotal)
   const totalToday = useAppSelector(getFeedTotalToday)
   const ordersDone = useAppSelector(getFeedOrdersDone)

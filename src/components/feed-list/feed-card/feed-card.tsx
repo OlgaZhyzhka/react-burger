@@ -1,15 +1,15 @@
 import { FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
-import { OrderStatus } from '@/utils/constants'
+import { MAX_VISIBLE_INGREDIENTS_COUNT, OrderStatus } from '@/utils/constants'
 import BurgerTotal from '@/components/burger-constructor/burger-total/burger-total'
 import type { FeedCardProps } from './types/feed-card-props'
 import { FeedIngredients } from '../feed-ingredients'
 import styles from './feed-card.module.scss'
 
 const FeedCard = ({ order, isStatus = false }: FeedCardProps): React.JSX.Element => {
-  const { name, number, status, createdAt, ingredients } = order
-
+  const { name, number, status, createdAt, ingredients, totalPrice } = order
+  const uniqueIngredients = [...new Set(ingredients)]
   const date = new Date(createdAt)
 
   return (
@@ -35,11 +35,11 @@ const FeedCard = ({ order, isStatus = false }: FeedCardProps): React.JSX.Element
         </span>
       )}
       <FeedIngredients
-        maxVisibleItemCount={6}
+        maxVisibleItemCount={MAX_VISIBLE_INGREDIENTS_COUNT}
         className={styles.ingredients}
-        ingredients={ingredients}
+        ingredients={uniqueIngredients}
       />
-      <BurgerTotal className={styles.price} currentPrice={480} />
+      {totalPrice && <BurgerTotal currentPrice={totalPrice} className={styles.price} />}
     </article>
   )
 }

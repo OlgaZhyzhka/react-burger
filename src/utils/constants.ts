@@ -83,13 +83,4 @@ export const forgotPasswordValidationSchema = {
   email: (value: string): string | null => (!value ? 'Email is required' : null),
 }
 
-export const orders = [
-  {
-    _id: '60d3b41abdacab0026a733c7',
-    number: '034536',
-    createdAt: '2024-12-11T12:59:00.000Z',
-    name: 'Бессмертный оракул',
-    status: 'done',
-    ingredients: ['643d69a5c3f7b9001cfa093c', '643d69a5c3f7b9001cfa0941'],
-  },
-]
+export const MAX_VISIBLE_INGREDIENTS_COUNT = 3

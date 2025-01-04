@@ -33,6 +33,7 @@ export interface Order {
   updatedAt: string
   number: number
   ingredients: string[]
+  totalPrice?: number
 }
 
 export interface FetchOrderByNumberResponse {

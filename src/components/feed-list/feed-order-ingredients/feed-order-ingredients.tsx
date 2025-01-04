@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 import classNames from 'classnames'
 
@@ -12,10 +13,21 @@ const FeedOrderIngredients = ({
   className = '',
 }: FeedOrderIngredientsProps): React.JSX.Element => {
   const mappedIngredients = useAppSelector(getMappedIngredients)
+  const ingredientCount = useMemo(
+    () =>
+      ingredients.reduce(
+        (countMap, ingredientId) => {
+          countMap[ingredientId] = (countMap[ingredientId] || 0) + 1
+          return countMap
+        },
+        {} as Record<string, number>,
+      ),
+    [ingredients],
+  )
 
   return (
     <ul className={classNames(styles.root, className)}>
-      {ingredients.map((ingredientId, index) => {
+      {Object.entries(ingredientCount).map(([ingredientId, count], index) => {
         const ingredient = mappedIngredients.get(ingredientId)
 
         if (!ingredient) {
@@ -27,7 +39,9 @@ const FeedOrderIngredients = ({
             <FeedIngredientIcon className={styles.icon} image={ingredient.image} />
             <h3 className="text text_type_main-default">{ingredient.name}</h3>
             <span className={classNames(styles.price)}>
-              <span className="text text_type_digits-default mr-2"> 3 x {ingredient.price} </span>
+              <span className="text text_type_digits-default mr-2">
+                {count} x {ingredient.price}{' '}
+              </span>
               <CurrencyIcon type="primary" />
             </span>
           </li>

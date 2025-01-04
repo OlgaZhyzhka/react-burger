@@ -19,17 +19,12 @@ const initialState: BurgerOrderState = {
 }
 
 export const burgerOrderSlice = createSlice({
-  name: 'order',
+  name: 'burgerOrder',
   initialState,
   reducers: {
     deleteBurgerOrder: state => {
       state.data = null
     },
-  },
-  selectors: {
-    getBurgerOrderState: state => state,
-    getBurgerOrder: state => state.data,
-    getCurrentOrder: state => state.currentOrder,
   },
   extraReducers: builder => {
     builder
@@ -51,5 +46,4 @@ export const burgerOrderSlice = createSlice({
   },
 })
 
-export const { getBurgerOrderState, getBurgerOrder, getCurrentOrder } = burgerOrderSlice.selectors
 export const { deleteBurgerOrder } = burgerOrderSlice.actions

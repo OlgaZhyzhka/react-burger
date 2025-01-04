@@ -37,7 +37,7 @@ const AppRoutes = ({ location, background }: AppRoutesProps): React.JSX.Element 
     <Route
       path={ROUTES.ingredient}
       element={
-        <div className="page page_center">
+        <div className="page page_center page_modal">
           <IngredientDetails />
         </div>
       }
@@ -45,7 +45,7 @@ const AppRoutes = ({ location, background }: AppRoutesProps): React.JSX.Element 
     <Route
       path={ROUTES.feedOrder}
       element={
-        <div className="page page_center">
+        <div className="page page_center page_modal">
           <FeedDetails />
         </div>
       }
@@ -53,7 +53,7 @@ const AppRoutes = ({ location, background }: AppRoutesProps): React.JSX.Element 
     <Route
       path={ROUTES.profileOrder}
       element={
-        <div className="page page_center">
+        <div className="page page_center page_modal">
           <FeedDetails />
         </div>
       }

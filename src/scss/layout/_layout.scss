@@ -45,6 +45,10 @@
   }
 
   &_modal {
+    @media screen and (min-width: 1200px) {
+      width: 640px;
+      margin: auto;
+    }
   }
 }
 

@@ -3,7 +3,10 @@ import classNames from 'classnames'
 
 import { useAppDispatch, useAppSelector } from '@/services/store'
 import { wsProfileFeedConnect, wsProfileFeedDisconnect } from '@/services/profile-feed/actions'
-import { getProfileFeedOrders, getProfileFeedStatus } from '@/services/profile-feed/selectors'
+import {
+  getProfileFeedOrdersWithTotalPrice,
+  getProfileFeedStatus,
+} from '@/services/profile-feed/selectors'
 import { ROUTES, WebSocketStatus, WS_URL, WS_USER_ORDERS } from '@/utils/constants'
 import { FeedList } from '@/components/feed-list'
 import styles from './profile-order.module.scss'
@@ -11,7 +14,7 @@ import { Loader } from '@/components/base-components/loader'
 
 const ProfileOrder = (): React.JSX.Element | null => {
   const status = useAppSelector(getProfileFeedStatus)
-  const orders = useAppSelector(getProfileFeedOrders)
+  const orders = useAppSelector(getProfileFeedOrdersWithTotalPrice)
   const dispatch = useAppDispatch()
   const isDisconnected = status !== WebSocketStatus.OPEN
 

@@ -6,10 +6,10 @@ import classNames from 'classnames'
 import type { Order } from '@/utils/interfaces'
 import { OrderStatus } from '@/utils/constants'
 import { useAppDispatch, useAppSelector } from '@/services/store'
-import { getProfileFeedOrders } from '@/services/profile-feed/selectors'
-import { getFeedOrders } from '@/services/feed/selectors'
-import { getCurrentOrder } from '@/services/burger-order/reducer'
+import { getProfileFeedOrdersWithTotalPrice } from '@/services/profile-feed/selectors'
+import { getFeedOrdersWithTotalPrice } from '@/services/feed/selectors'
 import { getOrderByNumber } from '@/services/burger-order/actions'
+import { getBurgerOrderCurrentOrderWithTotalPrice } from '@/services/burger-order/selectors'
 import BurgerTotal from '@/components/burger-constructor/burger-total/burger-total'
 import FeedOrderIngredients from '../feed-order-ingredients/feed-order-ingredients'
 import styles from './feed-details.module.scss'
@@ -18,9 +18,9 @@ const FeedDetails = (): React.JSX.Element | null => {
   const dispatch = useAppDispatch()
   const { number } = useParams<{ number: string }>()
   const orderNumber = number ? parseInt(number, 10) : null
-  const feedOrders = useAppSelector(getFeedOrders)
-  const profileOrders = useAppSelector(getProfileFeedOrders)
-  const currentOrder = useAppSelector(getCurrentOrder)
+  const feedOrders = useAppSelector(getFeedOrdersWithTotalPrice)
+  const profileOrders = useAppSelector(getProfileFeedOrdersWithTotalPrice)
+  const currentOrder = useAppSelector(getBurgerOrderCurrentOrderWithTotalPrice)
   const order = useMemo(() => {
     return (
       currentOrder ||
@@ -37,7 +37,7 @@ const FeedDetails = (): React.JSX.Element | null => {
 
   if (!order) return null
 
-  const { name, number: orderNum, status, createdAt, ingredients } = order
+  const { name, number: orderNum, status, createdAt, ingredients, totalPrice } = order
   const date = new Date(createdAt)
 
   return (
@@ -67,7 +67,7 @@ const FeedDetails = (): React.JSX.Element | null => {
           }
           className={classNames(styles.date, 'text text_type_main-default text_color_inactive')}
         />
-        <BurgerTotal currentPrice={480} />
+        {totalPrice && <BurgerTotal currentPrice={totalPrice} />}
       </div>
     </article>
   )

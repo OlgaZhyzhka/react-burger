@@ -3,7 +3,7 @@ import classNames from 'classnames'
 
 import type { OrderResponse } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
-import { getBurgerOrder } from '@/services/burger-order/reducer'
+import { getBurgerOrder } from '@/services/burger-order/selectors'
 import { CheckIcon } from '@/components/base-components/check-icon'
 import type { OrderDetailsProps } from './types/order-details-props'
 import styles from './order-details.module.scss'

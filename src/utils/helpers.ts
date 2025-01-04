@@ -1,4 +1,4 @@
-import type { Ingredient } from './interfaces'
+import type { Ingredient, Order } from './interfaces'
 import type { IngredientType } from './types'
 
 export const sortIngredients = (
@@ -15,4 +15,14 @@ export const sortIngredients = (
   })
 
   return sortedIngredients
+}
+
+export const getOrderTotalPrice = (
+  ingredientMap: Map<string, Ingredient>,
+  order: Order,
+): number => {
+  return order.ingredients.reduce((total, ingredientId) => {
+    const ingredient = ingredientMap.get(ingredientId)
+    return ingredient ? total + ingredient.price : total
+  }, 0)
 }
