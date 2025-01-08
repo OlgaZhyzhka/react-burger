@@ -1,4 +1,4 @@
-import { Ingredient, IngredientCount } from '@/utils/interfaces'
+import type { Ingredient, IngredientCount } from '@/utils/interfaces'
 
 export type IngredientGroupProps = {
   ingredients: Ingredient[]

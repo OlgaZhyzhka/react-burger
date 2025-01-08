@@ -1,8 +1,9 @@
-import { FC, useRef, useState, useEffect } from 'react'
-import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
-import { EditableInputProps } from './types/editable-input-props'
+import { useRef, useState, useEffect } from 'react'
 
-const EditableInput: FC<EditableInputProps> = ({
+import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
+import type { EditableInputProps } from './types/editable-input-props'
+
+const EditableInput = ({
   type,
   name,
   placeholder,
@@ -11,17 +12,17 @@ const EditableInput: FC<EditableInputProps> = ({
   error,
   errorText,
   isDirty,
-}) => {
-  const inputRef = useRef<HTMLInputElement>(null)
+}: EditableInputProps): React.JSX.Element => {
+  const inputRef = useRef<HTMLInputElement | null>(null)
   const [isEditable, setIsEditable] = useState(false)
-  const handleIconClick = () => {
+  const handleIconClick = (): void => {
     setIsEditable(!isEditable)
     if (!isEditable && inputRef.current) {
       inputRef.current.focus()
     }
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     if (!isDirty) {
       setIsEditable(false)
     }

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 import { useFormHandler } from '@/hooks'
@@ -6,10 +6,10 @@ import { useAppDispatch, useAppSelector } from '@/services/store'
 import { getError, getUser, setError } from '@/services/user/reducer'
 import EditableInput from '@/components/base-components/editable-input/editable-input'
 import { FormButton } from '@/components/form/form-button'
-import { FormUpdateProps } from './types/form-update-props'
+import type { FormUpdateProps } from './types/form-update-props'
 import styles from './form-update.module.scss'
 
-const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
+const FormUpdate = ({ onSubmit }: FormUpdateProps): React.JSX.Element => {
   const [isDirty, setIsDirty] = useState(false)
   const dispatch = useAppDispatch()
   const user = useAppSelector(getUser)
@@ -20,7 +20,7 @@ const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
     dispatch(setError(null))
   }, [dispatch])
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     if (validate()) {
       onSubmit({ ...values })
       setIsDirty(false)
@@ -28,12 +28,12 @@ const FormUpdate: FC<FormUpdateProps> = ({ onSubmit }) => {
     }
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     handleChange(e)
     setIsDirty(true)
   }
 
-  const handleCancel = () => {
+  const handleCancel = (): void => {
     setIsDirty(false)
     dispatch(setError(null))
     resetForm()

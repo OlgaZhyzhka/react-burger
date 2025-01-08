@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
-import { IngredientType } from './types'
+import type { IngredientType, OrderStatusType } from './types'
 
 export interface Ingredient {
   _id: string
@@ -16,6 +16,28 @@ export interface Ingredient {
   image_large: string
   __v: number
   key?: string
+}
+
+export interface Orders {
+  success: boolean
+  orders: Order[]
+  total: number
+  totalToday: number
+}
+
+export interface Order {
+  _id: string
+  status: OrderStatusType
+  name: string
+  createdAt: string
+  updatedAt: string
+  number: number
+  ingredients: string[]
+  totalPrice?: number
+}
+
+export interface FetchOrderByNumberResponse {
+  orders: Order[]
 }
 
 export interface SortIngredients {
@@ -43,10 +65,9 @@ export interface OrderDTO {
   ingredients: string[]
 }
 
-export interface OrderBurger {
+export interface OrderResponse {
   name: string
   order: { number: number }
-  success: boolean
 }
 
 export interface ErrorBoundaryProps {
@@ -68,9 +89,21 @@ export interface User {
   name: string
 }
 
-export interface AuthResponse {
+export interface ErrorResponse {
+  message: string
+}
+
+export interface ApiResponse {
   success: boolean
   accessToken: string
   refreshToken: string
   user: User
+  message?: string
+}
+
+export interface FeedResponse {
+  success: boolean
+  orders: Order[]
+  total: number
+  totalToday: number
 }

@@ -5,9 +5,9 @@ import { ROUTES } from '@/utils/constants'
 import { useAppDispatch } from '@/services/store'
 import { logout } from '@/services/user/actions'
 
-const Profile = () => {
+const Profile = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     dispatch(logout())
   }
 

@@ -1,17 +1,18 @@
 import { useNavigate } from 'react-router-dom'
+import type { NavigateFunction } from 'react-router'
 
 import { MODE, ROUTES } from '@/utils/constants'
-import { ForgotPasswordDTO } from '@/utils/types'
+import type { ForgotPasswordDTO } from '@/utils/types'
 import { fetchForgotPassword } from '@/core/api/api-service'
 import { setError } from '@/services/user/reducer'
 import { useAppDispatch } from '@/services/store'
 import { Form } from '@/components/form'
 
-const ForgotPassword = () => {
-  const navigate = useNavigate()
+const ForgotPassword = (): React.JSX.Element => {
+  const navigate: NavigateFunction = useNavigate()
   const dispatch = useAppDispatch()
 
-  const handleSubmit = async ({ email }: ForgotPasswordDTO) => {
+  const handleSubmit = async ({ email }: ForgotPasswordDTO): Promise<void> => {
     if (!email) {
       dispatch(setError('Email is required'))
       return
@@ -32,9 +33,9 @@ const ForgotPassword = () => {
   return (
     <section className="page page_center container">
       <div className="page__section">
-        <h2 className="text text_type_main-medium text_color_inactive mb-6">
+        <h1 className="text text_type_main-medium text_color_inactive mb-6">
           Восстановление пароля
-        </h2>
+        </h1>
         <Form mode={MODE.forgotPassword} onSubmit={handleSubmit} />
       </div>
     </section>

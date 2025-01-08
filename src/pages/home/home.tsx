@@ -4,7 +4,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { BurgerConstructor } from '@/components/burger-constructor'
 import { BurgerIngredients } from '@/components/burger-ingredients'
 
-const Home = () => {
+const Home = (): React.JSX.Element => {
   return (
     <section className="page container">
       <div className="row">

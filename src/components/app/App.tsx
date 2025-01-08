@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
+import type { NavigateFunction, Location as RouterLocation } from 'react-router'
 
 import { ErrorBoundary } from '@/core/error-boundary'
 import { useAppDispatch, useAppSelector } from '@/services/store'
@@ -7,24 +8,27 @@ import { loadIngredients } from '@/services/ingredients/actions'
 import { getIngredientsState } from '@/services/ingredients/selectors'
 import { checkUserAuth } from '@/services/user/actions'
 import { ROUTES } from '@/utils/constants'
+import { FeedDetails } from '@/components/feed-list/feed-details'
 import { AppHeader } from '@/components/app-header'
 import { Loader } from '@/components/base-components/loader'
 import { Modal } from '@/components/modal'
 import { IngredientDetails } from '@/components/burger-ingredients/ingredient-details'
 import { AppRoutes } from '@/components/app-routes'
 
-const App = () => {
+const App = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const { loading } = useAppSelector(getIngredientsState)
   const location = useLocation()
-  const navigate = useNavigate()
-  const background = (location.state as { background?: Location }) && location.state.background
+  const navigate: NavigateFunction = useNavigate()
+  const background: RouterLocation | undefined =
+    (location.state as RouterLocation) &&
+    (location.state as { background?: RouterLocation })?.background
 
-  const handleModalClose = () => {
+  const handleModalClose = (): void => {
     navigate(-1)
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     dispatch(checkUserAuth())
     dispatch(loadIngredients())
   }, [dispatch])
@@ -45,6 +49,22 @@ const App = () => {
             element={
               <Modal onClose={handleModalClose}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={ROUTES.feedOrder}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path={ROUTES.profileOrder}
+            element={
+              <Modal onClose={handleModalClose}>
+                <FeedDetails />
               </Modal>
             }
           />

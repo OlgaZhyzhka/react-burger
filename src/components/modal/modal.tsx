@@ -1,14 +1,13 @@
-import { FC, useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { createPortal } from 'react-dom'
 
 import { modalRoot } from '@/utils/constants'
-import { PropsWithChildren } from '@/utils/types'
 import { ModalOverlay } from '@/components/modal/modal-overlay'
 import { ModalHeader } from './modal-header'
-import { ModalProps } from './types/modal-props'
+import type { ModalProps } from './types/modal-props'
 import styles from './modal.module.scss'
 
-const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) => {
+const Modal = ({ title, children, onClose }: ModalProps): React.JSX.Element => {
   const handleEscKey = useCallback(
     (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
@@ -27,7 +26,7 @@ const Modal: FC<PropsWithChildren<ModalProps>> = ({ title, children, onClose }) 
 
   return createPortal(
     <div className={styles.root}>
-      <div className={styles.container}>
+      <div className={styles.container} aria-modal="true" role="dialog">
         <ModalHeader title={title} onClose={onClose} />
         <div className={styles.body}>{children}</div>
       </div>

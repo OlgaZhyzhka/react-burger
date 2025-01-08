@@ -1,0 +1,32 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.status {
+  color: var(--success);
+}
+
+.number {
+  transform: translateY(-25px);
+  z-index: -1;
+}
+
+.body {
+  flex: 1;
+  overflow-y: auto;
+  margin-right: -18px;
+  padding-right: 18px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (min-width: 1200px) {
+  .root {
+    height: 720px;
+  }
+}

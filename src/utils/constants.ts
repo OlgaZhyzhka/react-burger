@@ -1,5 +1,9 @@
 export const API_URL = 'https://norma.nomoreparties.space/api'
-
+export const WS_URL = 'wss://norma.nomoreparties.space'
+export const WS_ALL_ORDERS = '/orders/all'
+export const WS_USER_ORDERS = '/orders'
+export const RECONNECT_PERIOD = 3000
+export const ERROR_TOKEN = 'Invalid or missing token'
 export const modalRoot = 'modal-root'
 export const DragType = 'ingredient'
 export const DragConstructorItemType = 'burger-ingredient'
@@ -8,6 +12,7 @@ export const IngredientTypes = {
   sauce: 'sauce',
   main: 'main',
 } as const
+
 export const ROUTES = {
   home: '/',
   login: '/login',
@@ -15,11 +20,12 @@ export const ROUTES = {
   forgotPassword: '/forgot-password',
   resetPassword: '/reset-password',
   profile: '/profile',
-  profileOrders: '/profile/orders',
-  profileOrder: '/profile/orders/:orderId',
   profileInfo: '/profile/info',
+  profileOrders: '/profile/orders',
+  profileOrder: '/profile/orders/:number',
+  feed: '/feed',
+  feedOrder: '/feed/:number',
   ingredient: '/ingredients/:ingredientId',
-  orderFeed: '/order-feed',
   notFound: '*',
 } as const
 
@@ -42,24 +48,39 @@ export const MODE = {
   resetPassword: 'resetPassword',
 } as const
 
+export const OrderStatus = {
+  pending: 'Готовится',
+  created: 'Создан',
+  done: 'Выполнен',
+} as const
+
+export const WebSocketStatus = {
+  CONNECTING: 'CONNECTING',
+  OPEN: 'OPEN',
+  CLOSING: 'CLOSING',
+  CLOSED: 'CLOSED',
+} as const
+
 export const resetPasswordValidationSchema = {
-  code: (value: string) => (!value ? 'Code is required' : null),
-  password: (value: string) =>
+  code: (value: string): string | null => (!value ? 'Code is required' : null),
+  password: (value: string): string | null =>
     value.length < 6 ? 'Password must be at least 6 characters long' : null,
 }
 
 export const loginValidationSchema = {
-  email: (value: string) => (!value ? 'Email is required' : null),
-  password: (value: string) => (!value ? 'Password is required' : null),
+  email: (value: string): string | null => (!value ? 'Email is required' : null),
+  password: (value: string): string | null => (!value ? 'Password is required' : null),
 }
 
 export const registerValidationSchema = {
-  email: (value: string) => (!value ? 'Email is required' : null),
-  password: (value: string) =>
+  email: (value: string): string | null => (!value ? 'Email is required' : null),
+  password: (value: string): string | null =>
     value.length < 6 ? 'Password must be at least 6 characters long' : null,
-  name: (value: string) => (!value ? 'Name is required' : null),
+  name: (value: string): string | null => (!value ? 'Name is required' : null),
 }
 
 export const forgotPasswordValidationSchema = {
-  email: (value: string) => (!value ? 'Email is required' : null),
+  email: (value: string): string | null => (!value ? 'Email is required' : null),
 }
+
+export const MAX_VISIBLE_INGREDIENTS_COUNT = 3

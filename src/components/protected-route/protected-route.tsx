@@ -1,19 +1,19 @@
-import { FC, PropsWithChildren } from 'react'
 import { Navigate, useLocation } from 'react-router-dom'
+import type { Location as RouterLocation } from 'react-router'
 
 import { ROUTES } from '@/utils/constants'
 import { useAppSelector } from '@/services/store'
 import { getIsAuthChecked, getUser } from '@/services/user/reducer'
 import { Loader } from '@/components/base-components/loader'
-import { ProtectedRouteProps } from './types/protected-route-props'
+import type { ProtectedRouteProps } from './types/protected-route-props'
 
-const ProtectedRoute: FC<PropsWithChildren<ProtectedRouteProps>> = ({
-  component,
+const ProtectedRoute = ({
+  children,
   onlyUnAuth = false,
-}) => {
+}: ProtectedRouteProps): React.JSX.Element => {
   const isAuthChecked = useAppSelector(getIsAuthChecked)
   const user = useAppSelector(getUser)
-  const location = useLocation()
+  const location: RouterLocation = useLocation()
 
   if (!isAuthChecked) {
     return <Loader />
@@ -28,10 +28,10 @@ const ProtectedRoute: FC<PropsWithChildren<ProtectedRouteProps>> = ({
     return <Navigate to={from} />
   }
 
-  return component
+  return children
 }
 
 export const ProtectedRouteOnlyAuth = ProtectedRoute
-export const ProtectedRouteOnlyUnAuth = (props: ProtectedRouteProps) => (
+export const ProtectedRouteOnlyUnAuth = (props: ProtectedRouteProps): React.JSX.Element => (
   <ProtectedRoute {...props} onlyUnAuth />
 )

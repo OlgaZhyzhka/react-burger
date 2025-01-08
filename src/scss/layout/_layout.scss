@@ -3,6 +3,10 @@
   --gutter: 15px;
 }
 
+::selection {
+  background: var(--dark-grey);
+}
+
 .container {
   max-width: 1270px;
   margin: 0 auto;
@@ -15,10 +19,14 @@
   height: calc(100vh - var(--header-height));
   padding-bottom: 30px;
 
+  .row {
+    flex: 1;
+  }
+
   &_center {
     flex-direction: column;
     align-items: center;
-    text-align: center;
+    justify-content: center;
     overflow-y: auto;
 
     .page__section {
@@ -26,12 +34,24 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
+      text-align: center;
     }
   }
 
   &_profile {
     .profile__text {
       opacity: 0.4;
+    }
+  }
+
+  &_order {
+    padding-top: 40px;
+  }
+
+  &_modal {
+    @media screen and (min-width: 1200px) {
+      width: 640px;
+      margin: auto;
     }
   }
 }
@@ -82,9 +102,7 @@ a {
 }
 
 .menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  @include resetList;
 
   .button {
     display: block;

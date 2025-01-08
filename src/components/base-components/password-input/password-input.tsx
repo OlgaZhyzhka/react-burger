@@ -1,13 +1,18 @@
-import { FC, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { PasswordInputProps } from './types/password-input-props'
+import type { PasswordInputProps } from './types/password-input-props'
 
-const PasswordInput: FC<PasswordInputProps> = ({ value, onChange, error, errorText }) => {
-  const inputPasswordRef = useRef<HTMLInputElement>(null)
+const PasswordInput = ({
+  value,
+  onChange,
+  error,
+  errorText,
+}: PasswordInputProps): React.JSX.Element => {
+  const inputPasswordRef = useRef<HTMLInputElement | null>(null)
   const [isPasswordVisible, setIsPasswordVisible] = useState(false)
 
-  const handleIconClick = () => {
+  const handleIconClick = (): void => {
     setIsPasswordVisible(!isPasswordVisible)
     if (inputPasswordRef.current) {
       const input = inputPasswordRef.current

@@ -1,0 +1,48 @@
+.root {
+  display: grid;
+  grid-template:
+    'number date'
+    '. .' 24px
+    'title title'
+    'status status'
+    '. .' 24px
+    'ingredients price'
+    / 1fr auto;
+  padding: 24px;
+  background: var(--modal-bg);
+  border-radius: 40px;
+  transition: background 0.25s ease-out;
+}
+
+.number {
+  grid-area: number;
+}
+
+.date {
+  grid-area: date;
+}
+
+.title {
+  grid-area: title;
+}
+
+.status {
+  grid-area: status;
+  color: var(--success);
+}
+
+.ingredients {
+  grid-area: ingredients;
+}
+
+.price {
+  grid-area: price;
+  justify-self: end;
+}
+
+@media (hover: hover) {
+  .root:hover {
+    cursor: pointer;
+    background: var(--color-black);
+  }
+}

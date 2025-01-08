@@ -1,11 +1,11 @@
-import { UpdateUserDTO } from '@/utils/types'
+import type { UpdateUserDTO } from '@/utils/types'
 import { useAppDispatch } from '@/services/store'
 import { update } from '@/services/user/actions'
 import { FormUpdate } from '@/components/form/form-update'
 
-const ProfileInfo = () => {
+const ProfileInfo = (): React.JSX.Element => {
   const dispatch = useAppDispatch()
-  const handleSubmit = (userDTO: UpdateUserDTO) => {
+  const handleSubmit = (userDTO: UpdateUserDTO): void => {
     dispatch(update(userDTO))
   }
 

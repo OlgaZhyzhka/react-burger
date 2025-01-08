@@ -1,6 +1,14 @@
 import { API_URL, URLS } from '@/utils/constants'
-import { AuthDTO, AuthResponse, Ingredient, OrderBurger, OrderDTO } from '@/utils/interfaces'
-import {
+import type {
+  AuthDTO,
+  ApiResponse,
+  Ingredient,
+  OrderResponse,
+  OrderDTO,
+  Order,
+  FetchOrderByNumberResponse,
+} from '@/utils/interfaces'
+import type {
   ForgotPasswordDTO,
   LoginDTO,
   ResetPasswordDTO,
@@ -11,12 +19,15 @@ import { fetchWithRefresh, apiConfig } from './api-utils'
 
 export const fetchIngredients = async (): Promise<Ingredient[]> => {
   try {
-    const response = await fetchWithRefresh(`${API_URL}${URLS.ingredients}`, {
-      headers: {
-        ...apiConfig.headers,
-        authorization: localStorage.getItem('accessToken') || '',
+    const response = await fetchWithRefresh<{ data: Ingredient[] }>(
+      `${API_URL}${URLS.ingredients}`,
+      {
+        headers: {
+          ...apiConfig.headers,
+          authorization: localStorage.getItem('accessToken') || '',
+        },
       },
-    })
+    )
     return response.data
   } catch (error) {
     console.error('Failed to fetch ingredients:', error)
@@ -24,9 +35,9 @@ export const fetchIngredients = async (): Promise<Ingredient[]> => {
   }
 }
 
-export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderBurger> => {
+export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderResponse> => {
   try {
-    return await fetchWithRefresh(`${API_URL}${URLS.order}`, {
+    return await fetchWithRefresh<OrderResponse>(`${API_URL}${URLS.order}`, {
       method: 'POST',
       headers: {
         ...apiConfig.headers,
@@ -40,9 +51,9 @@ export const fetchOrder = async (orderDTO: OrderDTO): Promise<OrderBurger> => {
   }
 }
 
-export const fetchLogin = async (authDTO: LoginDTO): Promise<AuthResponse> => {
+export const fetchLogin = async (authDTO: LoginDTO): Promise<ApiResponse> => {
   try {
-    const response = await fetchWithRefresh(`${API_URL}${URLS.login}`, {
+    const response = await fetchWithRefresh<ApiResponse>(`${API_URL}${URLS.login}`, {
       method: 'POST',
       headers: {
         ...apiConfig.headers,
@@ -63,9 +74,9 @@ export const fetchLogin = async (authDTO: LoginDTO): Promise<AuthResponse> => {
   }
 }
 
-export const fetchRegister = async (authDTO: AuthDTO): Promise<AuthResponse> => {
+export const fetchRegister = async (authDTO: AuthDTO): Promise<ApiResponse> => {
   try {
-    const response = await fetchWithRefresh(`${API_URL}${URLS.register}`, {
+    const response = await fetchWithRefresh<ApiResponse>(`${API_URL}${URLS.register}`, {
       method: 'POST',
       headers: {
         ...apiConfig.headers,
@@ -76,7 +87,6 @@ export const fetchRegister = async (authDTO: AuthDTO): Promise<AuthResponse> => 
 
     if (response.accessToken && response.refreshToken) {
       localStorage.setItem('accessToken', response.accessToken)
-      localStorage.setItem('refreshToken', response.refreshToken)
     }
 
     return response
@@ -94,7 +104,7 @@ export const fetchLogout = async (): Promise<void> => {
       throw new Error('No refresh token found')
     }
 
-    await fetchWithRefresh(`${API_URL}${URLS.logout}`, {
+    await fetchWithRefresh<void>(`${API_URL}${URLS.logout}`, {
       method: 'POST',
       headers: {
         ...apiConfig.headers,
@@ -112,7 +122,7 @@ export const fetchLogout = async (): Promise<void> => {
 
 export const fetchGetUser = async (): Promise<UserResponse> => {
   try {
-    return await fetchWithRefresh(`${API_URL}${URLS.user}`, {
+    return await fetchWithRefresh<UserResponse>(`${API_URL}${URLS.user}`, {
       headers: {
         ...apiConfig.headers,
         authorization: localStorage.getItem('accessToken') || '',
@@ -127,7 +137,7 @@ export const fetchGetUser = async (): Promise<UserResponse> => {
 
 export const fetchUpdateUserData = async (userDTO: UpdateUserDTO): Promise<UserResponse> => {
   try {
-    return await fetchWithRefresh(`${API_URL}${URLS.user}`, {
+    return await fetchWithRefresh<UserResponse>(`${API_URL}${URLS.user}`, {
       method: 'PATCH',
       headers: {
         ...apiConfig.headers,
@@ -141,9 +151,9 @@ export const fetchUpdateUserData = async (userDTO: UpdateUserDTO): Promise<UserR
   }
 }
 
-export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise<void> => {
+export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise<ApiResponse> => {
   try {
-    return await fetchWithRefresh(`${API_URL}${URLS.passwordReset}`, {
+    return await fetchWithRefresh<ApiResponse>(`${API_URL}${URLS.passwordReset}`, {
       method: 'POST',
       headers: {
         ...apiConfig.headers,
@@ -159,7 +169,7 @@ export const fetchForgotPassword = async ({ email }: ForgotPasswordDTO): Promise
 
 export const fetchResetPassword = async ({ password, code }: ResetPasswordDTO): Promise<void> => {
   try {
-    await fetchWithRefresh(`${API_URL}${URLS.passwordResetSubmit}`, {
+    await fetchWithRefresh<void>(`${API_URL}${URLS.passwordResetSubmit}`, {
       method: 'POST',
       headers: {
         ...apiConfig.headers,
@@ -169,6 +179,25 @@ export const fetchResetPassword = async ({ password, code }: ResetPasswordDTO): 
     })
   } catch (error) {
     console.error('Failed to reset password:', error)
+    throw error
+  }
+}
+
+export const fetchOrderByNumber = async (number: number): Promise<Order> => {
+  try {
+    const response = await fetchWithRefresh<FetchOrderByNumberResponse>(
+      `${API_URL}/orders/${number}`,
+      {
+        headers: {
+          ...apiConfig.headers,
+          authorization: localStorage.getItem('accessToken') || '',
+        },
+      },
+    )
+
+    return response.orders[0]
+  } catch (error) {
+    console.error('Failed to get order by number:', error)
     throw error
   }
 }

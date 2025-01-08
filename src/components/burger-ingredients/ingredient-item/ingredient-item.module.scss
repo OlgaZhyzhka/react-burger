@@ -19,3 +19,13 @@
   text-decoration: none;
   color: var(--color-text);
 }
+
+@media (hover: hover) {
+  .image {
+    transition: transform 0.35s linear;
+
+    &:hover {
+      transform: scale(1.09);
+    }
+  }
+}

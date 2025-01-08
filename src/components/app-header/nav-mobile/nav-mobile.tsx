@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
+import type { NavigateFunction } from 'react-router'
 import {
   BurgerIcon,
   Button,
@@ -12,14 +12,14 @@ import classNames from 'classnames'
 import { ROUTES } from '@/utils/constants'
 import { getUser } from '@/services/user/reducer'
 import { useAppSelector } from '@/services/store'
-import { NavMobileProps } from './types/nav-mobile-props'
+import type { NavMobileProps } from './types/nav-mobile-props'
 import styles from './nav-mobile.module.scss'
 
-const NavMobile: FC<NavMobileProps> = ({ onClose }) => {
-  const name = useAppSelector(getUser)?.name
-  const navigate = useNavigate()
+const NavMobile = ({ onClose }: NavMobileProps): React.JSX.Element => {
+  const name: string | undefined = useAppSelector(getUser)?.name
+  const navigate: NavigateFunction = useNavigate()
 
-  const handleNavigation = (path: string) => {
+  const handleNavigation = (path: string): void => {
     navigate(path)
     onClose()
   }
@@ -57,7 +57,7 @@ const NavMobile: FC<NavMobileProps> = ({ onClose }) => {
         </li>
         <li>
           <NavLink
-            to={ROUTES.orderFeed}
+            to={ROUTES.feed}
             className={({ isActive }) =>
               classNames(isActive && styles.active, styles.link, 'pl-5 pr-5 pt-4 pb-4')
             }

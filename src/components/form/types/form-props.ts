@@ -1,5 +1,5 @@
-import { MODE_TYPE } from '@/utils/types'
-import { AuthDTO } from '@/utils/interfaces'
+import type { MODE_TYPE } from '@/utils/types'
+import type { AuthDTO } from '@/utils/interfaces'
 
 export type FormProps = {
   mode?: MODE_TYPE

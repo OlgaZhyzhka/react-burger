@@ -1,9 +1,7 @@
-import { FC } from 'react'
-
-import { ModalHeaderProps } from './types/modal-header-props'
+import type { ModalHeaderProps } from './types/modal-header-props'
 import styles from './modal-header.module.scss'
 
-const ModalHeader: FC<ModalHeaderProps> = ({ title, onClose }) => (
+const ModalHeader = ({ title, onClose }: ModalHeaderProps): React.JSX.Element => (
   <div className={styles.header}>
     {title && <h2 className="text text_type_main-large m-0">{title}</h2>}
     <span className={styles.close} onClick={onClose}>

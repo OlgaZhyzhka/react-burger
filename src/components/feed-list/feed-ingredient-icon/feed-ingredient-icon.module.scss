@@ -1,0 +1,44 @@
+.root {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(63.18deg, #801ab3 0%, #4c4cff 100%),
+    linear-gradient(0deg, #131316, #131316);
+  border: 3px solid transparent;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background-color: var(--bg);
+  }
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  aspect-ratio: 1;
+  z-index: 1;
+}
+
+.count {
+  position: absolute;
+  white-space: nowrap;
+  display: block;
+  margin: auto;
+  z-index: 2;
+}
+
+.end {
+  opacity: 0.65;
+}

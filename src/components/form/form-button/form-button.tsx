@@ -1,12 +1,12 @@
-import { FC, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
-import { FormButtonProps } from './types/form-button-props'
+import type { FormButtonProps } from './types/form-button-props'
 
-const FormButton: FC<FormButtonProps> = ({ onClick, buttonText }) => {
+const FormButton = ({ onClick, buttonText }: FormButtonProps): React.JSX.Element => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleClick = (e: React.FormEvent) => {
+  const handleClick = (e: React.FormEvent): void => {
     e.preventDefault()
     setIsLoading(true)
     try {
@@ -18,7 +18,7 @@ const FormButton: FC<FormButtonProps> = ({ onClick, buttonText }) => {
 
   return (
     <Button
-      htmlType="button"
+      htmlType="submit"
       type="primary"
       size="medium"
       disabled={isLoading}

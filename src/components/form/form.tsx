@@ -1,6 +1,7 @@
-import { FC, useEffect } from 'react'
+import { useEffect } from 'react'
 
 import { useFormHandler } from '@/hooks'
+import type { ValidationSchema } from '@/hooks/use-form-handler'
 import {
   forgotPasswordValidationSchema,
   loginValidationSchema,
@@ -14,12 +15,12 @@ import { PasswordInput } from '@/components/base-components/password-input'
 import { FormInput } from '@/components/form/form-input'
 import { FormButton } from './form-button'
 import { FormFooter } from './form-footer'
-import { FormProps } from './types/form-props'
+import type { FormProps } from './types/form-props'
 
-const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
+const Form = ({ onSubmit, mode = MODE.login }: FormProps): React.JSX.Element => {
   const dispatch = useAppDispatch()
   const formError = useAppSelector(getError)
-  const getValidationShema = () => {
+  const getValidationShema = (): ValidationSchema => {
     switch (mode) {
       case MODE.login:
         return loginValidationSchema
@@ -36,7 +37,7 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
 
   const { values, errors, validate, handleChange } = useFormHandler(getValidationShema())
 
-  const getButtonText = () => {
+  const getButtonText = (): string => {
     switch (mode) {
       case MODE.register:
         return 'Зарегистрироваться'
@@ -49,7 +50,7 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
     }
   }
 
-  const getEmailPlaceholder = () => {
+  const getEmailPlaceholder = (): string => {
     switch (mode) {
       case MODE.forgotPassword:
         return 'Укажите E-mail'
@@ -58,13 +59,13 @@ const Form: FC<FormProps> = ({ onSubmit, mode = MODE.login }) => {
     }
   }
 
-  const handleSubmit = () => {
+  const handleSubmit = (): void => {
     if (validate()) {
       onSubmit({ ...values })
     }
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     dispatch(setError(null))
   }, [dispatch])
 

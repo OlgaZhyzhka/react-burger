@@ -1,4 +1,4 @@
-const NotFound404 = () => {
+const NotFound404 = (): React.JSX.Element => {
   return (
     <section className="page page_center container">
       <div className="page__section">

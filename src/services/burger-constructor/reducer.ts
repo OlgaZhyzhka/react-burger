@@ -1,12 +1,13 @@
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, nanoid } from '@reduxjs/toolkit'
 
-import { Burger, Ingredient } from '@/utils/interfaces'
+import type { Burger, Ingredient } from '@/utils/interfaces'
 
-export interface burgerConstructorState {
+export interface BurgerConstructorState {
   burger: Burger
 }
 
-const initialState: burgerConstructorState = {
+const initialState: BurgerConstructorState = {
   burger: {
     bun: null,
     ingredients: [],
@@ -18,8 +19,7 @@ export const burgerConstructorSlice = createSlice({
   initialState,
   reducers: {
     addBurgerIngredient: {
-      reducer: (state, action: PayloadAction<Ingredient>) => {
-        const { payload } = action
+      reducer: (state, { payload }: PayloadAction<Ingredient>) => {
         if (payload.type === 'bun') {
           state.burger.bun = payload
         } else {
@@ -30,17 +30,15 @@ export const burgerConstructorSlice = createSlice({
         return { payload: { ...ingredient, key: nanoid() } }
       },
     },
-    deleteBurgerIngredient: (state, action: PayloadAction<string>) => {
-      const { payload } = action
+    deleteBurgerIngredient: (state, { payload }: PayloadAction<string>) => {
       state.burger.ingredients = state.burger.ingredients.filter(
         ingredient => ingredient.key !== payload,
       )
     },
     sortBurgerIngredients: (
       state,
-      action: PayloadAction<{ fromIndex: number; toIndex: number }>,
+      { payload: { fromIndex, toIndex } }: PayloadAction<{ fromIndex: number; toIndex: number }>,
     ) => {
-      const { fromIndex, toIndex } = action.payload
       const ingredients = [...state.burger.ingredients]
       ingredients.splice(toIndex, 0, ingredients.splice(fromIndex, 1)[0])
       state.burger.ingredients = ingredients

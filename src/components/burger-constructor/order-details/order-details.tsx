@@ -1,19 +1,15 @@
-import { FC } from 'react'
 import { ThreeDots } from 'react-loader-spinner'
 import classNames from 'classnames'
 
-import { OrderBurger } from '@/utils/interfaces'
+import type { OrderResponse } from '@/utils/interfaces'
 import { useAppSelector } from '@/services/store'
-import { getOrder } from '@/services/order/reducer'
+import { getBurgerOrder } from '@/services/burger-order/selectors'
 import { CheckIcon } from '@/components/base-components/check-icon'
+import type { OrderDetailsProps } from './types/order-details-props'
 import styles from './order-details.module.scss'
 
-type OrderDetailsProps = {
-  loading: boolean
-}
-
-const OrderDetails: FC<OrderDetailsProps> = ({ loading }) => {
-  const order: OrderBurger | null = useAppSelector(getOrder)
+const OrderDetails = ({ loading }: OrderDetailsProps): React.JSX.Element => {
+  const order: OrderResponse | null = useAppSelector(getBurgerOrder)
 
   if (loading && !order) {
     return (

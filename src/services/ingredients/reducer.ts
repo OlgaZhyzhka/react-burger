@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 import { loadIngredients } from '@/services/ingredients/actions'
-import { Ingredient } from '@/utils/interfaces'
+import type { Ingredient } from '@/utils/interfaces'
 
 export interface IngredientsState {
   data: Ingredient[] | null
@@ -21,14 +22,14 @@ export const ingredientsSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      .addCase(loadIngredients.fulfilled, (state, { payload }) => {
+      .addCase(loadIngredients.fulfilled, (state, { payload }: PayloadAction<Ingredient[]>) => {
         state.data = payload
         state.loading = false
       })
       .addCase(loadIngredients.pending, state => {
         state.loading = true
       })
-      .addCase(loadIngredients.rejected, (state, { payload }) => {
+      .addCase(loadIngredients.rejected, (state, { payload }: PayloadAction<unknown>) => {
         state.loading = false
         state.error = payload
       })

@@ -1,18 +1,18 @@
-import { FC, memo, useCallback, useRef, useState } from 'react'
+import { memo, useCallback, useRef, useState } from 'react'
 import classNames from 'classnames'
 
-import { IngredientType } from '@/utils/types'
+import type { IngredientType } from '@/utils/types'
 import { IngredientTypes } from '@/utils/constants'
 import { Tabs } from '@/components/base-components/tabs'
 import { IngredientGroups } from './ingredient-groups'
 import styles from './burger-ingredients.module.scss'
 
-const BurgerIngredients: FC = () => {
+const BurgerIngredients = (): React.JSX.Element => {
   const [activeTab, setActiveTab] = useState<IngredientType>(IngredientTypes.bun)
   const tabRef = useRef<HTMLDivElement | null>(null)
   const ingredientGroupsRef = useRef<{ [key in IngredientType]?: HTMLHeadingElement }>({})
 
-  const handleTabChange = useCallback((newTab: IngredientType) => {
+  const handleTabChange = useCallback((newTab: IngredientType): void => {
     setActiveTab(newTab)
 
     const heading = ingredientGroupsRef.current[newTab]
@@ -21,7 +21,7 @@ const BurgerIngredients: FC = () => {
     }
   }, [])
 
-  const handleScroll = useCallback(() => {
+  const handleScroll = useCallback((): void => {
     const { bun, sauce, main } = ingredientGroupsRef.current
     if (!bun || !sauce || !main) return
 
