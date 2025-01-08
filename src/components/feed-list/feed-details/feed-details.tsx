@@ -27,13 +27,13 @@ const FeedDetails = (): React.JSX.Element | null => {
       feedOrders?.find((item: Order): boolean => item.number === orderNumber) ||
       profileOrders?.find((item: Order): boolean => item.number === orderNumber)
     )
-  }, [feedOrders, profileOrders, orderNumber])
+  }, [feedOrders, profileOrders, orderNumber, currentOrder])
 
   useEffect(() => {
     if (!order && orderNumber) {
       dispatch(getOrderByNumber(orderNumber))
     }
-  }, [number])
+  }, [order, orderNumber, dispatch])
 
   if (!order) return null
 

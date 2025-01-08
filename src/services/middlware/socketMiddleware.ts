@@ -7,7 +7,6 @@ import type { RootState } from '@/services/store'
 import { refreshToken } from '@/core/api/api-utils'
 import { ERROR_TOKEN, RECONNECT_PERIOD } from '@/utils/constants'
 import type { WsConnectPayload } from '@/utils/types'
-import type { Order, Orders } from '@/utils/interfaces'
 
 export type WsActionTypes<S, R> = {
   onError: ActionCreatorWithPayload<string>
@@ -18,28 +17,6 @@ export type WsActionTypes<S, R> = {
   onConnecting?: ActionCreatorWithoutPayload
   onOpen?: ActionCreatorWithoutPayload
   onClose?: ActionCreatorWithoutPayload
-}
-
-const isValidOrder = (order: Order): boolean => {
-  return (
-    Array.isArray(order.ingredients) &&
-    order.ingredients.every((id: string) => typeof id === 'string') &&
-    typeof order._id === 'string' &&
-    typeof order.status === 'string' &&
-    typeof order.number === 'number' &&
-    typeof order.createdAt === 'string' &&
-    typeof order.updatedAt === 'string'
-  )
-}
-
-const isValidWsData = (data: Orders): boolean => {
-  return (
-    typeof data.success === 'boolean' &&
-    Array.isArray(data.orders) &&
-    data.orders.every(isValidOrder) &&
-    typeof data.total === 'number' &&
-    typeof data.totalToday === 'number'
-  )
 }
 
 export const socketMiddleware = <S, R>(
@@ -57,6 +34,11 @@ export const socketMiddleware = <S, R>(
       const { dispatch } = store
 
       if (connect.match(action)) {
+        if (ws) {
+          console.log('WebSocket connection already exists')
+          return
+        }
+
         const { url, token }: WsConnectPayload = action.payload
 
         ws = token ? new WebSocket(`${url}?token=${token}`) : new WebSocket(`${url}`)
@@ -104,11 +86,7 @@ export const socketMiddleware = <S, R>(
               return
             }
 
-            if (isValidWsData(parsedData as unknown as Orders)) {
-              dispatch(onMessage(parsedData))
-            } else {
-              dispatch(onError('Invalid WebSocket data'))
-            }
+            dispatch(onMessage(parsedData))
           } catch (error) {
             dispatch(onError((error as Error).message))
           }

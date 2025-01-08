@@ -13,10 +13,10 @@ It uses TypeScript and ESLint for type checking and linting.
 git clone https://github.com/OlgaZhyzhka/react-burger.git
 ```
 
-switch to the branch `sprint-4/step-1`
+switch to the branch `sprint-5/step-1`
 
 ```bash
-git checkout sprint-4/step-1
+git checkout sprint-5/step-1
 ```
 
 ### Install dependencies
@@ -40,6 +40,7 @@ npm run build
 ## Features
 
 - React
+- WebSockets
 - Redux Toolkit
 - Redux Thunk
 - React DnD
