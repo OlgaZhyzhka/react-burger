@@ -24,7 +24,7 @@ const AppRoutes = ({ location, background }: AppRoutesProps): React.JSX.Element 
       <Route index element={<ProfileInfo />} />
       <Route path={ROUTES.profileOrders} element={<ProfileOrder />} />
     </Route>
-    <Route path={ROUTES.feed} element={<ProtectedRouteOnlyAuth children={<Feed />} />} />
+    <Route path={ROUTES.feed} element={<Feed />} />
     <Route path={ROUTES.register} element={<ProtectedRouteOnlyUnAuth children={<Register />} />} />
     <Route
       path={ROUTES.forgotPassword}
