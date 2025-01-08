@@ -35,7 +35,6 @@ export const socketMiddleware = <S, R>(
 
       if (connect.match(action)) {
         if (ws) {
-          console.log('WebSocket connection already exists')
           return
         }
 
