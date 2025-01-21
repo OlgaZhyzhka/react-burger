@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - sprint-6/step-1
+  pull_request:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -24,16 +27,18 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Set up SSH
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Test project
+        run: npm test
 
-      - name: Add EC2 host to known hosts
+      - name: Create SSH key
         run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H 54.173.5.55 >> ~/.ssh/known_hosts
-
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
 
       - name: Deploy to server
         run: |
