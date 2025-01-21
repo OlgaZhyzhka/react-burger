@@ -43,7 +43,7 @@ const BurgerIngredients = (): React.JSX.Element => {
 
   return (
     <section className={classNames(styles.root, 'pt-10')}>
-      <h1 className={'text_type_main-large mt-0 mb-5'}>Соберите свой супер бургер</h1>
+      <h1 className={'text_type_main-large mt-0 mb-5'}>Соберите бургер</h1>
       <Tabs onTabChange={handleTabChange} activeTab={activeTab} ref={tabRef} />
       <IngredientGroups onScroll={handleScroll} ref={ingredientGroupsRef} />
     </section>
