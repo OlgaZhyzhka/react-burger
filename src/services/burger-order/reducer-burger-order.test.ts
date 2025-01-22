@@ -4,7 +4,7 @@ import { burgerOrderSlice, initialState } from '@/services/burger-order/reducer'
 import { createBurgerOrder, getOrderByNumber } from '@/services/burger-order/actions'
 import type { Order, OrderResponse } from '@/utils/interfaces'
 
-describe('burgerOrderReducer', () => {
+describe('burgerOrder Reducer', () => {
   const order: OrderResponse = {
     name: 'Краторный био-марсианский люминесцентный бургер',
     order: {

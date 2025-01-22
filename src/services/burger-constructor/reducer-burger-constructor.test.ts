@@ -3,7 +3,21 @@ import { describe, expect } from '@jest/globals'
 import { burgerConstructorSlice, initialState } from '@/services/burger-constructor/reducer'
 import { IngredientTypes } from '@/utils/constants'
 
-describe('burgerConstructorReducer', () => {
+jest.mock('@reduxjs/toolkit', () => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const originalModule = jest.requireActual('@reduxjs/toolkit')
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return {
+    ...originalModule,
+    nanoid: (): string => 'PzhehRNcpZvfo-F2DDQlx',
+  }
+})
+
+describe('burgerConstructor Reducer', () => {
+  afterEach(() => {
+    jest.clearAllMocks()
+  })
+
   const ingredientBun = {
     _id: '6790e3c8133acd001be4c175',
     name: 'Краторная булка',
