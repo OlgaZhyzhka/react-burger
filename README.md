@@ -11,7 +11,7 @@ The project includes automatic deployment to an Amazon EC2 server.
 Once you push to the main branch (or the configured branch in GitHub Actions), the app will be automatically built and
 deployed to the server.
 
-[https://react-burger.duckdns.org/](https://react-burger.duckdns.org/) is the URL of the deployed app.
+[https://react-burger.duckdns.org](https://react-burger.duckdns.org) is the URL of the deployed app.
 
 ## Usage
 
