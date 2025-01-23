@@ -35,3 +35,7 @@
 //     }
 //   }
 // }
+Cypress.Commands.add('visitHomePage', () => {
+  cy.visit('/')
+  cy.viewport(1280, 720)
+})

@@ -22,7 +22,7 @@ const IngredientItem = ({ ingredient, count }: IngredientItemProps): React.JSX.E
 
   return (
     <>
-      <li className={styles.item} ref={dragRef}>
+      <li className={styles.item} ref={dragRef} data-testid={ingredient._id}>
         <Link
           to={`/ingredients/${ingredientId}`}
           state={{ background: location }}

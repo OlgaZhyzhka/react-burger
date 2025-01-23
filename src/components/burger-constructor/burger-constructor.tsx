@@ -98,7 +98,8 @@ const BurgerConstructor = (): React.JSX.Element => {
       </div>
       <div
         className={classNames(styles.inner, isOver && styles.over, 'custom-scroll')}
-        ref={dropRef}>
+        ref={dropRef}
+        data-testid="ingredient">
         {ingredients.length > 0 ? (
           ingredients.map((ingredient: Ingredient) => (
             <BurgerConstructorItem
