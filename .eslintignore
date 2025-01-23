@@ -1,8 +1,9 @@
 node_modules
 dist
-cypress
+cypress/
 cypress.config.ts
 jest.config.ts
 jest.setup.ts
 jest-dom-types.d.ts
 test
+coverage

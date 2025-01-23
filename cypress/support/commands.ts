@@ -37,5 +37,5 @@
 // }
 Cypress.Commands.add('visitHomePage', () => {
   cy.visit('/')
-  cy.viewport(1280, 720)
+  cy.intercept('GET', 'ingredients', { fixture: 'ingredients.json' })
 })

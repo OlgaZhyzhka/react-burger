@@ -74,32 +74,30 @@ const BurgerConstructor = (): React.JSX.Element => {
   }
 
   return (
-    <section className={classNames(styles.root, 'pt-25 pr-4')}>
-      <div className={classNames(styles.anchor, 'mb-4')}>
+    <section
+      className={classNames(styles.root, isOver && styles.over, 'pt-25 pr-4')}
+      ref={dropRef}
+      data-testid="constructor">
+      <div className={classNames(styles.anchor, 'mb-4')} data-testid="bun-constructor">
         {bun ? (
           <ConstructorElement
             type="top"
             isLocked
             text={bun.name}
             price={bun.price}
-            extraClass={classNames(isOver && styles.over)}
             thumbnail={bun.image_mobile}
           />
         ) : (
           <div
             className={classNames(
               styles.empty,
-              isOver && styles.over,
               'constructor-element constructor-element_pos_top text-center',
             )}>
             <span>Выберите булку</span>
           </div>
         )}
       </div>
-      <div
-        className={classNames(styles.inner, isOver && styles.over, 'custom-scroll')}
-        ref={dropRef}
-        data-testid="ingredient">
+      <div className={classNames(styles.inner, 'custom-scroll')}>
         {ingredients.length > 0 ? (
           ingredients.map((ingredient: Ingredient) => (
             <BurgerConstructorItem
@@ -110,12 +108,7 @@ const BurgerConstructor = (): React.JSX.Element => {
             />
           ))
         ) : (
-          <div
-            className={classNames(
-              styles.empty,
-              isOver && styles.over,
-              'constructor-element text-center',
-            )}>
+          <div className={classNames(styles.empty, 'constructor-element text-center')}>
             <span>Выберите начинку</span>
           </div>
         )}
