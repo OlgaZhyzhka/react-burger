@@ -1,31 +1,38 @@
 import type {} from 'cypress'
 import type {} from '../support/cypress'
 
+const INGREDIENTS_ID = {
+  bun: '643d69a5c3f7b9001cfa093c',
+  main: '643d69a5c3f7b9001cfa0941',
+  sauce: '643d69a5c3f7b9001cfa0942',
+}
+
 describe('Burger Constructor', () => {
   beforeEach(() => {
     cy.visitHomePage()
+    cy.wait('@getIngredients')
   })
 
   it('should drag and drop multiple ingredients into the constructor', () => {
     const testCases = [
-      { id: '643d69a5c3f7b9001cfa093c', name: 'bun', description: 'булка' },
-      { id: '643d69a5c3f7b9001cfa0941', name: 'ingredient', description: 'ингредиент' },
+      { id: INGREDIENTS_ID.bun, name: 'bun', description: 'булка' },
+      { id: INGREDIENTS_ID.main, name: 'ingredient', description: 'ингредиент' },
       {
-        id: '643d69a5c3f7b9001cfa0942',
+        id: INGREDIENTS_ID.sauce,
         name: 'another ingredient',
         description: 'another ingredient',
       },
       {
-        id: '643d69a5c3f7b9001cfa0942',
+        id: INGREDIENTS_ID.sauce,
         name: 'same ingredient',
         description: 'same ingredient',
       },
     ]
 
-    cy.get('[data-testid="constructor"]').as('constructor')
+    cy.get('[data-cy="constructor"]').as('constructor')
 
     testCases.forEach(({ id, name, description }) => {
-      cy.get(`[data-testid="${id}"]`).as(name)
+      cy.get(`[data-cy="${id}"]`).as(name)
       // eslint-disable-next-line cypress/no-unnecessary-waiting
       cy.wait(500)
       cy.get(`@${name}`).trigger('dragstart')
@@ -43,18 +50,12 @@ describe('Burger Constructor', () => {
   })
 
   it('should open and close ingredient details modal', () => {
-    cy.get('[data-testid="643d69a5c3f7b9001cfa0941"]').as('ingredient')
-    cy.get('@ingredient').click()
-    cy.get('[data-testid="modal"]').should('be.visible')
-    cy.get('[data-testid="close"]').click()
-    cy.get('[data-testid="modal"]').should('not.exist')
+    cy.openIngredientModal(INGREDIENTS_ID.main)
+    cy.closeModal('[data-cy="close"]')
   })
 
   it('should close the ingredient details modal by clicking the overlay', () => {
-    cy.get('[data-testid="643d69a5c3f7b9001cfa0942"]').as('ingredient')
-    cy.get('@ingredient').click()
-    cy.get('[data-testid="modal"]').should('be.visible')
-    cy.get('[data-testid="overlay"]').click()
-    cy.get('[data-testid="modal"]').should('not.exist')
+    cy.openIngredientModal(INGREDIENTS_ID.main)
+    cy.closeModal('[data-cy="overlay"]')
   })
 })

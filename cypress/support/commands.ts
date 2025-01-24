@@ -37,5 +37,15 @@
 // }
 Cypress.Commands.add('visitHomePage', () => {
   cy.visit('/')
-  cy.intercept('GET', 'ingredients', { fixture: 'ingredients.json' })
+  cy.intercept('GET', 'ingredients', { fixture: 'ingredients.json' }).as('getIngredients')
+})
+
+Cypress.Commands.add('openIngredientModal', (ingredientId: string) => {
+  cy.get(`[data-cy="${ingredientId}"]`).click()
+  cy.get('[data-cy="modal"]').should('be.visible')
+})
+
+Cypress.Commands.add('closeModal', (closeSelector: string) => {
+  cy.get(closeSelector).click()
+  cy.get('[data-cy="modal"]').should('not.exist')
 })

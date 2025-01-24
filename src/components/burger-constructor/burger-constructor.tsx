@@ -77,8 +77,8 @@ const BurgerConstructor = (): React.JSX.Element => {
     <section
       className={classNames(styles.root, isOver && styles.over, 'pt-25 pr-4')}
       ref={dropRef}
-      data-testid="constructor">
-      <div className={classNames(styles.anchor, 'mb-4')} data-testid="bun-constructor">
+      data-cy="constructor">
+      <div className={classNames(styles.anchor, 'mb-4')}>
         {bun ? (
           <ConstructorElement
             type="top"
