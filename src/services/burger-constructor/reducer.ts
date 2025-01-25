@@ -7,7 +7,7 @@ export interface BurgerConstructorState {
   burger: Burger
 }
 
-const initialState: BurgerConstructorState = {
+export const initialState: BurgerConstructorState = {
   burger: {
     bun: null,
     ingredients: [],

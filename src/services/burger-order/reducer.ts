@@ -11,7 +11,7 @@ export interface BurgerOrderState {
   error: unknown
 }
 
-const initialState: BurgerOrderState = {
+export const initialState: BurgerOrderState = {
   data: null,
   currentOrder: null,
   loading: false,

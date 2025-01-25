@@ -37,5 +37,8 @@
 }
 
 .over {
-  filter: drop-shadow(0 4px 20px rgba(138, 43, 226, 0.6));
+  .inner,
+  .anchor {
+    filter: drop-shadow(0 4px 20px rgba(138, 43, 226, 0.6));
+  }
 }

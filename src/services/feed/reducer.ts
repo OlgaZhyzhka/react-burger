@@ -12,7 +12,7 @@ export interface FeedState {
   error: unknown
 }
 
-const initialState: FeedState = {
+export const initialState: FeedState = {
   status: WebSocketStatus.CLOSED,
   data: null,
   loading: false,

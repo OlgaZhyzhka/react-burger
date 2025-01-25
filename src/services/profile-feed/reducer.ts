@@ -12,7 +12,7 @@ export interface ProfileFeedState {
   error: unknown
 }
 
-const initialState: ProfileFeedState = {
+export const initialState: ProfileFeedState = {
   status: WebSocketStatus.CLOSED,
   data: null,
   loading: false,

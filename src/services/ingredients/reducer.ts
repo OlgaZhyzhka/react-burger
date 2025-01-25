@@ -10,7 +10,7 @@ export interface IngredientsState {
   error: unknown
 }
 
-const initialState: IngredientsState = {
+export const initialState: IngredientsState = {
   data: null,
   loading: false,
   error: null,

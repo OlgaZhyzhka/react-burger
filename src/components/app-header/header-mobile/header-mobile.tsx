@@ -12,7 +12,7 @@ const HeaderMobile = (): React.JSX.Element => {
   return (
     <>
       <Link to={ROUTES.home}>
-        <img src={logoIcon} alt="check" />
+        <img src={logoIcon} alt="react-burger logotype" data-testid="logo" />
       </Link>
       <Button
         htmlType="button"

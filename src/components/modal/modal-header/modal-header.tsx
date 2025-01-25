@@ -4,7 +4,7 @@ import styles from './modal-header.module.scss'
 const ModalHeader = ({ title, onClose }: ModalHeaderProps): React.JSX.Element => (
   <div className={styles.header}>
     {title && <h2 className="text text_type_main-large m-0">{title}</h2>}
-    <span className={styles.close} onClick={onClose}>
+    <span className={styles.close} onClick={onClose} data-cy="close">
       <svg width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           fillRule="evenodd"
