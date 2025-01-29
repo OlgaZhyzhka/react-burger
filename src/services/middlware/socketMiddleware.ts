@@ -27,6 +27,7 @@ export const socketMiddleware = <S, R>(
     let ws: WebSocket | null = null
     let isConnected = false
     let reconnectTimer = 0
+    let url = ''
 
     const { connect, disconnect, sendMessage, onConnecting, onOpen, onClose, onMessage, onError } =
       wsActions
@@ -34,11 +35,12 @@ export const socketMiddleware = <S, R>(
       const { dispatch } = store
 
       if (connect.match(action)) {
-        if (ws) {
+        if (ws && !isConnected) {
           return
         }
 
-        const { url, token }: WsConnectPayload = action.payload
+        const { token }: WsConnectPayload = action.payload
+        url = action.payload.url
 
         ws = token ? new WebSocket(`${url}?token=${token}`) : new WebSocket(`${url}`)
         isConnected = true
